@@ -27,10 +27,17 @@ flutter run -d <id-do-celular>
 ### iPhone
 
 1. No Xcode, entre com o seu Apple ID em **Settings > Accounts**.
-2. Abra `ios/Runner.xcworkspace`, escolha o seu time em **Signing & Capabilities** e rode no aparelho. Se preferir a linha de comando, rode `flutter run --release` com o celular conectado.
-3. No iPhone, ative **Ajustes > Privacidade e Segurança > Modo de Desenvolvedor**. Depois confie no seu perfil em **Ajustes > Geral > VPN e Gerenciamento de Dispositivo**.
+2. Abra `ios/Runner.xcworkspace` e escolha o seu time em **Signing & Capabilities**.
+3. Instale em modo **Release**, de um destes jeitos:
+   - pela linha de comando, com o celular conectado: `flutter run --release`;
+   - pelo Xcode: em **Product > Scheme > Edit Scheme > Run**, troque **Build Configuration** para **Release** e rode no aparelho.
+4. No iPhone, ative **Ajustes > Privacidade e Segurança > Modo de Desenvolvedor**. Depois confie no seu perfil em **Ajustes > Geral > VPN e Gerenciamento de Dispositivo**.
 
-O time de assinatura não fica no repositório: cada pessoa usa o seu. Com uma conta gratuita da Apple, o app instalado vale por 7 dias.
+> **Use Release para instalar no iPhone.** O botão Run do Xcode compila em Debug por padrão. No iOS, um app Flutter em Debug só abre enquanto está ligado ao Xcode ou ao `flutter run`. Se você fechar o app e tocar no ícone, ele fecha na hora e parece que precisa ser reinstalado.
+
+O time de assinatura não fica no repositório: cada pessoa usa o seu. Com uma conta gratuita da Apple, o app instalado vale por 7 dias. Depois disso ele para de abrir e precisa ser reinstalado.
+
+Se o Xcode mostrar *"Your development team has reached the maximum number of registered iPhone devices"*, o time dessa conta não aceita mais aparelhos. Numa conta gratuita, ou com o Apple Developer Program vencido, não dá para remover aparelhos. Entre no Xcode com outro Apple ID ou renove o programa.
 
 ## Vídeo de demonstração
 

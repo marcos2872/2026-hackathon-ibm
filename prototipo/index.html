@@ -2,329 +2,253 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#20223a">
 <title>CasaQuest</title>
-<link rel="icon" href="../assets/brand/casa-quest-favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../design-system/project/assets/Logos/casa-quest-favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../design-system/project/components/bundle.css">
 <style>
-:root{
-  /* Identidade CasaQuest (assets/brand): contorno #1a1c2c, azul heráldico, vermelho heráldico, ouro.
-     Layout: simulador de celular à esquerda, roteiro de discussão à direita; empilha no celular. */
-  --bg:#ECEEF5;
-  --surface:#FFFFFF;
-  --surface-2:#F4F5FA;
-  --ink:#1A1C2C;
-  --muted:#545A72;
-  --line:#D7DAE6;
-  --accent:#3B5DC9;
-  --accent-ink:#F4F4F4;
-  --accent-soft:#E2E7F8;
-  --brand-night:#29366F;
-  --heraldic-red:#B13E53;
-  --gold:#FFCD75;
-  --gold-deep:#EF7D57;
-  --hard:#1A1C2C;
-  --good:#1D7A4E; --good-soft:#DCF1E6; --warn:#9A5800; --warn-soft:#FCEBD0; --bad:#B13E53; --bad-soft:#F8E0E5;
-  --font-display:"Pixelify Sans","Courier New",ui-monospace,monospace;
-  --font-body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
-  --r:8px;
-  color-scheme:light;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#14151F; --surface:#1F2133; --surface-2:#272A40; --ink:#F4F4F4; --muted:#A6ABC2; --line:#363A55;
-    --accent:#7F9BF2; --accent-ink:#1A1C2C; --accent-soft:#2A3566; --hard:#05060C;
-    --good:#5ACB92; --good-soft:#163526; --warn:#F2AE5C; --warn-soft:#3B2B12; --bad:#EC7C91; --bad-soft:#3F1C26;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#14151F; --surface:#1F2133; --surface-2:#272A40; --ink:#F4F4F4; --muted:#A6ABC2; --line:#363A55;
-  --accent:#7F9BF2; --accent-ink:#1A1C2C; --accent-soft:#2A3566; --hard:#05060C;
-  --good:#5ACB92; --good-soft:#163526; --warn:#F2AE5C; --warn-soft:#3B2B12; --bad:#EC7C91; --bad-soft:#3F1C26;
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.45}
-h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.15;font-weight:700;letter-spacing:.01em}
-button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.num{font-variant-numeric:tabular-nums}
-.muted{color:var(--muted)}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-img.px,svg.px{image-rendering:pixelated;shape-rendering:crispEdges}
+/* Tokens do design system Casa Quest (design-system/project/tokens.json), temas Noite (padrão) e Dia. */
+:root, [data-theme='noite'] { --surface-000: #20223a; --surface-100: #2b2e4a; --surface-200: #3a3f63; --ink: #f4f4f4; --ink-muted: #b4c0d4; --outline: #0e0f1a; --gold: #ffcd75; --gold-shade: #ef7d57; --on-gold: #1a1c2c; --gold-ink: #ffcd75; --heraldic-blue: #3b5dc9; --heraldic-blue-shade: #29366f; --heraldic-blue-bright: #5b8cf0; --on-blue: #f4f4f4; --blue-ink: #8fb3ff; --heraldic-red: #b13e53; --heraldic-red-shade: #7a2840; --on-red: #f4f4f4; --red-ink: #ff8a9d; --rose: #e26d84; --cyan: #41a6f6; --on-cyan: #1a1c2c; --cyan-ink: #73d4ff; --success: #38b764; --on-success: #1a1c2c; --green-ink: #7fe0a0; --dispute: #7a4a9e; --on-dispute: #f4f4f4; --bar-empty: #14152a; --dialog-bg: #1a1c2c; --dialog-ink: #f4f4f4; --dialog-accent: #ffcd75; --focus: #73eff7; --shadow-bevel: inset -4px -4px 0 0 rgba(0,0,0,0.28), inset 4px 4px 0 0 rgba(255,255,255,0.35); --shadow-pressed: inset 4px 4px 0 0 rgba(0,0,0,0.28); --shadow-drop: 4px 4px 0 0 #0e0f1a; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-8: 48px; --radius-none: 0px; --notch: 4px; --notch-lg: 8px; --font-display: "Press Start 2P", ui-monospace, monospace; --font-text: "Pixelify Sans", system-ui, sans-serif; color-scheme: dark; }
+[data-theme='dia'] { --surface-000: #f2e8d5; --surface-100: #fbf5e9; --surface-200: #e6d7b9; --ink: #1a1c2c; --ink-muted: #5a5470; --outline: #1a1c2c; --gold-ink: #8a4f10; --blue-ink: #2c47a8; --red-ink: #9c2f45; --cyan-ink: #17648f; --green-ink: #186b3b; --bar-empty: #d8c8a6; --focus: #2c47a8; --shadow-drop: 4px 4px 0 0 #1a1c2c; color-scheme: light; }
 
-.shell{display:grid;grid-template-columns:minmax(340px,410px) minmax(0,1fr);gap:32px;max-width:1180px;margin:0 auto;padding:24px 24px 48px;align-items:start}
-@media (max-width:900px){.shell{grid-template-columns:1fr;padding:12px 16px 40px;gap:24px}}
+/* Layout do protótipo: simulador de celular à esquerda e roteiro do pitch à direita; #app mostra só o celular. */
+html, body { height: 100%; }
+#root { min-height: 100%; background: var(--surface-000); color: var(--ink); font-family: var(--font-text); }
+.px-frame { box-shadow: 0 -4px 0 0 var(--outline), 0 4px 0 0 var(--outline), -4px 0 0 0 var(--outline), 4px 0 0 0 var(--outline); }
+.px-frame-2 { box-shadow: 0 -2px 0 0 var(--outline), 0 2px 0 0 var(--outline), -2px 0 0 0 var(--outline), 2px 0 0 0 var(--outline); }
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+.t-xl { font-family: var(--font-display); font-size: 24px; line-height: 32px; }
+.t-lg { font-family: var(--font-display); font-size: 16px; line-height: 24px; }
+.t-md { font-family: var(--font-display); font-size: 12px; line-height: 16px; text-transform: uppercase; }
+.lbl { font-family: var(--font-display); font-size: 10px; line-height: 16px; }
+.micro { font-family: var(--font-display); font-size: 8px; line-height: 12px; text-transform: uppercase; }
+.cap { font-size: 13px; line-height: 16px; color: var(--ink-muted); }
+.muted { color: var(--ink-muted); }
+.gold { color: var(--gold-ink); }
+.green { color: var(--green-ink); }
+.red { color: var(--red-ink); }
+.cyan { color: var(--cyan-ink); }
+p { margin: 0; }
+.ic { display: inline-block; flex: none; image-rendering: pixelated; vertical-align: middle; }
+:focus-visible { outline: 4px solid var(--focus); outline-offset: 4px; }
 
-/* barra do simulador */
-.simbar{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-.simbar-k{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.who{display:flex;flex-wrap:wrap;gap:6px}
-.who button{display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px 3px 3px;cursor:pointer;font-size:13px}
-.who button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
-.who .tag{font-size:10px;font-weight:700;color:var(--heraldic-red);text-transform:uppercase;letter-spacing:.03em}
-.simtools{display:flex;gap:8px;flex-wrap:wrap}
+.shell { display: grid; grid-template-columns: minmax(340px, 420px) minmax(0, 1fr); gap: var(--space-6); max-width: 1220px; margin: 0 auto; padding: var(--space-5) var(--space-5) var(--space-8); align-items: start; }
+@media (max-width: 900px) { .shell { grid-template-columns: 1fr; padding: var(--space-3) var(--space-4) var(--space-6); gap: var(--space-5); } }
 
-.phone{position:relative;background:var(--surface-2);border:3px solid var(--hard);border-radius:26px;overflow:hidden;height:780px;display:flex;flex-direction:column;box-shadow:0 6px 0 var(--hard)}
-@media (max-width:900px){.phone{height:min(780px,calc(100dvh - 150px));min-height:560px}}
-.app-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--brand-night);color:#F4F4F4}
-.app-head img{width:34px;height:34px;border-radius:6px}
-.app-head h1{font-size:18px}
-.app-head small{display:block;color:#C9D0EE;font-size:12px}
-.app-main{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px}
-.tabbar{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--surface);border-top:2px solid var(--line)}
-.tabbar button{background:none;border:0;padding:8px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:var(--muted);cursor:pointer;position:relative}
-.tabbar button[aria-current="page"]{color:var(--accent);font-weight:700}
-.tabbar svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.badge{position:absolute;top:4px;right:calc(50% - 20px);background:var(--heraldic-red);color:#fff;font-size:10px;font-weight:700;border-radius:999px;min-width:16px;height:16px;line-height:16px;padding:0 4px}
+.simbar { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+.who { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 4px; }
+.who button { display: flex; align-items: center; gap: var(--space-2); border: 0; padding: 2px var(--space-2) 2px 2px; cursor: pointer; background: var(--surface-100); color: var(--ink); font: inherit; font-size: 14px; box-shadow: 0 -2px 0 0 var(--outline), 0 2px 0 0 var(--outline), -2px 0 0 0 var(--outline), 2px 0 0 0 var(--outline); }
+.who button[aria-pressed="true"] { background: var(--gold); color: var(--on-gold); font-weight: 600; }
+.who .adm { font-family: var(--font-display); font-size: 7px; }
+.tools { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 
-/* avatar 8 bits */
-.av{width:28px;height:28px;border-radius:6px;display:inline-block;flex:none;background:var(--surface-2);overflow:hidden}
-.av svg{width:100%;height:100%;display:block}
-.av.lg{width:64px;height:64px;border:3px solid var(--hard);border-radius:8px;background:#C9D0EE}
+/* celular */
+.phone { position: relative; display: flex; flex-direction: column; height: 800px; background: var(--surface-000); overflow: hidden; margin: 4px; }
+@media (max-width: 900px) { .phone { height: min(800px, calc(100dvh - 170px)); min-height: 580px; } }
+.app-head { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-4); background: var(--heraldic-blue-shade); color: var(--on-blue); border-bottom: 4px solid var(--outline); }
+.app-head .fam { flex: 1; min-width: 0; }
+.app-head .fam b { display: block; font-family: var(--font-display); font-size: 10px; line-height: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.app-head .fam span { font-size: 13px; line-height: 16px; color: #c9d0ee; }
+.app-head .me { border: 0; padding: 0; background: none; cursor: pointer; }
+.app-main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-3) var(--space-5); }
+.app-main > .cq-hero { margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) 0; }
+.cq-section-label { margin: var(--space-3) 4px var(--space-1); display: flex; justify-content: space-between; gap: var(--space-2); }
+.cq-section-label span { font-family: var(--font-text); font-size: 13px; text-transform: none; color: var(--ink-muted); }
+.cq-tabbar .ic { opacity: .55; }
+.cq-tab.is-active .ic { opacity: 1; }
 
-/* painel de status no estilo RPG */
-.hero{background:var(--brand-night);color:#F4F4F4;border:3px solid var(--hard);border-radius:10px;padding:12px;display:grid;grid-template-columns:auto 1fr;gap:10px 12px;box-shadow:0 4px 0 var(--hard)}
-.hero h1{font-size:22px}
-.hero .sub{font-size:12px;color:#C9D0EE}
-.bars{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
-.bar{display:grid;grid-template-columns:74px 1fr auto;gap:8px;align-items:center;font-size:12px}
-.bar .k{font-family:var(--font-display);font-size:13px;color:#E6E9F7}
-.bar .v{font-variant-numeric:tabular-nums;color:#E6E9F7;min-width:72px;text-align:right}
-.track{height:10px;background:#141A3D;border:2px solid var(--hard);border-radius:3px;overflow:hidden}
-.track i{display:block;height:100%}
-.chips{display:flex;gap:6px;flex-wrap:wrap;grid-column:1/-1}
-.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;border-radius:6px;padding:3px 8px;background:#1E2856;color:#F4F4F4}
-.chip svg{width:14px;height:14px}
+/* avatar 8 bits dentro da moldura do DS */
+.av { display: inline-grid; place-items: center; width: 28px; height: 28px; background: var(--heraldic-blue); flex: none; }
+.av svg { width: 100%; height: 100%; display: block; }
+.cq-hero-avatar .av { width: 64px; height: 64px; }
+.app-head .av { width: 32px; height: 32px; box-shadow: 0 -2px 0 0 var(--outline), 0 2px 0 0 var(--outline), -2px 0 0 0 var(--outline), 2px 0 0 0 var(--outline); }
 
-.card{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
-.sec{font-size:16px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.sec .muted{font-family:var(--font-body);font-weight:500;font-size:13px;letter-spacing:0}
-.hello h1{font-size:24px}
-.hello p{margin:2px 0 0}
+/* missões */
+.quest-wrap { display: flex; flex-direction: column; }
+.quest-extra { margin: 0 4px 4px; padding: var(--space-2) var(--space-3); background: var(--surface-200); font-size: 14px; line-height: 20px; display: flex; flex-direction: column; gap: var(--space-1); }
+.quest-extra .row { display: flex; gap: var(--space-1); flex-wrap: wrap; align-items: center; }
+.cq-peso-1_5 .cq-quest-go { background: var(--gold); }
+.cq-quest-go[aria-disabled="true"] { background: var(--success); cursor: default; }
+.cq-quest-pendente .cq-quest-go, .cq-quest-contestado .cq-quest-go { background: var(--surface-200); }
+.cq-quest-rejeitado .cq-quest-go { background: var(--surface-200); }
 
-.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.task{background:var(--surface);border:2px solid var(--line);border-left-width:8px;border-radius:var(--r);padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
-.task.w1{border-left-color:#7FC8A9}.task.w2{border-left-color:var(--gold)}.task.w3{border-left-color:var(--gold-deep)}.task.w4{border-left-color:var(--heraldic-red)}
-.task.done{opacity:.75}
-.task h3{font-family:var(--font-body);font-size:15px;font-weight:700;letter-spacing:0}
-.task .meta{font-size:12px;color:var(--muted);grid-column:1}
-.task .why{grid-column:1/-1;font-size:12px;background:var(--bad-soft);color:var(--bad);border-radius:6px;padding:6px 8px}
-.simples .task h3{font-size:17px}
-.simples .task{padding:14px}
-.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:999px;padding:3px 8px;white-space:nowrap}
-.pill.neutral{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
-.pill.wait{background:var(--warn-soft);color:var(--warn)}
-.pill.ok{background:var(--good-soft);color:var(--good)}
-.pill.no{background:var(--bad-soft);color:var(--bad)}
-.pill.info{background:var(--accent-soft);color:var(--accent)}
+/* cartões e listas locais, sempre com a moldura pixel */
+.card { margin: 4px; padding: var(--space-3); background: var(--surface-100); display: flex; flex-direction: column; gap: var(--space-2); }
+.feed { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.feed li { display: flex; gap: var(--space-2); align-items: center; padding: var(--space-2); background: var(--surface-100); margin: 0 4px; font-size: 14px; line-height: 20px; }
+.feed img { width: 48px; height: 36px; object-fit: cover; }
+.photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.photos figure { margin: 0; position: relative; }
+.photos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+.photos figcaption { position: absolute; left: 4px; top: 4px; }
+.nophoto { grid-column: 1 / -1; padding: var(--space-3); text-align: center; background: var(--surface-200); color: var(--ink-muted); font-size: 14px; }
+.formula { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.formula b { color: var(--ink); font-weight: 600; }
+.split { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.row { display: flex; gap: var(--space-1); flex-wrap: wrap; align-items: center; }
 
-.btn{border:2px solid var(--hard);border-radius:6px;padding:7px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:var(--accent-ink);font-size:14px;box-shadow:0 3px 0 var(--hard)}
-.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--hard)}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:0 3px 0 var(--hard)}
-.btn.sm{padding:4px 10px;font-size:13px}
-.btn.ghost{background:var(--surface);color:var(--ink)}
-.btn.good{background:#38B764;color:#1A1C2C}
-.btn.bad{background:var(--surface);color:var(--bad)}
-.btn.gold{background:var(--gold);color:#1A1C2C}
-.btn.block{width:100%}
-.fab{position:absolute;right:16px;bottom:78px;width:52px;height:52px;border-radius:12px;font-size:28px;line-height:1;padding:0;z-index:3;background:var(--heraldic-red);color:#fff}
-.link{background:none;border:0;color:var(--accent);font-weight:700;cursor:pointer;padding:0;font-size:13px;text-decoration:underline;text-underline-offset:2px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.row.end{justify-content:flex-end}
-.spread{display:flex;justify-content:space-between;align-items:center;gap:8px}
+/* formulários (o DS ainda não tem campos: mesma moldura e superfícies) */
+label.f { display: flex; flex-direction: column; gap: var(--space-1); font-size: 14px; font-weight: 600; }
+input[type=text], input[type=number], input[type=password], select, textarea { width: 100%; margin: 2px 0; padding: var(--space-2); border: 0; background: var(--surface-000); color: var(--ink); font: inherit; font-size: 16px; box-shadow: 0 -2px 0 0 var(--outline), 0 2px 0 0 var(--outline), -2px 0 0 0 var(--outline), 2px 0 0 0 var(--outline); border-radius: 0; }
+textarea { min-height: 72px; resize: vertical; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2) var(--space-3); }
+.check { display: flex; gap: var(--space-2); align-items: flex-start; font-size: 14px; line-height: 20px; }
+.check input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--gold); }
+.seg { display: flex; gap: 4px; margin: 4px; padding: 4px; background: var(--surface-000); }
+.seg button { flex: 1; border: 0; padding: var(--space-2); background: transparent; color: var(--ink-muted); font-family: var(--font-display); font-size: 8px; line-height: 12px; text-transform: uppercase; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--gold); color: var(--on-gold); }
+.err { color: var(--red-ink); font-size: 14px; font-weight: 600; min-height: 1em; }
+.drop { display: grid; place-items: center; gap: var(--space-1); aspect-ratio: 4/3; background: var(--surface-000); color: var(--gold-ink); cursor: pointer; text-align: center; padding: var(--space-2); font-size: 14px; font-weight: 600; margin: 2px; box-shadow: 0 -2px 0 0 var(--outline), 0 2px 0 0 var(--outline), -2px 0 0 0 var(--outline), 2px 0 0 0 var(--outline); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.slot { display: flex; flex-direction: column; gap: var(--space-1); font-size: 14px; }
+.cq-btn-ghost.sm-link { height: auto; padding: 0; margin: 0; font-family: var(--font-text); font-size: 14px; text-transform: none; }
 
-.feed{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.feed li{display:flex;gap:10px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:8px}
-.feed img{width:48px;height:36px;object-fit:cover;border-radius:4px}
-.feed p{margin:0;font-size:13px}
+/* tabelas */
+table.t { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 20px; }
+table.t th { text-align: left; padding: var(--space-1) var(--space-2); font-family: var(--font-display); font-size: 8px; line-height: 12px; text-transform: uppercase; color: var(--ink-muted); border-bottom: 4px solid var(--outline); font-weight: 400; }
+table.t td { padding: var(--space-2); border-bottom: 2px solid var(--surface-200); vertical-align: top; }
+table.t .r { text-align: right; }
+.scroll-x { overflow-x: auto; }
 
-.photos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.photos figure{margin:0;position:relative}
-.photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block}
-.photos figcaption{position:absolute;left:6px;top:6px;background:rgba(26,28,44,.8);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase}
-.nophoto{grid-column:1/-1;border:2px dashed var(--line);border-radius:6px;padding:12px;text-align:center;color:var(--muted);font-size:13px}
-.formula{font-size:13px;color:var(--muted);margin:0}
-.formula b{color:var(--ink)}
-.note{font-size:12px;color:var(--muted);margin:0}
-.callout{background:var(--accent-soft);border-radius:6px;padding:10px 12px;font-size:13px}
-.callout.warn{background:var(--warn-soft)}
-.callout.good{background:var(--good-soft)}
+/* evolução: barras semanais em pixel */
+.evo-big { font-family: var(--font-display); font-size: 24px; line-height: 32px; color: var(--ink); }
+.chart { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; align-items: end; height: 132px; padding-top: 20px; border-bottom: 4px solid var(--outline); }
+.chart .grid { position: absolute; left: 0; right: 0; border-top: 2px dashed var(--surface-200); }
+.chart .grid span { position: absolute; right: 0; top: -14px; font-family: var(--font-display); font-size: 7px; color: var(--ink-muted); }
+.colb { position: relative; height: 100%; display: flex; align-items: flex-end; justify-content: center; outline: none; }
+.colb i { display: block; width: 60%; max-width: 28px; background: var(--surface-200); box-shadow: 0 -2px 0 0 var(--outline), -2px 0 0 0 var(--outline), 2px 0 0 0 var(--outline); }
+.colb.now i { background: var(--heraldic-blue-bright); }
+.colb .v { position: absolute; font-family: var(--font-display); font-size: 8px; color: var(--ink); transform: translateY(-14px); }
+.colb .tip { display: none; position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: var(--dialog-bg); color: var(--dialog-ink); font-size: 13px; padding: 4px 6px; white-space: nowrap; z-index: 2; }
+.colb:hover .tip, .colb:focus .tip { display: block; }
+.xl { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; text-align: center; font-size: 12px; color: var(--ink-muted); }
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); padding: 0 4px; }
+.tile { padding: var(--space-2); background: var(--surface-100); display: flex; flex-direction: column; gap: var(--space-1); margin: 4px 0; }
+.tile span { font-size: 13px; line-height: 16px; color: var(--ink-muted); }
+.tile b { font-family: var(--font-display); font-size: 12px; line-height: 16px; font-weight: 400; }
 
-.slot{display:flex;flex-direction:column;gap:6px}
-.slot-k{font-size:12px;font-weight:700}
-.slot-k em{font-style:normal;font-weight:500;color:var(--muted)}
-.drop{display:grid;place-items:center;aspect-ratio:4/3;border:2px dashed var(--line);border-radius:6px;color:var(--accent);font-weight:700;font-size:13px;cursor:pointer;text-align:center;padding:8px;background:var(--surface)}
-.drop:hover{border-color:var(--accent)}
+/* tesouro */
+.rgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.rgrid .cq-reward { width: auto; }
+.cq-reward-falta { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
 
-label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600}
-input[type=text],input[type=number],input[type=password],select,textarea{border:2px solid var(--line);background:var(--surface);border-radius:6px;padding:7px 10px;font-weight:400;width:100%}
-textarea{min-height:70px;resize:vertical}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tags{display:flex;gap:6px;flex-wrap:wrap}
-.tagbtn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
-.check{display:flex;gap:8px;align-items:flex-start;font-size:13px}
-.check input{margin-top:3px}
-.seg{display:flex;background:var(--surface);border:2px solid var(--line);border-radius:8px;padding:3px;gap:3px}
-.seg button{flex:1;border:0;background:none;border-radius:5px;padding:6px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+/* ranking por equipe */
+.team-crest { display: grid; place-items: center; width: 32px; height: 32px; font-family: var(--font-display); font-size: 12px; color: var(--on-blue); border: 2px solid var(--outline); box-sizing: border-box; }
 
-/* evolução individual: barras semanais */
-.evo-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.evo-big{font-family:var(--font-display);font-size:40px;line-height:1}
-.chart{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;align-items:end;height:130px;border-bottom:1px solid var(--line);padding-top:18px}
-.chart .grid{position:absolute;left:0;right:0;border-top:1px dashed var(--line);font-size:10px;color:var(--muted)}
-.chart .grid span{position:absolute;right:0;top:-14px}
-.colb{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;outline:none}
-.colb i{display:block;width:60%;max-width:30px;background:var(--accent-soft);border-radius:4px 4px 0 0;border:1px solid var(--accent)}
-.colb.now i{background:var(--accent)}
-.colb .lbl{position:absolute;font-size:11px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;transform:translateY(-16px)}
-.colb .tip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:11px;font-weight:600;padding:4px 6px;border-radius:4px;white-space:nowrap;z-index:2}
-.colb:hover .tip,.colb:focus .tip{display:block}
-.xl{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;font-size:11px;color:var(--muted);text-align:center}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.tile{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:2px}
-.tile span{font-size:11px;color:var(--muted);font-weight:600}
-.tile b{font-family:var(--font-display);font-size:20px;font-variant-numeric:tabular-nums}
-
-.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.rank li{display:grid;grid-template-columns:24px auto 1fr auto;gap:10px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:8px 12px}
-.rank li.me{border-color:var(--accent)}
-.rank .pos{font-family:var(--font-display);font-size:20px;color:var(--muted);text-align:center}
-.rank li:first-child .pos{color:var(--gold-deep)}
-.rank .nm{font-weight:700;font-size:14px}
-.rank .sub{font-size:12px;color:var(--muted)}
-.rank .pts{font-family:var(--font-display);font-size:18px;text-align:right}
-.rank .pts small{display:block;font-family:var(--font-body);font-size:11px;color:var(--muted)}
-.crest{width:34px;height:34px;border:2px solid var(--hard);border-radius:6px 6px 14px 14px;display:grid;place-items:center;font-family:var(--font-display);color:#fff;font-size:15px}
-
-/* prêmios em grade */
-.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.reward{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:10px;display:flex;flex-direction:column;gap:6px}
-.reward h3{font-family:var(--font-body);font-size:14px;font-weight:700;letter-spacing:0}
-.reward .meta{font-size:11px;color:var(--muted)}
-.cost{display:flex;align-items:center;gap:4px;font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
-.cost svg{width:16px;height:16px}
-.meter{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
-.meter i{display:block;height:100%;background:var(--gold-deep)}
-
-table.t{width:100%;border-collapse:collapse;font-size:13px}
-table.t th{text-align:left;color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding:4px 6px;border-bottom:2px solid var(--line)}
-table.t td{padding:6px;border-bottom:1px solid var(--line);vertical-align:top}
-table.t td.r,table.t th.r{text-align:right;font-variant-numeric:tabular-nums}
-.scroll-x{overflow-x:auto}
-
-.goal-big{font-family:var(--font-display);font-size:32px}
-.bigmeter{height:16px;background:var(--line);border:2px solid var(--hard);border-radius:4px;overflow:hidden}
-.bigmeter i{display:block;height:100%;background:var(--gold)}
-.contrib{display:grid;grid-template-columns:70px 1fr 54px;gap:8px;align-items:center;font-size:13px}
-.cbar{position:relative;height:10px;background:var(--line);border-radius:3px}
-.cbar i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:3px}
-.cbar i.low{background:var(--gold-deep)}
-.cbar .mk{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
-.conds{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:13px}
-.conds li::before{content:"";display:inline-block;width:8px;height:8px;margin-right:8px;background:var(--gold-deep)}
-.conds li.ok::before{background:var(--good)}
+/* meta coletiva: quinta cor de membro, quando houver */
+.cq-m4 { background: var(--heraldic-blue-bright); }
+.cq-goal-track { position: relative; }
+.cq-goal-track .mk { position: absolute; top: -4px; bottom: -4px; width: 4px; background: var(--ink); }
 
 /* computador simulado */
-.monitor{background:#1A1C2C;border-radius:10px;padding:10px 10px 0;color:#E7EBF3;border:3px solid var(--hard)}
-.screen{position:relative;aspect-ratio:16/10;border-radius:4px;overflow:hidden;background:#29366F;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:12px}
-.screen.locked{background:radial-gradient(circle at 50% 30%,#3B4C8F,#1A1C2C)}
-.screen.desk{background:linear-gradient(160deg,#3B5DC9,#29366F);justify-content:flex-start;align-items:stretch;padding:0}
-.screen h3{font-size:18px;color:#fff}
-.screen p{margin:0;font-size:12px;color:#C9D0EE;max-width:260px}
-.win{background:#F4F4F4;border-radius:4px;margin:12px 0 0 12px;width:62%;height:52%;color:#333;font-size:11px;text-align:left}
-.win .wbar{background:#D6DBE5;border-radius:4px 4px 0 0;padding:3px 8px;font-weight:700}
-.win .body{padding:8px}
-.clock{position:absolute;right:8px;top:8px;background:rgba(26,28,44,.85);color:#fff;font-weight:700;font-size:12px;border-radius:4px;padding:4px 8px;font-variant-numeric:tabular-nums}
-.clock.warn{background:#EF7D57;color:#1A1C2C}
-.soft{position:absolute;inset:0;background:rgba(26,28,44,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px}
-.stand{height:14px;width:30%;margin:0 auto;background:#333C57}
-.lock-ic{width:34px;height:34px;stroke:#fff;fill:none;stroke-width:1.8}
+.monitor { margin: 4px; padding: var(--space-2) var(--space-2) 0; background: var(--dialog-bg); }
+.screen { position: relative; aspect-ratio: 16/10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); text-align: center; background: var(--heraldic-blue-shade); color: var(--on-blue); }
+.screen.desk { background: var(--heraldic-blue); justify-content: flex-start; align-items: stretch; padding: 0; }
+.screen p { font-size: 14px; line-height: 20px; color: #c9d0ee; max-width: 260px; }
+.win { margin: var(--space-3) 0 0 var(--space-3); width: 62%; height: 52%; background: #f4f4f4; color: #1a1c2c; font-size: 13px; text-align: left; box-shadow: 0 -2px 0 0 #0e0f1a, 0 2px 0 0 #0e0f1a, -2px 0 0 0 #0e0f1a, 2px 0 0 0 #0e0f1a; }
+.win .wbar { background: #94b0c2; padding: 2px var(--space-2); font-weight: 600; }
+.win .body { padding: var(--space-2); }
+.clock { position: absolute; right: var(--space-2); top: var(--space-2); display: inline-flex; gap: var(--space-1); align-items: center; padding: 2px var(--space-2); background: var(--dialog-bg); color: var(--cyan-ink); font-family: var(--font-display); font-size: 10px; }
+.clock.warn { background: var(--gold); color: var(--on-gold); }
+.soft { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); background: var(--dialog-bg); }
+.soft.bar { inset: auto var(--space-2) var(--space-2) var(--space-2); background: var(--gold); color: var(--on-gold); padding: var(--space-2); }
+.stand { height: 12px; width: 30%; margin: 0 auto; background: #333c57; }
 
-/* folhas */
-.sheet-wrap{position:absolute;inset:0;background:rgba(10,12,22,.5);display:flex;align-items:flex-end;z-index:5}
-.sheet{background:var(--surface);width:100%;max-height:88%;overflow-y:auto;border-radius:16px 16px 0 0;border-top:3px solid var(--hard);padding:16px 16px 20px;display:flex;flex-direction:column;gap:12px}
-.sheet h2{font-size:20px}
-.err{color:var(--bad);font-size:13px;font-weight:700;min-height:1em;margin:0}
-.toast{position:absolute;left:16px;right:16px;bottom:78px;background:var(--gold);color:#1A1C2C;border:2px solid var(--hard);border-radius:8px;padding:10px 14px;font-size:14px;font-weight:700;z-index:6;box-shadow:0 4px 0 var(--hard)}
-@media (prefers-reduced-motion:no-preference){.toast{animation:up .25s ease-out}.sheet{animation:up .2s ease-out}@keyframes up{from{transform:translateY(12px);opacity:.6}to{transform:none;opacity:1}}}
+/* folha (diálogo) e aviso */
+.sheet-wrap { position: absolute; inset: 0; z-index: 5; display: flex; align-items: flex-end; background: rgba(14,15,26,.6); }
+.sheet { width: 100%; max-height: 88%; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); background: var(--surface-100); border-top: 4px solid var(--outline); }
+.toast { position: absolute; left: var(--space-3); right: var(--space-3); bottom: 92px; z-index: 6; }
+.fab { position: absolute; right: var(--space-4); bottom: 96px; z-index: 3; }
 
 /* cadastro */
-.onb-steps{display:flex;gap:6px}
-.onb-steps span{flex:1;height:6px;border-radius:2px;background:var(--line)}
-.onb-steps span.on{background:var(--accent)}
-.tpl{display:grid;grid-template-columns:auto 1fr 74px;gap:8px;align-items:center;font-size:13px;background:var(--surface);border:2px solid var(--line);border-radius:6px;padding:8px 10px}
-.tpl select{padding:4px 6px}
-.mrow{display:grid;grid-template-columns:1fr 56px 96px;gap:6px;align-items:center}
-.mrow input,.mrow select{padding:6px 8px;font-size:13px}
+.steps-bar { display: flex; gap: 4px; padding: 0 4px; }
+.steps-bar span { flex: 1; height: 8px; background: var(--bar-empty); }
+.steps-bar span.on { background: var(--gold); }
+.tpl { display: grid; grid-template-columns: auto 1fr 72px; gap: var(--space-2); align-items: center; margin: 4px; padding: var(--space-2); background: var(--surface-100); font-size: 14px; line-height: 20px; }
+.tpl select { padding: 4px; }
+.mrow { display: grid; grid-template-columns: 1fr 64px 104px; gap: var(--space-2); align-items: center; }
 
-/* guia lateral */
-.guide{display:flex;flex-direction:column;gap:24px;max-width:70ch}
-.guide .logo{background:var(--brand-night);border:3px solid var(--hard);border-radius:10px;padding:14px 18px;display:inline-flex;box-shadow:0 4px 0 var(--hard)}
-.guide .logo img{height:64px;width:auto}
-.guide header p{margin:12px 0 0;color:var(--muted);font-size:16px}
-.guide h2{font-size:21px;margin-bottom:10px}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.steps li{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:10px 12px}
-.steps .n{width:26px;height:26px;border-radius:4px;display:grid;place-items:center;font-weight:700;font-size:13px;background:var(--surface-2);border:2px solid var(--line)}
-.steps li.done .n{background:#38B764;border-color:var(--hard);color:#1A1C2C}
-.steps p{margin:0;font-size:14px}
-.steps small{color:var(--muted);font-size:12px}
-.qs{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14px}
-.qs b{font-weight:700}
-.map{width:100%;border-collapse:collapse;font-size:14px}
-.map td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-.map td:first-child{font-weight:700;width:38%}
-.st{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:1px 6px;margin-right:4px}
-.st.ok{background:var(--good-soft);color:var(--good)}
-.st.chg{background:var(--warn-soft);color:var(--warn)}
-.st.out{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
-.cut{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.cut div{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:13px}
-.cut b{display:block;font-family:var(--font-display);font-size:15px;margin-bottom:4px}
-.cut ul{margin:0;padding-left:18px}
-@media (max-width:520px){.cut{grid-template-columns:1fr}}
-code{font-size:12.5px;background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+/* guia lateral = roteiro do pitch */
+.guide { display: flex; flex-direction: column; gap: var(--space-4); max-width: 74ch; font-size: 16px; line-height: 24px; }
+.guide .logo { align-self: flex-start; margin: 4px; padding: var(--space-3) var(--space-4); background: var(--heraldic-blue-shade); }
+.guide .logo img { display: block; height: 72px; width: auto; image-rendering: pixelated; }
+.guide ul.dots { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: var(--space-1); }
+.guide .cq-panel-body { display: flex; flex-direction: column; gap: var(--space-3); }
+.demo-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.demo-steps li { display: grid; grid-template-columns: 32px 1fr auto; gap: var(--space-3); align-items: center; padding: var(--space-2) var(--space-3); background: var(--surface-200); }
+.demo-steps .n { display: grid; place-items: center; width: 32px; height: 32px; background: var(--surface-000); font-family: var(--font-display); font-size: 10px; border: 2px solid var(--outline); box-sizing: border-box; }
+.demo-steps li.done .n { background: var(--success); }
+.demo-steps p { font-size: 16px; line-height: 22px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-2); }
+.kpi { margin: 4px; padding: var(--space-3); background: var(--surface-200); display: flex; flex-direction: column; gap: var(--space-1); }
+.kpi b { font-family: var(--font-display); font-size: 14px; line-height: 20px; font-weight: 400; color: var(--gold-ink); }
+.kpi span { font-size: 14px; line-height: 18px; color: var(--ink-muted); }
+.arch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: 14px; }
+.arch .node { margin: 4px; padding: var(--space-1) var(--space-2); background: var(--surface-000); }
+.arch .to { color: var(--ink-muted); font-family: var(--font-display); font-size: 10px; }
+.map { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 22px; }
+.map td { padding: var(--space-2); border-bottom: 2px solid var(--surface-200); vertical-align: top; }
+.map td:first-child { width: 34%; font-weight: 600; }
+.cut { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+@media (max-width: 560px) { .cut, .grid2 { grid-template-columns: 1fr; } }
+code { font-family: ui-monospace, monospace; font-size: 13px; background: var(--surface-000); padding: 1px 4px; }
+
+/* modo só o app (#app): o celular ocupa a tela, sem o roteiro */
+body.only-app .guide, body.only-app .simbar { display: none; }
+body.only-app .shell { display: flex; justify-content: center; padding: var(--space-4); max-width: none; }
+body.only-app #stage { width: min(438px, 100%); min-width: 0; }
+body.only-app .phone { width: auto; height: calc(100dvh - 40px); }
+@media (max-width: 600px) {
+  body.only-app .shell { padding: 0; }
+  body.only-app #stage { width: 100%; }
+  body.only-app .phone { height: 100dvh; margin: 0; box-shadow: none; }
+  body.only-app .app-head { padding-top: max(var(--space-2), env(safe-area-inset-top)); }
+  body.only-app .cq-tabbar { padding-bottom: env(safe-area-inset-bottom); }
+}
+@media (prefers-reduced-motion: no-preference) { .toast, .sheet { animation: cq-sobe .2s steps(3) both; } @keyframes cq-sobe { from { transform: translateY(12px); } to { transform: none; } } }
 </style>
 </head>
 <body>
-<div class="shell">
-  <section id="stage" aria-label="Simulador do aplicativo"></section>
-  <aside class="guide" id="guide"></aside>
+<div id="root" data-theme="noite">
+  <div class="shell">
+    <section id="stage" aria-label="Simulador do aplicativo"></section>
+    <aside class="guide" id="guide"></aside>
+  </div>
 </div>
 
 <script>
 'use strict';
+/* caminho do design system; o restante dos assets sai daqui */
+const DS = '../design-system/project/';
+const icon = (name, size = 24, alt = '') => `<img class="ic" src="${DS}assets/Icones/${name}.svg" width="${size}" height="${size}" alt="${alt}"${alt ? '' : ' aria-hidden="true"'}>`;
+const logo = (name, h, alt) => `<img src="${DS}assets/Logos/${name}.svg" height="${h}" alt="${alt || ''}" style="image-rendering:pixelated">`;
+
 /* ============ constantes e utilitários ============ */
-const KEY = 'casaquest-prototipo-v3';
+const KEY = 'casaquest-prototipo-v4';
 const EVID = {
-  antes_depois:{label:'Antes e depois', mult:1},
-  depois:{label:'Só depois', mult:0.8},
+  antes_depois:{label:'Antes/depois', mult:1},
+  depois:{label:'Foto', mult:0.8},
   nenhuma:{label:'Sem foto', mult:0.5}
 };
 const HORIZ = {curto:'Curto prazo', medio:'Médio prazo', longo:'Longo prazo'};
-/* cor da camiseta, cabelo e pele de cada avatar 8 bits */
 const LOOK = [
-  {cor:'#B13E53', cabelo:'#5D275D', pele:'#F2C29B'},
-  {cor:'#3B5DC9', cabelo:'#333C57', pele:'#C98E64'},
-  {cor:'#38B764', cabelo:'#1A1C2C', pele:'#F2C29B'},
-  {cor:'#EF7D57', cabelo:'#B8873E', pele:'#E0A880'},
-  {cor:'#5D275D', cabelo:'#333C57', pele:'#C98E64'},
-  {cor:'#257179', cabelo:'#73464C', pele:'#F2C29B'}
+  {cor:'#b13e53', cabelo:'#7a2840', pele:'#e8c170', classe:'Guardiã da Cozinha'},
+  {cor:'#3b5dc9', cabelo:'#1a1c2c', pele:'#a0603a', classe:'Mestre do Jantar'},
+  {cor:'#38b764', cabelo:'#6b3a26', pele:'#e8c170', classe:'Cavaleiro do Banheiro'},
+  {cor:'#ef7d57', cabelo:'#b8873e', pele:'#e8c170', classe:'Arqueira da Arrumação'},
+  {cor:'#41a6f6', cabelo:'#1a1c2c', pele:'#a0603a', classe:'Escudeiro do Lixo'},
+  {cor:'#e26d84', cabelo:'#566c86', pele:'#e8c170', classe:'Aventureira'}
 ];
 const TPL = [
-  {id:'cama', nome:'Arrumar a cama', peso:0.5, freq:'Diária', evid:'depois', valid:'auto', pessoal:true, idadeMin:0, prazo:'09h'},
-  {id:'quarto', nome:'Organizar o quarto', peso:1, freq:'Diária', evid:'antes_depois', valid:'admin', pessoal:true, idadeMin:0, prazo:'19h'},
-  {id:'lixo', nome:'Tirar o lixo', peso:0.5, freq:'Diária', evid:'nenhuma', valid:'auto', idadeMin:0, prazo:'20h'},
-  {id:'louca', nome:'Lavar a louça', peso:1, freq:'2× ao dia', vezes:2, rotulos:['almoço','jantar'], evid:'depois', valid:'admin', idadeMin:7, prazo:'21h'},
-  {id:'jantar', nome:'Preparar o jantar', peso:1.5, freq:'Diária', evid:'depois', valid:'admin', idadeMin:16, prazo:'19h30'},
-  {id:'banheiro', nome:'Limpar o banheiro', peso:2, freq:'Diária', evid:'antes_depois', valid:'admin', idadeMin:10, prazo:'21h'},
-  {id:'pesada', nome:'Limpeza pesada da casa', peso:3, freq:'Semanal (sábado)', evid:'antes_depois', valid:'admin', idadeMin:12, prazo:'sábado', semanal:true},
-  {id:'pet', nome:'Alimentar o pet', peso:0.5, freq:'Diária', evid:'nenhuma', valid:'auto', idadeMin:6, prazo:'08h'}
+  {id:'cama', nome:'Arrumar a cama', icone:'casa', peso:0.5, freq:'Diária', evid:'depois', valid:'auto', pessoal:true, idadeMin:0, prazo:'09h'},
+  {id:'quarto', nome:'Organizar o quarto', icone:'casa', peso:1, freq:'Diária', evid:'antes_depois', valid:'admin', pessoal:true, idadeMin:0, prazo:'19h'},
+  {id:'lixo', nome:'Tirar o lixo', icone:'vassoura', peso:0.5, freq:'Diária', evid:'nenhuma', valid:'auto', idadeMin:0, prazo:'20h'},
+  {id:'louca', nome:'Lavar a louça', icone:'louca', peso:1, freq:'2× ao dia', vezes:2, rotulos:['almoço','jantar'], evid:'depois', valid:'admin', idadeMin:7, prazo:'21h'},
+  {id:'jantar', nome:'Preparar o jantar', icone:'louca', peso:1.5, freq:'Diária', evid:'depois', valid:'admin', idadeMin:16, prazo:'19h30'},
+  {id:'banheiro', nome:'Limpar o banheiro', icone:'balde', peso:2, freq:'Diária', evid:'antes_depois', valid:'admin', idadeMin:10, prazo:'21h'},
+  {id:'pesada', nome:'Limpeza pesada da casa', icone:'balde', peso:3, freq:'Semanal (sábado)', evid:'antes_depois', valid:'admin', idadeMin:12, prazo:'sábado', semanal:true},
+  {id:'pet', nome:'Alimentar o pet', icone:'casa', peso:0.5, freq:'Diária', evid:'nenhuma', valid:'auto', idadeMin:6, prazo:'08h'}
 ];
 const ONB_FAMILIA = ['cama','quarto','lixo','louca','jantar','banheiro'];
 const ONB_CASAL = ['lixo','louca','jantar','banheiro','pesada'];
@@ -350,38 +274,23 @@ function quando(ts){
 function lcg(seed){ let s = seed % 2147483647; if (s <= 0) s += 2147483646; return () => (s = s*16807 % 2147483647) / 2147483647; }
 function embaralha(arr, rnd){ for (let i = arr.length-1; i > 0; i--){ const j = Math.floor(rnd()*(i+1)); [arr[i],arr[j]] = [arr[j],arr[i]]; } return arr; }
 
-/* avatar 8 bits: matriz de texto -> SVG */
-const AV_MAP = [
-  '...oooooo...',
-  '..ohhhhhho..',
-  '.ohhhhhhhho.',
-  '.ohssssssho.',
-  '.osessssesо.',
-  '.ossssssssо.',
-  '..ossmmsso..',
-  '...oooooo...',
-  '..occccccо..',
-  '.occccccccо.',
-  '.occccccccо.',
-  '.oooooooooo.'
-].map(r => r.replace(/[^.ohsemc]/g, 'o'));
+/* avatar 8 bits com a paleta do DS */
+const AV_MAP = ['...oooooo...','..ohhhhhho..','.ohhhhhhhho.','.ohssssssho.','.osessssesо.','.ossssssssо.','..ossmmsso..','...oooooo...','..occccccо..','.occccccccо.','.occccccccо.','.oooooooooo.'].map(r => r.replace(/[^.ohsemc]/g, 'o'));
 function avatarSVG(m){
-  const L = {o:'#1A1C2C', h:m.cabelo, s:m.pele, e:'#1A1C2C', m:'#B13E53', c:m.cor};
+  const L = {o:'#1a1c2c', h:m.cabelo, s:m.pele, e:'#1a1c2c', m:'#b13e53', c:m.cor};
   let r = '';
   AV_MAP.forEach((row, y) => [...row].forEach((ch, x) => { if (L[ch]) r += `<rect x="${x}" y="${y}" width="1" height="1" fill="${L[ch]}"/>`; }));
-  return `<svg class="px" viewBox="-1 -1 14 14" aria-hidden="true">${r}</svg>`;
+  return `<svg viewBox="-1 -1 14 14" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`;
 }
-const COIN = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><rect x="2" y="0" width="4" height="1" fill="#1A1C2C"/><rect x="1" y="1" width="6" height="6" fill="#1A1C2C"/><rect x="0" y="2" width="8" height="4" fill="#1A1C2C"/><rect x="2" y="1" width="4" height="6" fill="#FFCD75"/><rect x="1" y="2" width="6" height="4" fill="#FFCD75"/><rect x="3" y="2" width="1" height="4" fill="#EF7D57"/></svg>';
-const FLAME = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><rect x="3" y="0" width="2" height="2" fill="#EF7D57"/><rect x="2" y="2" width="4" height="2" fill="#EF7D57"/><rect x="1" y="4" width="6" height="3" fill="#EF7D57"/><rect x="3" y="4" width="2" height="3" fill="#FFCD75"/><rect x="2" y="7" width="4" height="1" fill="#B13E53"/></svg>';
-const SWORD = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><rect x="5" y="0" width="3" height="1" fill="#C9D0EE"/><rect x="4" y="1" width="3" height="1" fill="#C9D0EE"/><rect x="3" y="2" width="3" height="1" fill="#C9D0EE"/><rect x="2" y="3" width="3" height="1" fill="#C9D0EE"/><rect x="1" y="4" width="3" height="1" fill="#FFCD75"/><rect x="0" y="6" width="2" height="2" fill="#B8873E"/><rect x="1" y="5" width="2" height="1" fill="#B8873E"/></svg>';
+const av = m => `<span class="av">${avatarSVG(m)}</span>`;
 
 /* foto de exemplo desenhada em canvas (antes = sujo, depois = limpo) */
 function fotoExemplo(tipo, nome, semente){
   const c = document.createElement('canvas'); c.width = 360; c.height = 270;
   const g = c.getContext('2d'); const rnd = lcg(semente || 7);
   const antes = tipo === 'antes';
-  g.fillStyle = antes ? '#C7C0AE' : '#E6F0F3'; g.fillRect(0,0,360,270);
-  g.strokeStyle = antes ? '#A39A84' : '#C3D6DD'; g.lineWidth = 2;
+  g.fillStyle = antes ? '#c7c0ae' : '#e4ecf2'; g.fillRect(0,0,360,270);
+  g.strokeStyle = antes ? '#a39a84' : '#94b0c2'; g.lineWidth = 2;
   for (let x = 0; x <= 360; x += 45){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,270); g.stroke(); }
   for (let y = 0; y <= 270; y += 45){ g.beginPath(); g.moveTo(0,y); g.lineTo(360,y); g.stroke(); }
   if (antes){
@@ -390,15 +299,14 @@ function fotoExemplo(tipo, nome, semente){
       g.beginPath(); g.ellipse(rnd()*360, rnd()*270, 6+rnd()*26, 4+rnd()*16, rnd()*3, 0, 7); g.fill();
     }
   } else {
-    g.fillStyle = '#FFFFFF';
+    g.fillStyle = '#ffffff';
     for (let i = 0; i < 9; i++){
-      const x = 20+rnd()*320, y = 20+rnd()*200, s = 6+rnd()*10;
-      g.beginPath(); g.moveTo(x,y-s); g.lineTo(x+s*.25,y-s*.25); g.lineTo(x+s,y); g.lineTo(x+s*.25,y+s*.25);
-      g.lineTo(x,y+s); g.lineTo(x-s*.25,y+s*.25); g.lineTo(x-s,y); g.lineTo(x-s*.25,y-s*.25); g.closePath(); g.fill();
+      const x = 20+rnd()*320|0, y = 20+rnd()*200|0, s = 4 + (rnd()*3|0)*2;
+      g.fillRect(x-s, y-2, s*2, 4); g.fillRect(x-2, y-s, 4, s*2);
     }
   }
-  g.fillStyle = 'rgba(26,28,44,.78)'; g.fillRect(0,226,360,44);
-  g.fillStyle = '#fff'; g.font = '600 15px sans-serif';
+  g.fillStyle = '#1a1c2c'; g.fillRect(0,226,360,44);
+  g.fillStyle = '#f4f4f4'; g.font = '600 15px sans-serif';
   g.fillText((antes ? 'ANTES · ' : 'DEPOIS · ') + nome, 12, 253);
   return c.toDataURL('image/jpeg', .72);
 }
@@ -423,7 +331,7 @@ function lerFoto(file){
 
 /* ============ estado ============ */
 let S;
-const ui = {who:null, tab:null, sheet:null, draft:null, onb:null, toast:null, quali:{}, qj:{}, vis:{}, pc:{run:false, soft:0, owner:null}};
+const ui = {who:null, tab:null, sheet:null, draft:null, onb:null, toast:null, quali:{}, qj:{}, vis:{}, tema:'noite', pc:{run:false, soft:0, owner:null}};
 let pcTimer = null, toastTimer = null;
 
 const membro = id => S.membros.find(m => m.id === id);
@@ -432,21 +340,21 @@ const admins = () => S.membros.filter(m => m.admin);
 const isAdmin = id => !!membro(id)?.admin;
 const crianca = m => m.idade < 18;
 const simples = m => m.idade < S.config.idadeSimples;
-const nivel = xp => { const n = Math.floor(xp/200)+1; const r = xp % 200; return {n, pct: r/2, falta: 200-r, prox: n*200}; };
+const nivel = xp => { const n = Math.floor(xp/200)+1; const r = xp % 200; return {n, r, falta: 200-r}; };
 const equipe = id => S.equipes.find(e => e.id === id);
 const minDeCred = c => Math.floor(c / S.config.credBloco) * S.config.minBloco;
 const calcPts = (peso, evid, q = 1) => r05(peso*10*EVID[evid].mult*q);
 const nomes = arr => arr.length <= 1 ? (arr[0] || '') : arr.slice(0,-1).join(', ') + ' e ' + arr[arr.length-1];
+const pesoClasse = p => 'cq-peso-' + String(p).replace('.', '_');
 
-/* quem aprova: quem criou a tarefa (se não for o executor); senão um dos administradores, nunca o próprio executor */
+/* quem aprova: quem criou a tarefa (se não for o executor); senão um dos admins, nunca o próprio executor */
 function avaliadorPara(atr){
   const atv = ativ(atr.atividadeId);
   if (atv.valid === 'auto') return 'auto';
   if (atr.criadoPor && atr.criadoPor !== atr.membroId) return atr.criadoPor;
-  const outros = admins().filter(a => a.id !== atr.membroId);
-  if (outros.length) return null;
-  const maisVelho = S.membros.filter(x => x.id !== atr.membroId).sort((a, b) => b.idade - a.idade)[0];
-  return maisVelho ? maisVelho.id : null;
+  if (admins().some(a => a.id !== atr.membroId)) return null;
+  const outro = S.membros.filter(x => x.id !== atr.membroId).sort((a, b) => b.idade - a.idade)[0];
+  return outro ? outro.id : null;
 }
 function quemAvalia(r){
   if (r.avaliador) return membro(r.avaliador)?.nome || '';
@@ -460,12 +368,10 @@ function movimento(mid, desc, d){ S.extrato.unshift(Object.assign({id:uid('x'), 
 
 function save(){
   try { localStorage.setItem(KEY, JSON.stringify(S)); }
-  catch(e){
-    try { S.registros.slice(6).forEach(r => { r.fotos = {}; }); localStorage.setItem(KEY, JSON.stringify(S)); } catch(e2){}
-  }
+  catch(e){ try { S.registros.slice(6).forEach(r => { r.fotos = {}; }); localStorage.setItem(KEY, JSON.stringify(S)); } catch(e2){} }
 }
 function load(){
-  try { const raw = localStorage.getItem(KEY); if (raw){ const s = JSON.parse(raw); if (s && s.v === 3) return s; } } catch(e){}
+  try { const raw = localStorage.getItem(KEY); if (raw){ const s = JSON.parse(raw); if (s && s.v === 4) return s; } } catch(e){}
   return null;
 }
 
@@ -501,9 +407,9 @@ function seed(o){
   const H = [
     {xp:1180, pts:70, cred:45, streak:9, tar:13, peso:11, sem:8.0, ontem:['jantar'], meta:520, semanas:[48,55,52,60,58,46], ts:9, as:10},
     {xp:1050, pts:64, cred:30, streak:4, tar:11, peso:10, sem:7.5, ontem:['louca'], meta:470, semanas:[40,44,50,47,52,41], ts:8, as:9},
-    {xp:1590, pts:85, cred:60, streak:6, tar:14, peso:12.5, sem:5.5, ontem:['louca'], meta:1120, semanas:[52,60,58,66,71,63], ts:10, as:10},
-    {xp:1290, pts:92.5, cred:35, streak:11, tar:16, peso:13, sem:6.0, ontem:['banheiro'], meta:980, semanas:[70,66,72,75,68,59], ts:12, as:12, min:20},
-    {xp:610, pts:40, cred:20, streak:2, tar:8, peso:6, sem:5.5, ontem:['lixo'], meta:350, semanas:[18,22,25,24,30,27], ts:7, as:10}
+    {xp:1590, pts:85, cred:60, streak:6, tar:14, peso:12.5, sem:5.5, ontem:['louca'], meta:1420, semanas:[52,60,58,66,71,63], ts:10, as:10},
+    {xp:1290, pts:92.5, cred:35, streak:11, tar:16, peso:13, sem:6.0, ontem:['banheiro'], meta:1180, semanas:[70,66,72,75,68,59], ts:12, as:12, min:20},
+    {xp:610, pts:40, cred:20, streak:2, tar:8, peso:6, sem:5.5, ontem:['lixo'], meta:640, semanas:[18,22,25,24,30,27], ts:7, as:10}
   ];
   const vazio = {xp:0, pts:0, cred:0, streak:0, tar:0, peso:0, sem:0, ontem:[], meta:0, semanas:[0,0,0,0,0,0], ts:0, as:0};
   const membros = o.membros.filter(m => m.nome.trim()).map((m, i) => {
@@ -515,34 +421,36 @@ function seed(o){
   const atividades = o.atividades.map(a => Object.assign({}, TPL.find(t => t.id === a.id), {peso:+a.peso, evid:a.evid, ativo:true}));
   const ini = new Date(); const fimMes = new Date(ini.getFullYear(), ini.getMonth()+1, 0);
   const casal = o.tipo === 'casal';
+  const filhos = membros.filter(crianca);
+  const daMeta = (casal || !filhos.length ? membros : filhos).slice(0, 4);
   S = {
-    v:3, dia, tipo:o.tipo, semana:segunda(),
+    v:4, dia, tipo:o.tipo, semana:segunda(),
     familia:{nome:o.familia.trim() || 'Minha casa'},
     config:{credBloco:10, minBloco:20, limiteDiario:180, agenda:'18h às 21h', pin:'1234', idadeSimples:9, limiteSorteio:15,
       mesada:{modo:'fixo', valor:20, minPct:80, taxa:0.10}},
     membros,
     equipes:[
-      {id:'raposa', nome:'Time Raposa', cor:'#B13E53', premio:'Escolhe a pizza e o filme do sábado'},
-      {id:'coruja', nome:'Time Coruja', cor:'#3B5DC9', premio:'Escolhe a pizza e o filme do sábado'}
+      {id:'raposa', nome:'Time Raposa', cor:'var(--heraldic-red)', premio:'Escolhe a pizza e o filme do sábado'},
+      {id:'coruja', nome:'Time Coruja', cor:'var(--heraldic-blue)', premio:'Escolhe a pizza e o filme do sábado'}
     ],
     atividades, atribuicoes:[], registros:[], resgates:[], extrato:[], auditoria:[], pagamentos:[],
     recompensas:[
-      {id:'r1', nome:'30 min de computador', custo:15, horizonte:'curto', minutos:30, estoque:null, por:'m1'},
-      {id:'r2', nome:'Escolher o filme da sexta', custo:20, horizonte:'curto', estoque:1, por:'m1'},
-      {id:'r3', nome:'Sobremesa especial', custo:25, horizonte:'curto', estoque:2, por:'m2'},
-      {id:'r4', nome:'Dormir 15 min mais tarde', custo:30, horizonte:'curto', estoque:null, por:'m2'},
-      {id:'r5', nome:'Passeio no parque', custo:150, horizonte:'medio', estoque:null, por:'m1'},
-      {id:'r6', nome:'Dia sem tarefas', custo:250, horizonte:'medio', estoque:1, por:'m2'},
-      {id:'r7', nome:'Jogo novo', custo:400, horizonte:'medio', estoque:null, por:'m1'},
-      {id:'r8', nome:'Console', custo:1500, horizonte:'longo', estoque:null, por:'m2'}
+      {id:'r1', nome:'30 min de computador', icone:'tela', custo:15, horizonte:'curto', minutos:30, estoque:null, por:'m1'},
+      {id:'r2', nome:'Escolher o filme da sexta', icone:'d20', custo:20, horizonte:'curto', estoque:1, por:'m1'},
+      {id:'r3', nome:'Sobremesa especial', icone:'louca', custo:25, horizonte:'curto', estoque:2, por:'m2'},
+      {id:'r4', nome:'Dormir 15 min mais tarde', icone:'ampulheta', custo:30, horizonte:'curto', estoque:null, por:'m2'},
+      {id:'r5', nome:'Passeio no parque', icone:'casa', custo:150, horizonte:'medio', estoque:null, por:'m1'},
+      {id:'r6', nome:'Dia sem tarefas', icone:'vassoura', custo:250, horizonte:'medio', estoque:1, por:'m2'},
+      {id:'r7', nome:'Jogo novo', icone:'d20', custo:400, horizonte:'medio', estoque:null, por:'m1'},
+      {id:'r8', nome:'Console', icone:'trofeu', custo:1500, horizonte:'longo', estoque:null, por:'m2'}
     ],
-    meta:{nome: casal ? 'Fim de semana na serra' : 'Viagem para a praia em janeiro', alvo: casal ? 2000 : 5000, minPct: casal ? 30 : 10, inicio:addDias(dia,-36), prazo:addDias(dia,54), contrib:{}},
+    meta:{nome: casal ? 'Fim de semana na serra' : 'Viagem para a praia', alvo: casal ? 2000 : 5000, minPct:20, inicio:addDias(dia,-36), prazo:addDias(dia,54), membros:daMeta.map(m => m.id), contrib:{}},
     temporada:{nome:'Temporada de ' + ini.toLocaleDateString('pt-BR',{month:'long'}), fim:isoLocal(fimMes)},
     sorteio:null,
     demo:{criada: !!o.criadaAgora}
   };
   if (casal) S.recompensas = S.recompensas.filter(r => !r.minutos && r.id !== 'r4');
-  membros.forEach(m => { S.meta.contrib[m.id] = m._meta; delete m._meta; });
+  membros.forEach(m => { if (S.meta.membros.includes(m.id)) S.meta.contrib[m.id] = m._meta; delete m._meta; });
   sortear(20261106, true);
   if (hist){
     const [ana, paulo, , carla, davi] = membros;
@@ -581,9 +489,9 @@ function seed(o){
   save();
 }
 function novoRegistro(atr, fotos, obs){
-  const av = avaliadorPara(atr);
+  const a = avaliadorPara(atr);
   const evid = fotos.antes && fotos.depois ? 'antes_depois' : (fotos.depois || fotos.antes) ? 'depois' : 'nenhuma';
-  const r = {id:uid('rg'), atribId:atr.id, atividadeId:atr.atividadeId, membroId:atr.membroId, avaliador: av === 'auto' ? null : av, auto: av === 'auto', fotos, evid, obs, status:'pendente', pontos:0, quando:Date.now()};
+  const r = {id:uid('rg'), atribId:atr.id, atividadeId:atr.atividadeId, membroId:atr.membroId, avaliador: a === 'auto' ? null : a, auto: a === 'auto', fotos, evid, obs, status:'pendente', pontos:0, quando:Date.now()};
   S.registros.push(r); atr.registroId = r.id;
   return r;
 }
@@ -593,8 +501,7 @@ function sortear(semente, silencioso){
   const rnd = lcg(semente);
   const dia = hoje();
   const todos = S.membros;
-  const doDia = S.atribuicoes.filter(a => a.data === dia);
-  const manter = doDia.filter(a => a.status !== 'a_fazer' || a.origem === 'avulsa' || (ativ(a.atividadeId) || {}).pessoal);
+  const manter = S.atribuicoes.filter(a => a.data === dia).filter(a => a.status !== 'a_fazer' || a.origem === 'avulsa' || (ativ(a.atividadeId) || {}).pessoal);
   S.atividades.filter(a => a.ativo && a.pessoal).forEach(a => {
     todos.filter(crianca).forEach(m => {
       if (!manter.some(x => x.membroId === m.id && x.atividadeId === a.id))
@@ -604,8 +511,7 @@ function sortear(semente, silencioso){
   const sabado = new Date().getDay() === 6;
   const pool = [];
   S.atividades.filter(a => a.ativo && !a.pessoal && !a.avulsa && (!a.semanal || sabado)).forEach(a => {
-    const n = a.vezes || 1;
-    for (let i = 0; i < n; i++) pool.push({a, rotulo: a.rotulos ? a.rotulos[i] : ''});
+    for (let i = 0; i < (a.vezes || 1); i++) pool.push({a, rotulo: a.rotulos ? a.rotulos[i] : ''});
   });
   manter.filter(x => x.origem !== 'avulsa' && !(ativ(x.atividadeId) || {}).pessoal).forEach(x => {
     const k = pool.findIndex(p => p.a.id === x.atividadeId && (p.rotulo || '') === (x.rotulo || ''));
@@ -616,17 +522,16 @@ function sortear(semente, silencioso){
   const carga = {};
   todos.forEach(m => { carga[m.id] = m.pesoSemana + manter.filter(x => x.membroId === m.id).reduce((s, x) => s + (ativ(x.atividadeId)?.peso || 0), 0); });
   const ordem = embaralha(todos.slice(), rnd);
-  const novos = [], semDono = [];
+  const novos = [];
   let repeticoesEvitadas = 0;
   for (const it of pool){
     const jaHoje = id => manter.concat(novos).some(x => x.membroId === id && x.atividadeId === it.a.id);
     let eleg = ordem.filter(m => m.idade >= (it.a.idadeMin || 0));
-    if (!eleg.length){ semDono.push(it.a.nome); continue; }
+    if (!eleg.length) continue;
     const semRep = eleg.filter(m => !m.ontem.includes(it.a.id) && !jaHoje(m.id));
     if (semRep.length && semRep.length < eleg.length) repeticoesEvitadas++;
     if (semRep.length) eleg = semRep;
-    eleg = eleg.slice().sort((p, q) => carga[p.id] - carga[q.id]);
-    const m = eleg[0];
+    const m = eleg.slice().sort((p, q) => carga[p.id] - carga[q.id])[0];
     carga[m.id] += it.a.peso;
     novos.push({id:uid('at'), atividadeId:it.a.id, membroId:m.id, data:dia, status:'a_fazer', rotulo:it.rotulo, origem:'sorteio'});
   }
@@ -643,7 +548,7 @@ function sortear(semente, silencioso){
     carga[mx] -= p; carga[mn] += p; t.membroId = mn; trocas++;
   }
   S.atribuicoes = S.atribuicoes.filter(a => a.data !== dia).concat(manter, novos);
-  S.sorteio = {semente, quando:Date.now(), carga, diff: spread(), repeticoesEvitadas, trocas, semDono};
+  S.sorteio = {semente, quando:Date.now(), carga, diff: spread(), repeticoesEvitadas, trocas};
   if (!silencioso) audit('sorteio', `Novo sorteio balanceado (semente ${semente}): diferença de ${fmt(spread())}% entre a maior e a menor carga.`);
 }
 
@@ -652,14 +557,15 @@ function enviarRegistro(){
   const d = ui.draft; const atr = S.atribuicoes.find(a => a.id === d.atribId); const atv = ativ(atr.atividadeId); const m = membro(atr.membroId);
   const r = novoRegistro(atr, {antes:d.antes || null, depois:d.depois || null}, d.obs || '');
   audit('registro', `${m.nome} registrou “${atv.nome}” (${EVID[r.evid].label.toLowerCase()}).`, m.id);
+  ui.sheet = null; ui.draft = null;
   if (r.auto){
     aplicarAprovacao(r, 1, '', true);
-    toast(`Aprovação automática: +${fmt(r.pontos)} pontos`);
+    toast('Missão concluída!', `${atv.nome} rendeu +${fmt(r.pontos)} XP.`, 'check');
   } else {
     atr.status = 'pendente';
-    toast(`Enviado para ${quemAvalia(r)} aprovar`);
+    toast('Missão enviada!', `${quemAvalia(r)} vai avaliar “${atv.nome}”. +${fmt(calcPts(atv.peso, r.evid))} quando aprovada.`, 'camera');
   }
-  ui.sheet = null; ui.draft = null; save(); render();
+  save();
 }
 function aplicarAprovacao(r, q, just, auto){
   const atv = ativ(r.atividadeId); const m = membro(r.membroId); const atr = S.atribuicoes.find(a => a.id === r.atribId);
@@ -669,59 +575,60 @@ function aplicarAprovacao(r, q, just, auto){
   if (atr) atr.status = 'aprovado';
   m.xp += pts; m.pts += pts; m.cred += pts; m.tarefasTemp++; m.pesoTemp += atv.peso; m.tarefasSemana++;
   m.semanas[m.semanas.length-1] += pts;
-  S.meta.contrib[m.id] = (S.meta.contrib[m.id] || 0) + pts;
+  if (S.meta.membros.includes(m.id)) S.meta.contrib[m.id] = (S.meta.contrib[m.id] || 0) + pts;
   movimento(m.id, `${atv.nome} aprovado`, {xp:pts, cred:pts});
   audit('aprovação', `${auto ? 'Sistema' : membro(ui.who).nome} aprovou “${atv.nome}” de ${m.nome}: +${fmt(pts)}${q !== 1 ? ` (qualidade ×${fmt(q)}: ${just})` : ''}.`);
   const nDepois = nivel(m.xp).n;
-  if (nDepois > nAntes) setTimeout(() => toast(`${m.nome} subiu para o nível ${nDepois}!`), 1600);
+  if (nDepois > nAntes) setTimeout(() => toast('Nível novo!', `${m.nome} chegou ao nível ${nDepois}.`, 'xp'), 2200);
 }
 function aprovar(id){
   const r = S.registros.find(x => x.id === id); const q = +(ui.quali[id] || 1); const just = (ui.qj[id] || '').trim();
-  if (q !== 1 && !just){ toast('Ajuste de qualidade precisa de justificativa (RN14).'); return; }
+  if (q !== 1 && !just){ toast('Falta a justificativa', 'Ajuste de qualidade precisa de um motivo (RN14).', 'ampulheta'); return; }
   aplicarAprovacao(r, q, just, false);
-  toast(`Aprovado: +${fmt(r.pontos)} para ${membro(r.membroId).nome}`);
-  save(); render();
+  toast('Missão aprovada!', `${ativ(r.atividadeId).nome} rendeu +${fmt(r.pontos)} XP para ${membro(r.membroId).nome}.`, 'check');
+  save();
 }
 function rejeitar(id, motivo){
   const r = S.registros.find(x => x.id === id); const atr = S.atribuicoes.find(a => a.id === r.atribId);
   const final = r.status === 'contestado';
   r.status = 'rejeitado'; r.motivo = motivo; r.final = final; if (atr) atr.status = 'rejeitado';
   audit('rejeição', `${membro(ui.who).nome} ${final ? 'manteve a rejeição de' : 'rejeitou'} “${ativ(r.atividadeId).nome}” de ${membro(r.membroId).nome}: ${motivo}`);
-  ui.sheet = null; toast('Rejeição registrada com motivo'); save(); render();
+  ui.sheet = null; toast('Registro devolvido', `${membro(r.membroId).nome} vê o motivo e pode ${final ? 'refazer' : 'contestar ou refazer'}.`, 'ampulheta'); save();
 }
 function contestar(id, texto){
   const r = S.registros.find(x => x.id === id); const atr = S.atribuicoes.find(a => a.id === r.atribId);
   r.status = 'contestado'; r.contestacao = texto; r.avaliador = null; if (atr) atr.status = 'contestado';
   audit('contestação', `${membro(r.membroId).nome} contestou a rejeição de “${ativ(r.atividadeId).nome}”.`, r.membroId);
-  ui.sheet = null; toast(`Contestação enviada para ${quemAvalia(r)}`); save(); render();
+  ui.sheet = null; toast('Contestação enviada', `${quemAvalia(r)} decide em última instância.`, 'ampulheta'); save();
 }
 function resgatesNaSemana(recId){ return S.resgates.filter(x => x.recompensaId === recId && isoLocal(new Date(x.quando)) >= S.semana).length; }
 function bloqueioResgate(m, rec){
-  if (m.cred < rec.custo) return `Faltam ${fmt(rec.custo - m.cred)} créditos`;
-  if (rec.estoque != null && resgatesNaSemana(rec.id) >= rec.estoque) return 'Estoque da semana esgotado';
-  if (rec.minutos && m.minutos + m.usadoHoje + rec.minutos > S.config.limiteDiario) return `Passaria do limite de ${S.config.limiteDiario/60} h por dia`;
+  if (m.cred < rec.custo) return `faltam ${fmt(rec.custo - m.cred)}`;
+  if (rec.estoque != null && resgatesNaSemana(rec.id) >= rec.estoque) return 'esgotado na semana';
+  if (rec.minutos && m.minutos + m.usadoHoje + rec.minutos > S.config.limiteDiario) return `limite de ${S.config.limiteDiario/60} h/dia`;
   return null;
 }
 function resgatar(recId){
   const m = membro(ui.who); const rec = S.recompensas.find(r => r.id === recId);
-  const b = bloqueioResgate(m, rec); if (b){ toast(b); return; }
+  const b = bloqueioResgate(m, rec); if (b){ toast('Ainda não', b, 'bau'); return; }
   m.cred -= rec.custo;
   if (rec.minutos) m.minutos += rec.minutos;
   S.resgates.push({id:uid('rs'), recompensaId:rec.id, membroId:m.id, custo:rec.custo, quando:Date.now(), status: rec.minutos ? 'liberado' : 'aguardando entrega'});
   movimento(m.id, 'Resgate: ' + rec.nome, {cred:-rec.custo});
   audit('resgate', `${m.nome} resgatou “${rec.nome}” por ${rec.custo} créditos.`, m.id);
   ui.sheet = null;
-  toast(rec.minutos ? `+${rec.minutos} min liberados no computador` : `Pedido enviado para ${membro(rec.por)?.nome || 'os admins'} entregar`);
-  save(); render();
+  if (rec.minutos) toast('Tempo liberado!', `+${rec.minutos} min no computador. Seu XP continua igual.`, 'tela');
+  else toast('Tesouro resgatado!', `${membro(rec.por)?.nome || 'Os admins'} vai entregar “${rec.nome}”.`, 'bau');
+  save();
 }
 function converter(){
   const m = membro(ui.who); const {credBloco, minBloco, limiteDiario} = S.config;
-  if (m.cred < credBloco){ toast(`Você precisa de ${credBloco} créditos`); return; }
-  if (m.minutos + m.usadoHoje + minBloco > limiteDiario){ toast(`Limite diário de ${limiteDiario/60} h atingido (RN10)`); return; }
+  if (m.cred < credBloco){ toast('Ainda não', `Você precisa de ${credBloco} créditos.`, 'moeda'); return; }
+  if (m.minutos + m.usadoHoje + minBloco > limiteDiario){ toast('Limite do dia', `O máximo é ${limiteDiario/60} h por dia (RN10).`, 'tela'); return; }
   m.cred -= credBloco; m.minutos += minBloco;
   movimento(m.id, `Troca por ${minBloco} min de computador`, {cred:-credBloco});
   audit('tempo', `${m.nome} trocou ${credBloco} créditos por ${minBloco} min.`, m.id);
-  toast(`+${minBloco} min de computador`); save(); render();
+  toast('Tempo liberado!', `+${minBloco} min de computador.`, 'tela'); save();
 }
 function naoFeita(atrId){
   const a = S.atribuicoes.find(x => x.id === atrId); const atv = ativ(a.atividadeId); const m = membro(a.membroId);
@@ -730,16 +637,16 @@ function naoFeita(atrId){
   if (outros[0]){
     S.atribuicoes.push({id:uid('at'), atividadeId:a.atividadeId, membroId:outros[0].id, data:hoje(), status:'a_fazer', rotulo:'redistribuída', origem:'redistribuida'});
     S.sorteio.carga[outros[0].id] = (S.sorteio.carga[outros[0].id] || 0) + atv.peso;
-    audit('redistribuição', `“${atv.nome}” passou de ${m.nome} para ${outros[0].nome}, que fica com os pontos. Sem dívida nem saldo negativo (RN07).`);
-    toast(`Redistribuída para ${outros[0].nome}`);
+    audit('redistribuição', `“${atv.nome}” passou de ${m.nome} para ${outros[0].nome}, que fica com os pontos. Sem dívida (RN07).`);
+    toast('Missão redistribuída', `${outros[0].nome} assume “${atv.nome}” e fica com os pontos.`, 'd20');
   }
-  save(); render();
+  save();
 }
 function pagarMesada(mid, metodo){
   const m = membro(mid); const valor = mesadaDevida(m);
   S.pagamentos.push({id:uid('pg'), membroId:mid, semana:S.semana, valor, metodo, quando:Date.now(), por:ui.who});
   audit('mesada', `${membro(ui.who).nome} registrou a mesada de ${m.nome} (${brl(valor)}) como paga via ${metodo}.`);
-  toast(`Mesada de ${m.nome} registrada como paga`); save(); render();
+  toast('Mesada registrada', `${brl(valor)} para ${m.nome}, pagos via ${metodo}.`, 'moeda'); save();
 }
 
 /* ============ computador simulado (1 s = 1 min) ============ */
@@ -761,7 +668,7 @@ function pcTick(){
   const m = membro(ui.pc.owner); if (!m){ pcStop(); return; }
   if (ui.pc.soft > 0){
     ui.pc.soft--;
-    if (ui.pc.soft === 0){ pcStop('bloqueado: saldo esgotado'); toast('Computador bloqueado'); }
+    if (ui.pc.soft === 0){ pcStop('bloqueado: saldo esgotado'); toast('Tempo esgotado', 'O computador foi bloqueado. Conclua uma missão para liberar mais.', 'tela'); return; }
   } else {
     m.minutos = Math.max(0, m.minutos - 1); m.usadoHoje++;
     if (m.minutos === 0) ui.pc.soft = 5;
@@ -770,17 +677,20 @@ function pcTick(){
 }
 
 /* ============ interface ============ */
-const IC = {
-  hoje:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
-  admin:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
-  evolucao:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
-  premios:'<path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7"/><path d="M12 7H8a2.5 2.5 0 1 1 0-5c3 0 4 5 4 5zM12 7h4a2.5 2.5 0 1 0 0-5c-3 0-4 5-4 5z"/>',
-  tela:'<path d="M3 4h18v12H3zM8 20h8M12 16v4"/>',
-  meta:'<path d="M5 22V4M5 4h12l-2.5 4L17 12H5"/>'
+const TAB = {
+  hoje:{label:'Missões', icone:'vassoura'}, admin:{label:'Admin', icone:'check'}, evolucao:{label:'Evolução', icone:'trofeu'},
+  premios:{label:'Tesouro', icone:'bau'}, tela:{label:'Tela', icone:'tela'}, meta:{label:'Meta', icone:'casa'}
 };
-const LBL = {hoje:'Missões', admin:'Admin', evolucao:'Evolução', premios:'Prêmios', tela:'Tela', meta:'Meta'};
-function abas(m){ const t = ['hoje']; if (isAdmin(m.id)) t.push('admin'); t.push('evolucao','premios'); if (crianca(m)) t.push('tela'); t.push('meta'); return t; }
-const av = (m, cls = '') => `<span class="av ${cls}">${avatarSVG(m)}</span>`;
+function abas(m){ const t = ['hoje']; if (isAdmin(m.id)) t.push('admin'); t.push('evolucao','premios'); if (crianca(m)) t.push('tela'); t.push('meta'); return t.slice(0, 5); }
+const btn = (txt, act, o = {}) => `<button type="button" class="cq-btn cq-btn-${o.v || 'secondary'} cq-btn-${o.s || 'md'}" data-act="${act}"${o.id ? ` data-id="${o.id}"` : ''}${o.extra || ''}${o.dis ? ' disabled' : ''}>${o.ic ? icon(o.ic, o.s === 'sm' ? 16 : 24) : ''}<span>${txt}</span></button>`;
+const badge = (st, txt) => `<span class="cq-badge cq-badge-${st}">${st === 'pendente' ? icon('ampulheta', 12) : st === 'aprovado' ? icon('check', 12) : '<span class="cq-badge-dot" aria-hidden="true"></span>'}${txt || {pendente:'Pendente', aprovado:'Aprovado', rejeitado:'Rejeitado', contestado:'Contestado'}[st]}</span>`;
+const chip = (kind, v) => { const k = {creditos:['moeda','créditos'], xp:['xp','XP'], temporada:['trofeu','pontos de temporada'], tela:['tela','minutos de tela']}[kind]; return `<span class="cq-chip" title="${k[1]}">${icon(k[0], 16)}<span class="cq-num">${v}</span><span class="cq-sr"> ${k[1]}</span></span>`; };
+function statBar(kind, value, max, display, label){
+  const ic = {xp:'xp', temporada:'trofeu', creditos:'moeda', tela:'tela'}[kind];
+  const v = Math.max(0, Math.min(value, max)); const segs = 20; const cheios = Math.round(v / (max || 1) * segs);
+  return `<div class="cq-stat cq-stat-${kind}">${icon(ic, 16)}<div class="cq-stat-main"><div class="cq-stat-track" role="progressbar" aria-label="${label}" aria-valuemin="0" aria-valuemax="${max}" aria-valuenow="${v}">${Array.from({length:segs}, (_, i) => `<i class="${i < cheios ? 'on' : ''}"></i>`).join('')}</div><div class="cq-stat-legend"><span class="cq-num">${display}</span><span>${label}</span></div></div></div>`;
+}
+const panel = (title, ic, body, tone, action) => `<section class="cq-panel${tone ? ' cq-panel-' + tone : ''}"><header class="cq-panel-title">${ic ? icon(ic, 24) : ''}<h3>${title}</h3>${action || ''}</header><div class="cq-panel-body">${body}</div></section>`;
 
 function render(){
   const main = document.querySelector('.app-main'); const st = main ? main.scrollTop : 0; const antes = ui._k;
@@ -788,7 +698,9 @@ function render(){
   const m = membro(ui.who);
   const tabs = abas(m); if (!tabs.includes(ui.tab)) ui.tab = 'hoje';
   if (!ui.onb) ui.vis[m.id + ':' + ui.tab] = true;
-  document.getElementById('stage').innerHTML = renderSim() + `<div class="phone">${ui.onb ? renderOnb() : renderApp(m, tabs)}</div>`;
+  document.getElementById('root').dataset.theme = ui.tema;
+  document.body.classList.toggle('only-app', location.hash === '#app');
+  document.getElementById('stage').innerHTML = renderSim() + `<div class="phone px-frame">${ui.onb ? renderOnb() : renderApp(m, tabs)}</div>`;
   document.getElementById('guide').innerHTML = renderGuide();
   const nm = document.querySelector('.app-main');
   if (nm && antes === ui.tab + ui.who) nm.scrollTop = st;
@@ -796,83 +708,81 @@ function render(){
 }
 function renderSim(){
   return `<div class="simbar">
-    <span class="simbar-k" id="who-k">Ver o app como</span>
-    <div class="who" role="group" aria-labelledby="who-k">${S.membros.map(m => `<button data-act="who" data-id="${m.id}" aria-pressed="${m.id === ui.who}">${av(m)}${esc(m.nome)}${m.admin ? ' <span class="tag">admin</span>' : ''}</button>`).join('')}</div>
-    <div class="simtools"><button class="btn sm ghost" data-act="onb">Cadastrar do zero</button><button class="btn sm ghost" data-act="reset">Restaurar exemplo</button></div>
+    <span class="micro muted" id="who-k">Ver o app como</span>
+    <div class="who" role="group" aria-labelledby="who-k">${S.membros.map(m => `<button data-act="who" data-id="${m.id}" aria-pressed="${m.id === ui.who}">${av(m)}${esc(m.nome)}${m.admin ? ' <span class="adm">ADM</span>' : ''}</button>`).join('')}</div>
+    <div class="tools">
+      ${btn('Abrir só o app', 'modo-app', {v:'primary', s:'sm', ic:'tela'})}
+      ${btn(ui.tema === 'noite' ? 'Tema dia' : 'Tema noite', 'tema', {s:'sm'})}
+      ${btn('Cadastrar do zero', 'onb', {s:'sm'})}
+      ${btn('Restaurar exemplo', 'reset', {s:'sm'})}
+    </div>
   </div>`;
 }
 function renderApp(m, tabs){
   const views = {hoje:vHoje, admin:vAdmin, evolucao:vEvolucao, premios:vPremios, tela:vTela, meta:vMeta};
   const fila = filaDe(m.id).length;
   return `<header class="app-head">
-      <img class="px" src="../assets/brand/casa-quest-app-icon.svg" alt="CasaQuest">
-      <div><h1>${esc(S.familia.nome)}</h1><small>${esc(S.temporada.nome)} · admins: ${esc(nomes(admins().map(a => a.nome)))}</small></div>
+      <img src="${DS}assets/Logos/casa-quest-app-icon.svg" width="32" height="32" alt="CasaQuest" style="image-rendering:pixelated">
+      <div class="fam"><b>${esc(S.familia.nome)}</b><span>${esc(S.temporada.nome)}</span></div>
+      <button class="me" data-act="perfil" aria-label="Trocar perfil ou sair do modo app">${av(m)}</button>
     </header>
-    <main class="app-main ${simples(m) ? 'simples' : ''}">${views[ui.tab](m)}</main>
-    ${ui.tab === 'hoje' ? '<button class="btn fab" data-act="nova-tarefa" aria-label="Criar tarefa">+</button>' : ''}
-    <nav class="tabbar" aria-label="Seções">${tabs.map(t => `<button data-act="tab" data-tab="${t}" ${ui.tab === t ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${IC[t]}</svg>${LBL[t]}${(t === 'admin' || (t === 'hoje' && !isAdmin(m.id))) && fila ? `<span class="badge">${fila}</span>` : ''}</button>`).join('')}</nav>
+    <main class="app-main">${views[ui.tab](m)}</main>
+    ${ui.tab === 'hoje' ? `<span class="fab">${btn('', 'nova-tarefa', {v:'danger', ic:'vassoura', extra:' aria-label="Criar missão"'})}</span>` : ''}
+    <nav class="cq-tabbar" aria-label="Navegação principal">${tabs.map(t => { const b = (t === 'admin' || (t === 'hoje' && !isAdmin(m.id))) && fila ? `<b class="cq-tab-badge">${fila}</b>` : ''; return `<button type="button" class="cq-tab${ui.tab === t ? ' is-active' : ''}" data-act="tab" data-tab="${t}"${ui.tab === t ? ' aria-current="page"' : ''}>${icon(TAB[t].icone, 24)}<span>${TAB[t].label}</span>${b}</button>`; }).join('')}</nav>
     ${ui.sheet ? `<div class="sheet-wrap" data-act="fechar-fundo"><div class="sheet" role="dialog" aria-modal="true">${renderSheet()}</div></div>` : ''}
-    ${ui.toast ? `<div class="toast" role="status">${esc(ui.toast)}</div>` : ''}`;
+    ${ui.toast ? `<div class="toast"><div class="cq-dialog" role="status"><div class="cq-dialog-icon">${icon(ui.toast.ic || 'check', 48)}</div><div class="cq-dialog-text"><div class="cq-dialog-title">${esc(ui.toast.t)}</div><div>${esc(ui.toast.x)}</div></div><span class="cq-dialog-next" aria-hidden="true">▼</span></div></div>` : ''}`;
 }
 
-/* ---------- painel de status (estilo RPG) ---------- */
-function heroPanel(m){
+/* ---------- HeroHeader ---------- */
+function hero(m){
   const lv = nivel(m.xp); const sem = m.semanas; const atual = sem[sem.length-1], ant = sem[sem.length-2] || 0;
-  const bar = (k, pct, cor, v) => `<div class="bar"><span class="k">${k}</span><div class="track"><i style="width:${Math.max(0, Math.min(100, pct))}%;background:${cor}"></i></div><span class="v">${v}</span></div>`;
-  return `<section class="hero">
-    ${av(m,'lg')}
-    <div><h1>${esc(m.nome)}</h1><div class="sub">Nível ${lv.n} · ${esc(equipe(m.equipe)?.nome || '')}${m.admin ? ' · admin' : ''}</div><div class="sub">${dataLonga()}</div></div>
-    <div class="bars">
-      ${bar('XP', lv.pct, '#FFCD75', `${fmt(m.xp)} / ${fmt(lv.prox)}`)}
-      ${simples(m) ? '' : bar('Semana', ant ? atual/ant*100 : 100, '#7F9BF2', `${fmt(atual)} / ${fmt(ant)} pts`)}
-      ${crianca(m) ? bar('Tela', m.minutos/S.config.limiteDiario*100, '#EF7D57', `${m.minutos} min`) : ''}
+  return `<header class="cq-hero">
+    <div class="cq-hero-avatar" aria-hidden="true">${av(m)}</div>
+    <div class="cq-hero-info">
+      <div class="cq-hero-name">${esc(m.nome)}</div>
+      <div class="cq-hero-class"><span class="cq-level">NV ${lv.n}</span> ${esc(m.classe)}</div>
+      ${statBar('xp', lv.r, 200, `${lv.r}/200`, 'XP')}
+      ${simples(m) ? '' : statBar('temporada', atual, Math.max(ant, atual, 1), `${fmt(atual)}/${fmt(ant)}`, 'Semana')}
+      ${crianca(m) ? statBar('tela', m.minutos, S.config.limiteDiario, `${m.minutos} min`, 'Tempo de tela') : ''}
+      <div class="cq-hero-counters">${chip('creditos', fmt(m.cred))}${chip('temporada', fmt(m.pts))}${m.streak ? `<span class="cq-chip"><span class="cq-num">${m.streak}d</span> sequência</span>` : ''}</div>
     </div>
-    <div class="chips"><span class="chip">${COIN}${fmt(m.cred)} créditos</span><span class="chip">${FLAME}${m.streak} dias seguidos</span>${simples(m) ? '' : `<span class="chip">${SWORD}${m.tarefasSemana} missões na semana</span>`}</div>
-  </section>`;
+  </header>`;
 }
 
-/* ---------- Missões (Hoje) ---------- */
+/* ---------- Missões ---------- */
 function vHoje(m){
   const atrs = S.atribuicoes.filter(a => a.membroId === m.id && a.data === hoje() && a.status !== 'nao_feita').sort((a, b) => ord(a) - ord(b));
   const feitas = atrs.filter(a => a.status === 'aprovado').length;
   const avaliar = isAdmin(m.id) ? [] : filaDe(m.id);
   const feed = S.registros.filter(r => r.status === 'aprovado').sort((a, b) => b.quando - a.quando).slice(0, 4);
-  return `${heroPanel(m)}
-  ${simples(m) ? `<p class="note">Visão simplificada para quem tem menos de ${S.config.idadeSimples} anos.</p>` : ''}
-  ${avaliar.length ? `<div class="callout"><b>${avaliar.length} registro${avaliar.length > 1 ? 's' : ''} para você aprovar.</b> Quem cria a tarefa aprova a conclusão.</div>${avaliar.map(regCard).join('')}` : ''}
-  <h2 class="sec">Missões de hoje <span class="muted num">${feitas} de ${atrs.length} concluídas</span></h2>
-  ${atrs.length ? `<ul class="tasks">${atrs.map(taskRow).join('')}</ul>` : `<p class="note">Nenhuma tarefa para você hoje. Use o + para criar uma.</p>`}
-  ${simples(m) ? '' : `<h2 class="sec">Feed da família</h2>
-  <ul class="feed">${feed.map(r => { const a = membro(r.membroId); return `<li>${r.fotos.depois ? `<img src="${r.fotos.depois}" alt="">` : av(a)}<p><b>${esc(a.nome)}</b> concluiu ${esc(ativ(r.atividadeId)?.nome || '')} <span class="muted">· +${fmt(r.pontos)} · ${quando(r.quando)}</span></p></li>`; }).join('') || '<li><p class="muted">Ainda não há registros aprovados.</p></li>'}</ul>`}`;
+  return `${hero(m)}
+  ${simples(m) ? `<p class="cap" style="margin:8px 4px 0">Visão simplificada para quem tem menos de ${S.config.idadeSimples} anos.</p>` : ''}
+  ${avaliar.length ? `<div class="cq-section-label">Para você aprovar <span>quem cria a missão aprova</span></div>${avaliar.map(regCard).join('')}` : ''}
+  <div class="cq-section-label">Missões de hoje <span>${feitas} de ${atrs.length} concluídas</span></div>
+  ${atrs.length ? atrs.map(questItem).join('') : `<p class="cap" style="margin:0 4px">Nenhuma missão para você hoje. Use o botão vermelho para criar uma.</p>`}
+  ${simples(m) ? '' : `<div class="cq-section-label">Feed da família</div>
+  <ul class="feed">${feed.map(r => { const a = membro(r.membroId); return `<li class="px-frame">${r.fotos.depois ? `<img src="${r.fotos.depois}" alt="">` : av(a)}<p><b>${esc(a.nome)}</b> concluiu ${esc(ativ(r.atividadeId)?.nome || '')} <span class="gold lbl">+${fmt(r.pontos)}</span> <span class="cap">${quando(r.quando)}</span></p></li>`; }).join('') || '<li class="px-frame"><p class="cap">Ainda não há missões aprovadas.</p></li>'}</ul>`}`;
 }
 const ord = a => ({a_fazer:0, rejeitado:1, contestado:2, pendente:3, aprovado:4})[a.status] ?? 5;
-function taskRow(a){
+function questItem(a){
   const atv = ativ(a.atividadeId); if (!atv) return '';
   const r = a.registroId && S.registros.find(x => x.id === a.registroId);
-  const max = calcPts(atv.peso, 'antes_depois');
-  const w = atv.peso <= .5 ? 1 : atv.peso <= 1 ? 2 : atv.peso <= 2 ? 3 : 4;
-  let pill, acao = '', why = '';
-  switch (a.status){
-    case 'pendente': pill = `<span class="pill wait">Com ${esc(quemAvalia(r))}</span>`; break;
-    case 'aprovado': pill = `<span class="pill ok">+${fmt(r ? r.pontos : 0)} pts</span>`; break;
-    case 'contestado': pill = `<span class="pill wait">Em contestação</span>`; break;
-    case 'rejeitado':
-      pill = `<span class="pill no">Rejeitada</span>`;
-      why = `<div class="why"><b>Motivo:</b> ${esc(r.motivo)}${r.final ? ' · decisão final dos admins' : ''}</div>`;
-      acao = r.final ? `<button class="btn sm ghost" data-act="registrar" data-id="${a.id}">Refazer</button>` : `<button class="btn sm ghost" data-act="contestar" data-id="${r.id}">Contestar</button> <button class="link" data-act="registrar" data-id="${a.id}">Refazer</button>`;
-      break;
-    default:
-      pill = `<span class="pill neutral">A fazer</span>`;
-      acao = `<button class="btn sm" data-act="registrar" data-id="${a.id}">Registrar</button>`;
-  }
-  const extra = a.origem === 'avulsa' ? ` · criada por ${esc(membro(a.criadoPor)?.nome || '')}` : a.origem === 'sorteio' ? ' · sorteada' : a.origem === 'redistribuida' ? ' · redistribuída' : '';
-  return `<li class="task w${w} ${a.status === 'aprovado' ? 'done' : ''}">
-    <div><h3>${esc(atv.nome)}${a.rotulo && a.rotulo !== 'redistribuída' ? ` <span class="muted" style="font-weight:500">· ${esc(a.rotulo)}</span>` : ''}</h3>
-    <div class="meta">Peso ${fmt(atv.peso)} · até ${fmt(max)} pts · ${EVID[atv.evid].label.toLowerCase()} · até ${esc(atv.prazo)}${extra}</div></div>
-    <div class="row end">${acao || pill}</div>
-    ${acao ? `<div class="meta">${pill}</div>` : ''}
-    ${why}
-  </li>`;
+  const st = a.status === 'a_fazer' ? 'aberta' : a.status;
+  const aberta = st === 'aberta';
+  const pts = st === 'aprovado' && r ? r.pontos : calcPts(atv.peso, atv.evid);
+  const origem = a.origem === 'avulsa' ? `criada por ${esc(membro(a.criadoPor)?.nome || '')}` : a.origem === 'sorteio' ? 'sorteada' : a.origem === 'redistribuida' ? 'redistribuída' : '';
+  let extra = '';
+  if (st === 'pendente') extra = `<span>Com ${esc(quemAvalia(r))}</span>`;
+  if (st === 'contestado') extra = `<span>Em contestação com ${esc(quemAvalia(r))}</span>`;
+  if (st === 'rejeitado') extra = `<span><b>Motivo:</b> ${esc(r.motivo)}${r.final ? ' (decisão final)' : ''}</span><div class="row">${r.final ? '' : btn('Contestar', 'contestar', {s:'sm', id:r.id})}${btn('Refazer', 'registrar', {s:'sm', v:'blue', id:a.id})}</div>`;
+  return `<div class="quest-wrap"><article class="cq-quest cq-quest-${st} ${pesoClasse(atv.peso)}">
+    <button type="button" class="cq-quest-go" ${aberta ? `data-act="registrar" data-id="${a.id}" aria-label="Registrar ${esc(atv.nome)}"` : `aria-disabled="true" aria-label="Registrada"`}>${icon(st === 'aprovado' ? 'check' : aberta ? 'camera' : st === 'rejeitado' ? 'camera' : 'ampulheta', 24)}</button>
+    <div class="cq-quest-main">
+      <div class="cq-quest-title">${icon(atv.icone || 'vassoura', 16)}${esc(atv.nome)}${a.rotulo && a.rotulo !== 'redistribuída' ? ` <span class="cap">· ${esc(a.rotulo)}</span>` : ''}</div>
+      <div class="cq-quest-meta"><span>Peso ${fmt(atv.peso)}</span><span>${EVID[atv.evid].label}</span>${aberta ? `<span>até ${esc(atv.prazo)}</span>` : ''}${origem ? `<span>${origem}</span>` : ''}${aberta ? '' : badge(st)}</div>
+    </div>
+    <div class="cq-quest-side"><span class="cq-quest-pts cq-num">+${fmt(pts)}</span></div>
+  </article>${extra ? `<div class="quest-extra">${extra}</div>` : ''}</div>`;
 }
 
 /* ---------- Admin ---------- */
@@ -883,175 +793,163 @@ function vAdmin(m){
   const doDia = S.atribuicoes.filter(a => a.data === dia && a.status !== 'nao_feita');
   const filhos = S.membros.filter(crianca);
   const mc = S.config.mesada;
-  return `<section class="hello"><h1>Painel dos admins</h1><p class="muted">${esc(nomes(admins().map(a => a.nome)))} administram juntos. Ninguém aprova o próprio registro.</p></section>
-  <h2 class="sec">Aprovações <span class="muted">${fila.length} na fila</span></h2>
-  ${fila.length ? fila.map(regCard).join('') : '<p class="note">Fila vazia. Atividades leves são aprovadas automaticamente e entram na auditoria por amostragem.</p>'}
-  ${proprios.length ? `<p class="note">${proprios.length} registro seu aguarda ${esc(quemAvalia(proprios[0]))}.</p>` : ''}
+  return `<div class="cq-section-label" style="margin-top:4px">Painel dos admins <span>${esc(nomes(admins().map(a => a.nome)))}</span></div>
+  ${panel(`Aprovações (${fila.length})`, 'ampulheta', `${fila.length ? fila.map(regCard).join('') : '<p class="formula">Fila vazia. Missões leves são aprovadas automaticamente e entram na auditoria por amostragem.</p>'}
+    ${proprios.length ? `<p class="cap">Registro seu aguarda ${esc(quemAvalia(proprios[0]))}: ninguém aprova o próprio registro (RN03).</p>` : ''}`, 'gold')}
 
-  ${filhos.length ? `<h2 class="sec">Mesada <span class="muted">semana de ${dataCurta(S.semana)}</span></h2>
-  <div class="card">
-    <div class="seg" role="group" aria-label="Formato da mesada"><button data-act="mesada-modo" data-v="fixo" aria-pressed="${mc.modo === 'fixo'}">Valor fixo</button><button data-act="mesada-modo" data-v="conversao" aria-pressed="${mc.modo === 'conversao'}">Conversão de pontos</button></div>
-    <p class="note">${mc.modo === 'fixo' ? `${brl(mc.valor)} por semana para quem cumprir pelo menos ${mc.minPct}% das tarefas.` : `${brl(mc.taxa)} por ponto ganho na semana.`} O app calcula e registra; o pagamento acontece fora dele, por Pix ou dinheiro (RN20).</p>
-    <div class="scroll-x"><table class="t"><thead><tr><th>Filho</th><th class="r">${mc.modo === 'fixo' ? 'Cumpriu' : 'Pontos'}</th><th class="r">Devido</th><th></th></tr></thead><tbody>
-    ${filhos.map(x => { const p = pagamentoDaSemana(x.id, S.semana); const v = mesadaDevida(x); return `<tr><td>${esc(x.nome)}</td><td class="r">${mc.modo === 'fixo' ? Math.round(cumprimento(x)*100) + '%' : fmt(x.semanas[x.semanas.length-1])}</td><td class="r">${brl(p ? p.valor : v)}</td><td class="r">${p ? `<span class="pill ok">pago · ${esc(p.metodo)}</span>` : v > 0 ? `<button class="link" data-act="pagar" data-id="${x.id}" data-m="Pix">Pix</button> · <button class="link" data-act="pagar" data-id="${x.id}" data-m="dinheiro">Dinheiro</button>` : '<span class="muted">nada devido</span>'}</td></tr>`; }).join('')}
-    </tbody></table></div>
-  </div>` : ''}
+  ${filhos.length ? panel(`Mesada · semana de ${dataCurta(S.semana)}`, 'moeda', `
+    <div class="seg" role="group" aria-label="Formato da mesada"><button data-act="mesada-modo" data-v="fixo" aria-pressed="${mc.modo === 'fixo'}">Valor fixo</button><button data-act="mesada-modo" data-v="conversao" aria-pressed="${mc.modo === 'conversao'}">Por pontos</button></div>
+    <p class="formula">${mc.modo === 'fixo' ? `${brl(mc.valor)} por semana para quem cumprir ${mc.minPct}% das missões.` : `${brl(mc.taxa)} por ponto ganho na semana.`} O app calcula e registra; o pagamento é feito por fora, por Pix ou dinheiro (RN20).</p>
+    <div class="scroll-x"><table class="t"><thead><tr><th>Filho</th><th class="r">${mc.modo === 'fixo' ? 'Cumpriu' : 'Pontos'}</th><th class="r">Valor</th><th class="r">Pagar</th></tr></thead><tbody>
+    ${filhos.map(x => { const p = pagamentoDaSemana(x.id, S.semana); const v = mesadaDevida(x); return `<tr><td>${esc(x.nome)}</td><td class="r">${mc.modo === 'fixo' ? Math.round(cumprimento(x)*100) + '%' : fmt(x.semanas[x.semanas.length-1])}</td><td class="r gold">${brl(p ? p.valor : v)}</td><td class="r">${p ? badge('aprovado', 'Pago') : v > 0 ? `<button class="cq-btn cq-btn-ghost sm-link" data-act="pagar" data-id="${x.id}" data-m="Pix">Pix</button> · <button class="cq-btn cq-btn-ghost sm-link" data-act="pagar" data-id="${x.id}" data-m="dinheiro">Dinheiro</button>` : '<span class="cap">ainda não</span>'}</td></tr>`; }).join('')}
+    </tbody></table></div>`) : ''}
 
-  <h2 class="sec">Distribuição de hoje <span class="muted">sorteio balanceado</span></h2>
-  <div class="card">
-    <div class="scroll-x"><table class="t"><thead><tr><th>Membro</th><th>Tarefas de hoje</th><th class="r">Carga</th></tr></thead><tbody>
-    ${S.membros.map(x => `<tr><td>${esc(x.nome)}</td><td>${doDia.filter(a => a.membroId === x.id).map(a => `<div class="spread"><span>${esc(ativ(a.atividadeId)?.nome)}${a.rotulo ? ` <span class="muted">(${esc(a.rotulo)})</span>` : ''}</span>${a.status === 'a_fazer' ? `<button class="link" data-act="nao-feita" data-id="${a.id}">não feita</button>` : `<span class="muted" style="font-size:11px">${{aprovado:'feita', pendente:'pendente', rejeitado:'rejeitada', contestado:'contestada'}[a.status] || ''}</span>`}</div>`).join('') || '<span class="muted">—</span>'}</td><td class="r">${fmt(sort.carga[x.id] || 0)}</td></tr>`).join('')}
+  ${panel('Sorteio do dia', 'd20', `
+    <div class="scroll-x"><table class="t"><thead><tr><th>Membro</th><th>Missões</th><th class="r">Carga</th></tr></thead><tbody>
+    ${S.membros.map(x => `<tr><td>${esc(x.nome)}</td><td>${doDia.filter(a => a.membroId === x.id).map(a => `<div class="split"><span>${esc(ativ(a.atividadeId)?.nome)}${a.rotulo ? ` <span class="cap">(${esc(a.rotulo)})</span>` : ''}</span>${a.status === 'a_fazer' ? `<button class="cq-btn cq-btn-ghost sm-link" data-act="nao-feita" data-id="${a.id}">não feita</button>` : `<span class="cap">${{aprovado:'feita', pendente:'pendente', rejeitado:'rejeitada', contestado:'contestada'}[a.status] || ''}</span>`}</div>`).join('') || '<span class="cap">—</span>'}</td><td class="r cq-num">${fmt(sort.carga[x.id] || 0)}</td></tr>`).join('')}
     </tbody></table></div>
     <p class="formula">Diferença entre a maior e a menor carga da semana: <b>${fmt(sort.diff)}%</b> (limite ${S.config.limiteSorteio}%) · ${sort.repeticoesEvitadas} repetições evitadas · semente ${sort.semente}</p>
-    <p class="note">Maior peso primeiro, para quem tem menos carga na semana; respeita idade mínima; ninguém repete a tarefa de ontem. Tarefa não feita é redistribuída e quem fizer ganha os pontos, sem dívida (RN07).</p>
-    <div class="row"><button class="btn sm" data-act="sortear">Sortear de novo</button><button class="btn sm ghost" data-act="atividades">Atividades e pesos</button></div>
-  </div>
+    <p class="cap">Maior peso primeiro, para quem tem menos carga na semana, respeitando a idade mínima e sem repetir a missão de ontem. Missão não feita vai para outra pessoa, que fica com os pontos, sem dívida (RN07).</p>
+    <div class="row">${btn('Sortear', 'sortear', {v:'blue', s:'sm', ic:'d20'})}${btn('Pesos', 'atividades', {s:'sm'})}</div>`)}
 
-  ${filhos.length ? `<h2 class="sec">Tempo de computador <span class="muted">simulado no MVP</span></h2>
-  <div class="card">
+  ${filhos.length ? panel('Tempo de tela', 'tela', `
     <div class="scroll-x"><table class="t"><thead><tr><th>Criança</th><th class="r">Saldo</th><th class="r">Usado hoje</th></tr></thead><tbody>
-    ${filhos.map(x => `<tr><td>${esc(x.nome)}</td><td class="r">${x.minutos} min</td><td class="r">${x.usadoHoje} min</td></tr>`).join('')}
+    ${filhos.map(x => `<tr><td>${esc(x.nome)}</td><td class="r cyan">${x.minutos} min</td><td class="r">${x.usadoHoje} min</td></tr>`).join('')}
     </tbody></table></div>
     <div class="grid2">
-      <label class="f" for="cfg-limite">Limite diário<select id="cfg-limite" data-cfg="limiteDiario">${[60,120,180,240].map(v => `<option value="${v}" ${S.config.limiteDiario === v ? 'selected' : ''}>${v/60} h</option>`).join('')}</select></label>
+      <label class="f" for="cfg-limite">Limite por dia<select id="cfg-limite" data-cfg="limiteDiario">${[60,120,180,240].map(v => `<option value="${v}" ${S.config.limiteDiario === v ? 'selected' : ''}>${v/60} h</option>`).join('')}</select></label>
       <label class="f" for="cfg-fator">Conversão<select id="cfg-fator" data-cfg="minBloco">${[10,20,30].map(v => `<option value="${v}" ${S.config.minBloco === v ? 'selected' : ''}>${S.config.credBloco} créd. = ${v} min</option>`).join('')}</select></label>
     </div>
-    <button class="btn sm ghost" data-act="emergencia">Liberação de emergência com PIN</button>
-  </div>` : ''}
+    <div>${btn('Emergência', 'emergencia', {s:'sm', ic:'ampulheta'})}</div>`, 'blue') : ''}
 
-  <h2 class="sec">Auditoria</h2>
-  <ul class="feed">${S.auditoria.slice(0, 8).map(e => `<li><p><b>${esc(e.tipo)}</b> · ${esc(e.texto)} <span class="muted">· ${quando(e.quando)}</span></p></li>`).join('')}</ul>`;
+  ${panel('Auditoria', 'casa', `<ul class="feed">${S.auditoria.slice(0, 8).map(e => `<li style="margin:0;background:var(--surface-200)"><p><span class="micro gold">${esc(e.tipo)}</span> ${esc(e.texto)} <span class="cap">${quando(e.quando)}</span></p></li>`).join('')}</ul>`)}`;
 }
 function regCard(r){
   const m = membro(r.membroId), atv = ativ(r.atividadeId);
   const q = +(ui.quali[r.id] || 1); const pts = calcPts(atv.peso, r.evid, q);
   const cont = r.status === 'contestado';
-  return `<article class="card">
-    <div class="spread"><div class="row">${av(m)}<div><b>${esc(m.nome)}</b> · ${esc(atv.nome)}<br><span class="note">${quando(r.quando)} · ${EVID[r.evid].label.toLowerCase()}</span></div></div>
-    <span class="pill ${cont ? 'no' : 'wait'}">${cont ? 'Contestação' : 'Pendente'}</span></div>
-    <div class="photos">${r.fotos.antes ? `<figure><img src="${r.fotos.antes}" alt="Foto do antes"><figcaption>Antes</figcaption></figure>` : ''}${r.fotos.depois ? `<figure><img src="${r.fotos.depois}" alt="Foto do depois"><figcaption>Depois</figcaption></figure>` : ''}${!r.fotos.antes && !r.fotos.depois ? '<div class="nophoto">Registro sem foto</div>' : ''}</div>
+  return `<article class="card px-frame">
+    <div class="split"><div class="row">${av(m)}<div><b>${esc(m.nome)}</b> · ${esc(atv.nome)}<br><span class="cap">${quando(r.quando)} · ${EVID[r.evid].label}</span></div></div>${badge(cont ? 'contestado' : 'pendente')}</div>
+    <div class="photos">${r.fotos.antes ? `<figure><img src="${r.fotos.antes}" alt="Foto do antes"><figcaption class="cq-badge cq-badge-pendente">Antes</figcaption></figure>` : ''}${r.fotos.depois ? `<figure><img src="${r.fotos.depois}" alt="Foto do depois"><figcaption class="cq-badge cq-badge-aprovado">Depois</figcaption></figure>` : ''}${!r.fotos.antes && !r.fotos.depois ? '<div class="nophoto">Registro sem foto</div>' : ''}</div>
     ${r.obs ? `<p class="formula">“${esc(r.obs)}”</p>` : ''}
-    ${cont ? `<div class="callout warn"><b>Rejeitado antes:</b> ${esc(r.motivo)}<br><b>${esc(m.nome)} contestou:</b> ${esc(r.contestacao)}</div>` : ''}
+    ${cont ? `<div class="quest-extra" style="margin:0"><span><b>Motivo da rejeição:</b> ${esc(r.motivo)}</span><span><b>${esc(m.nome)} contestou:</b> ${esc(r.contestacao)}</span></div>` : ''}
     <div class="grid2">
       <label class="f" for="q-${r.id}">Qualidade<select id="q-${r.id}" data-quali="${r.id}">${[0.8,0.9,1,1.1,1.2].map(v => `<option value="${v}" ${q === v ? 'selected' : ''}>×${fmt(v)}${v === 1 ? ' (padrão)' : ''}</option>`).join('')}</select></label>
       ${q !== 1 ? `<label class="f" for="qj-${r.id}">Justificativa<input type="text" id="qj-${r.id}" data-qj="${r.id}" value="${esc(ui.qj[r.id] || '')}" placeholder="Obrigatória"></label>` : '<span></span>'}
     </div>
-    <p class="formula num">${fmt(atv.peso)} × 10 × ${fmt(EVID[r.evid].mult)} evidência × ${fmt(q)} qualidade = <b>${fmt(pts)} pts</b></p>
-    <div class="row"><button class="btn good" data-act="aprovar" data-id="${r.id}">Aprovar +${fmt(pts)}</button><button class="btn bad" data-act="rejeitar" data-id="${r.id}">${cont ? 'Manter rejeição' : 'Rejeitar'}</button></div>
+    <p class="formula">${fmt(atv.peso)} × 10 × ${fmt(EVID[r.evid].mult)} evidência × ${fmt(q)} qualidade = <b class="gold lbl">+${fmt(pts)}</b></p>
+    <div class="row">${btn('Aprovar', 'aprovar', {v:'primary', s:'sm', id:r.id, ic:'check'})}${btn(cont ? 'Manter' : 'Rejeitar', 'rejeitar', {v:'danger', s:'sm', id:r.id})}</div>
   </article>`;
 }
 
-/* ---------- Evolução individual + ranking por equipe ---------- */
+/* ---------- Evolução + ranking por equipe ---------- */
 function vEvolucao(m){
   const sem = m.semanas; const n = sem.length; const atual = sem[n-1], ant = sem[n-2] || 0;
   const diff = atual - ant; const melhor = Math.max(...sem.slice(0, -1));
-  const topo = Math.max(10, ...sem) ; const escala = Math.ceil(topo / 20) * 20;
+  const escala = Math.ceil(Math.max(10, ...sem) / 20) * 20;
   const inicioSem = i => addDias(S.semana, -7*(n-1-i));
   const chart = `<div class="chart" role="img" aria-label="Pontos por semana nas últimas ${n} semanas">
-      <div class="grid" style="bottom:${50}%"><span>${escala/2}</span></div><div class="grid" style="bottom:100%"><span>${escala}</span></div>
-      ${sem.map((v, i) => `<div class="colb ${i === n-1 ? 'now' : ''}" tabindex="0"><i style="height:${Math.max(2, v/escala*100)}%"></i>${i >= n-2 ? `<span class="lbl" style="bottom:${v/escala*100}%">${fmt(v)}</span>` : ''}<span class="tip">Semana de ${dataCurta(inicioSem(i))}: ${fmt(v)} pts</span></div>`).join('')}
+      <div class="grid" style="bottom:50%"><span>${escala/2}</span></div><div class="grid" style="bottom:100%"><span>${escala}</span></div>
+      ${sem.map((v, i) => `<div class="colb ${i === n-1 ? 'now' : ''}" tabindex="0"><i style="height:${Math.max(2, v/escala*100)}%"></i>${i >= n-2 ? `<span class="v" style="bottom:${v/escala*100}%">${fmt(v)}</span>` : ''}<span class="tip">Semana de ${dataCurta(inicioSem(i))}: ${fmt(v)} pontos</span></div>`).join('')}
     </div>
     <div class="xl">${sem.map((v, i) => `<span>${i === n-1 ? 'esta' : dataCurta(inicioSem(i))}</span>`).join('')}</div>`;
   const eqs = S.equipes.map(e => { const ms = S.membros.filter(x => x.equipe === e.id); return {e, ms, tot: ms.reduce((s, x) => s + x.pts, 0), tar: ms.reduce((s, x) => s + x.tarefasTemp, 0)}; })
     .filter(x => x.ms.length).sort((a, b) => b.tot - a.tot || b.tar - a.tar);
   const dias = Math.max(0, diasEntre(hoje(), S.temporada.fim));
-  const metaTot = S.membros.reduce((s, x) => s + (S.meta.contrib[x.id] || 0), 0);
-  return `<section class="hello"><h1>Sua evolução</h1><p class="muted">Você contra você mesmo, semana a semana.</p></section>
-  <div class="card">
-    <div class="evo-top"><span class="evo-big num">${fmt(atual)}</span><span class="muted">pontos nesta semana</span>
-      <span class="pill ${diff >= 0 ? 'ok' : 'info'}">${diff >= 0 ? `+${fmt(diff)} sobre a semana passada` : `faltam ${fmt(-diff)} para igualar a semana passada`}</span></div>
+  const metaTot = S.meta.membros.reduce((s, id) => s + (S.meta.contrib[id] || 0), 0);
+  return `<div class="cq-section-label" style="margin-top:4px">Sua evolução <span>você contra você mesmo</span></div>
+  <div class="card px-frame">
+    <div class="split"><span><span class="evo-big">${fmt(atual)}</span> <span class="cap">pontos nesta semana</span></span>
+      <span class="${diff >= 0 ? 'green' : 'muted'}" style="font-weight:600">${diff >= 0 ? `+${fmt(diff)} sobre a semana passada` : `faltam ${fmt(-diff)} para igualar a semana passada`}</span></div>
     ${chart}
-    <p class="note">${atual > melhor ? 'Esta já é a sua melhor semana!' : `Sua melhor semana teve ${fmt(melhor)} pontos.`} A semana fecha no domingo.</p>
+    <p class="cap">${atual > melhor ? 'Esta já é a sua melhor semana!' : `Sua melhor semana teve ${fmt(melhor)} pontos.`} A semana fecha no domingo.</p>
   </div>
   <div class="tiles">
-    <div class="tile"><span>Sequência</span><b>${m.streak} dias</b></div>
-    <div class="tile"><span>Missões na semana</span><b>${m.tarefasSemana}</b></div>
-    <div class="tile"><span>Nível</span><b>${nivel(m.xp).n}</b></div>
+    <div class="tile px-frame"><span>Sequência</span><b>${m.streak}d</b></div>
+    <div class="tile px-frame"><span>Missões</span><b>${m.tarefasSemana}</b></div>
+    <div class="tile px-frame"><span>Nível</span><b>${nivel(m.xp).n}</b></div>
   </div>
-  <h2 class="sec">Ranking por equipe <span class="muted">${esc(S.temporada.nome)} · ${dias} dias</span></h2>
-  ${eqs.length > 1 ? `<ol class="rank">${eqs.map((x, i) => `<li class="${x.e.id === m.equipe ? 'me' : ''}"><span class="pos">${i+1}</span><span class="crest" style="background:${x.e.cor}">${esc(x.e.nome.split(' ').pop()[0])}</span><div><div class="nm">${esc(x.e.nome)}${x.e.id === m.equipe ? ' · sua equipe' : ''}</div><div class="sub">${esc(nomes(x.ms.map(y => y.nome)))}</div></div><div class="pts num">${fmt(x.tot)}<small>${x.tar} tarefas</small></div></li>`).join('')}</ol>
-  <div class="callout"><b>Prêmio da equipe vencedora:</b> ${esc(eqs[0].e.premio)}. O ranking soma os pontos de temporada da equipe e não compara pessoas.</div>`
-  : `<div class="card"><b>${esc(eqs[0]?.e.nome || 'Equipe')}</b><p class="note">Com uma equipe só, o ranking vira a posição em relação à meta coletiva: ${fmt(metaTot)} de ${fmt(S.meta.alvo)} pontos.</p><div class="bigmeter"><i style="width:${Math.min(100, metaTot/S.meta.alvo*100)}%"></i></div></div>`}`;
+  <div class="cq-section-label">Ranking de equipes <span>${dias} dias de temporada</span></div>
+  ${eqs.length > 1 ? `<div class="px-frame" style="margin:4px">${eqs.map((x, i) => `<div class="cq-rank${i === 0 ? ' cq-rank-top1' : ''}${x.e.id === m.equipe ? ' cq-rank-me' : ''}"><span class="cq-rank-pos cq-num">${i+1}</span><span class="team-crest" style="background:${x.e.cor}" aria-hidden="true">${esc(x.e.nome.split(' ').pop()[0])}</span><span class="cq-rank-name">${esc(x.e.nome)}${x.e.id === m.equipe ? '<em> (sua)</em>' : ''}<br><span class="cap">${esc(nomes(x.ms.map(y => y.nome)))}</span></span><span class="cq-rank-lvl">${x.tar} missões</span><span class="cq-rank-pts cq-num">${fmt(x.tot)}</span></div>`).join('')}</div>
+  <div class="cq-dialog"><div class="cq-dialog-icon">${icon('trofeu', 48)}</div><div class="cq-dialog-text"><div class="cq-dialog-title">Prêmio da temporada</div><div>A equipe vencedora ${esc(eqs[0].e.premio.toLowerCase())}.</div></div><span class="cq-dialog-next" aria-hidden="true">▼</span></div>
+  <p class="cap" style="margin:0 4px">O ranking soma os pontos de temporada de cada equipe e não compara pessoas.</p>`
+  : `<div class="card px-frame"><b>${esc(eqs[0]?.e.nome || 'Equipe')}</b><p class="formula">Com uma equipe só, o ranking vira a posição em relação à meta: ${fmt(metaTot)} de ${fmt(S.meta.alvo)} pontos.</p></div>`}`;
 }
 
-/* ---------- Prêmios ---------- */
+/* ---------- Tesouro ---------- */
 function vPremios(m){
   const ext = S.extrato.filter(x => x.membroId === m.id).slice(0, 8);
   const grupo = h => `<div class="rgrid">${S.recompensas.filter(r => r.horizonte === h).map(r => {
-    const b = bloqueioResgate(m, r);
-    return `<div class="reward"><h3>${esc(r.nome)}</h3>
-      <div class="cost num">${COIN}${fmt(r.custo)}</div>
-      <div class="meter"><i style="width:${Math.min(100, m.cred/r.custo*100)}%"></i></div>
-      <div class="meta">${b ? esc(b) : 'Pode resgatar agora'}${r.estoque != null ? ` · ${Math.max(0, r.estoque - resgatesNaSemana(r.id))}/${r.estoque} na semana` : ''}</div>
-      <button class="btn sm ${b ? 'ghost' : 'gold'}" data-act="resgatar" data-id="${r.id}" ${b ? 'disabled' : ''}>Resgatar</button></div>`;
+    const b = bloqueioResgate(m, r); const est = r.estoque != null ? Math.max(0, r.estoque - resgatesNaSemana(r.id)) : null;
+    return `<button type="button" class="cq-reward cq-reward-${r.horizonte}" data-act="resgatar" data-id="${r.id}" ${b ? 'disabled' : ''}>
+      <span class="cq-reward-tag">${HORIZ[r.horizonte]}</span>${icon(r.icone || 'bau', 48)}
+      <span class="cq-reward-title">${esc(r.nome)}</span>
+      <span class="cq-reward-cost">${icon('moeda', 16)}<span class="cq-num">${fmt(r.custo)}</span></span>
+      ${est != null ? `<span class="cq-reward-stock">${est === 0 ? 'Esgotado' : est + ' restantes'}</span>` : ''}
+      ${b && b !== 'esgotado na semana' ? `<span class="cq-reward-falta">${esc(b)}</span>` : ''}</button>`;
   }).join('')}</div>`;
   const mc = S.config.mesada; const pago = pagamentoDaSemana(m.id, S.semana); const antP = pagamentoDaSemana(m.id, addDias(S.semana, -7));
-  return `<section class="hello"><h1>Prêmios</h1><p class="muted">Você tem <b class="num">${fmt(m.cred)} créditos</b>. Resgatar não mexe no seu XP nem na sua evolução.</p></section>
-  ${crianca(m) ? `<div class="card"><div class="spread"><b>Mesada da semana</b><span class="cost num">${brl(pago ? pago.valor : mesadaDevida(m))}</span></div>
-    <p class="note">${mc.modo === 'fixo' ? `${brl(mc.valor)} se cumprir ${mc.minPct}% das tarefas. Você está em ${Math.round(cumprimento(m)*100)}%.` : `${brl(mc.taxa)} por ponto da semana.`} ${pago ? `Paga via ${esc(pago.metodo)}.` : 'Os admins pagam por Pix ou em dinheiro no fim da semana.'}${antP ? ` Semana passada: ${brl(antP.valor)} pagos.` : ''}</p></div>` : ''}
-  <h2 class="sec">${HORIZ.curto} <span class="muted">dia a dia</span></h2>${grupo('curto')}
-  <h2 class="sec">${HORIZ.medio} <span class="muted">no mês</span></h2>${grupo('medio')}
-  <h2 class="sec">${HORIZ.longo} <span class="muted">trimestre ou ano</span></h2>${grupo('longo')}
-  <button class="card" style="text-align:left;cursor:pointer" data-act="tab" data-tab="meta"><b>Meta coletiva: ${esc(S.meta.nome)}</b><span class="note">Todos somam pontos; cada um precisa contribuir com o mínimo. Ver progresso.</span></button>
-  ${isAdmin(m.id) ? `<button class="btn ghost" data-act="nova-recompensa">Oferecer recompensa</button>` : ''}
-  <h2 class="sec">Extrato <span class="muted">movimentos de pontos</span></h2>
-  <div class="card scroll-x"><table class="t"><thead><tr><th>Movimento</th><th class="r">XP</th><th class="r">Créd.</th></tr></thead><tbody>
-  ${ext.map(x => `<tr><td>${esc(x.desc)}<br><span class="note">${quando(x.quando)} · ${x.cred < 0 ? 'débito' : 'crédito'}</span></td><td class="r">${x.xp ? '+' + fmt(x.xp) : '—'}</td><td class="r" style="color:${x.cred < 0 ? 'var(--bad)' : 'var(--good)'}">${x.cred > 0 ? '+' : ''}${fmt(x.cred)}</td></tr>`).join('') || '<tr><td colspan="3" class="muted">Sem movimentos ainda.</td></tr>'}
+  return `<div class="cq-section-label" style="margin-top:4px">Tesouro <span class="row">${chip('creditos', fmt(m.cred))}</span></div>
+  ${crianca(m) ? `<div class="card px-frame"><div class="split"><b>Mesada da semana</b><span class="gold lbl">${brl(pago ? pago.valor : mesadaDevida(m))}</span></div>
+    <p class="formula">${mc.modo === 'fixo' ? `${brl(mc.valor)} se cumprir ${mc.minPct}% das missões. Você está em ${Math.round(cumprimento(m)*100)}%.` : `${brl(mc.taxa)} por ponto da semana.`} ${pago ? `Paga via ${esc(pago.metodo)}.` : 'Os admins pagam no fim da semana, por Pix ou em dinheiro.'}${antP ? ` Semana passada: ${brl(antP.valor)}.` : ''}</p></div>` : ''}
+  <div class="cq-section-label">${HORIZ.curto}</div>${grupo('curto')}
+  <div class="cq-section-label">${HORIZ.medio}</div>${grupo('medio')}
+  <div class="cq-section-label">${HORIZ.longo}</div>${grupo('longo')}
+  <p class="cap" style="margin:4px">Resgatar gasta só créditos: seu XP e sua evolução continuam iguais (RN08).</p>
+  ${isAdmin(m.id) ? `<div>${btn('Oferecer recompensa', 'nova-recompensa', {s:'sm', ic:'bau'})}</div>` : ''}
+  <div class="cq-section-label">Extrato <span>movimentos de pontos</span></div>
+  <div class="card px-frame scroll-x"><table class="t"><thead><tr><th>Movimento</th><th class="r">XP</th><th class="r">Créd.</th></tr></thead><tbody>
+  ${ext.map(x => `<tr><td>${esc(x.desc)}<br><span class="cap">${quando(x.quando)} · ${x.cred < 0 ? 'débito' : 'crédito'}</span></td><td class="r cq-num">${x.xp ? '+' + fmt(x.xp) : '—'}</td><td class="r cq-num ${x.cred < 0 ? 'muted' : 'gold'}">${x.cred > 0 ? '+' : ''}${fmt(x.cred)}</td></tr>`).join('') || '<tr><td colspan="3" class="cap">Sem movimentos ainda.</td></tr>'}
   </tbody></table></div>`;
 }
 
-/* ---------- Tela (computador) ---------- */
+/* ---------- Tela (computador simulado) ---------- */
 function vTela(m){
   const {credBloco, minBloco, limiteDiario} = S.config;
   const rodando = ui.pc.run && ui.pc.owner === m.id;
   let tela;
   if (rodando){
     tela = `<div class="screen desk"><div class="win"><div class="wbar">Trabalho de geografia.doc</div><div class="body">Os biomas brasileiros são...</div></div>
-      <span class="clock ${m.minutos <= 5 ? 'warn' : ''}">${m.minutos} min</span>
-      ${m.minutos <= 5 && !ui.pc.soft ? `<div class="soft" style="inset:auto 8px 8px 8px;border-radius:4px;padding:8px;background:rgba(239,125,87,.95)"><p style="color:#1A1C2C;font-weight:700">Faltam ${m.minutos} min. Salve o que estiver fazendo.</p></div>` : ''}
-      ${ui.pc.soft ? `<div class="soft"><h3>Tempo esgotado</h3><p>Salvando seu trabalho. O computador bloqueia em ${ui.pc.soft} s.</p></div>` : ''}</div>`;
+      <span class="clock ${m.minutos <= 5 ? 'warn' : ''}">${icon('tela', 12)}${m.minutos} min</span>
+      ${m.minutos <= 5 && !ui.pc.soft ? `<div class="soft bar"><p style="color:var(--on-gold);font-weight:600">Faltam ${m.minutos} min. Salve o que estiver fazendo.</p></div>` : ''}
+      ${ui.pc.soft ? `<div class="soft"><span class="t-md" style="color:var(--dialog-accent)">Tempo esgotado</span><p>Salvando seu trabalho. O computador bloqueia em ${ui.pc.soft} s.</p></div>` : ''}</div>`;
   } else if (m.minutos > 0){
-    tela = `<div class="screen locked"><h3>Pronto para usar</h3><p>Você tem ${m.minutos} min liberados.</p><button class="btn sm gold" data-act="pc-start">Desbloquear computador</button></div>`;
+    tela = `<div class="screen">${icon('tela', 48)}<span class="t-md">Pronto para usar</span><p>Você tem ${m.minutos} min liberados.</p>${btn('Desbloquear', 'pc-start', {v:'primary', s:'sm'})}</div>`;
   } else {
-    tela = `<div class="screen locked"><svg class="lock-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><h3>Computador bloqueado</h3>
+    tela = `<div class="screen">${icon('ampulheta', 48)}<span class="t-md">Bloqueado</span>
       <p>${m.cred >= credBloco ? `Troque ${credBloco} créditos por ${minBloco} min ou conclua uma missão.` : `Faltam ${credBloco - m.cred} créditos para liberar ${minBloco} min. Conclua uma missão.`}</p></div>`;
   }
-  return `<section class="hello"><h1>Tempo de computador</h1><p class="muted">Simulação no app (decisão do MVP). Aqui 1 segundo vale 1 minuto.</p></section>
-  <div class="monitor">${tela}<div class="stand"></div></div>
-  <div class="row">${rodando ? `<button class="btn ghost" data-act="pc-stop">Desligar e guardar o saldo</button>` : ''}<button class="btn ${rodando ? 'ghost' : ''}" data-act="converter" ${m.cred < credBloco ? 'disabled' : ''}>Trocar ${credBloco} créditos por ${minBloco} min</button></div>
-  <div class="tiles">
-    <div class="tile"><span>Saldo</span><b>${m.minutos} min</b></div>
-    <div class="tile"><span>Usado hoje</span><b>${m.usadoHoje} min</b></div>
-    <div class="tile"><span>Créditos</span><b>${fmt(m.cred)}</b></div>
-  </div>
-  <p class="note">Limite de ${limiteDiario/60} h por dia, agenda ${esc(S.config.agenda)}. Aviso nos 5 minutos finais e bloqueio suave para salvar o trabalho. Só o tempo de uso é medido.</p>`;
+  return `<div class="cq-section-label" style="margin-top:4px">Tempo de computador <span>simulado no app</span></div>
+  <div class="monitor px-frame">${tela}<div class="stand"></div></div>
+  <div class="row">${rodando ? btn('Desligar', 'pc-stop', {s:'sm'}) : ''}${btn(`Trocar ${credBloco} por ${minBloco} min`, 'converter', {v:'blue', s:'sm', ic:'moeda', dis: m.cred < credBloco})}</div>
+  <div class="card px-frame">
+    ${statBar('tela', m.minutos, limiteDiario, `${m.minutos} min`, 'Saldo de tela')}
+    ${statBar('creditos', m.usadoHoje, limiteDiario, `${m.usadoHoje}/${limiteDiario}`, 'Usado hoje')}
+    <p class="cap">Aqui 1 segundo vale 1 minuto. Limite de ${limiteDiario/60} h por dia, agenda ${esc(S.config.agenda)}, aviso nos 5 minutos finais e bloqueio suave para salvar o trabalho. Só o tempo de uso é medido.</p>
+  </div>`;
 }
 
-/* ---------- Meta coletiva ---------- */
+/* ---------- Meta coletiva (GoalProgress) ---------- */
 function vMeta(m){
-  const g = S.meta; const ms = S.membros;
+  const g = S.meta; const ms = g.membros.map(membro).filter(Boolean);
   const tot = ms.reduce((s, x) => s + (g.contrib[x.id] || 0), 0);
-  const min = g.alvo * g.minPct / 100;
+  const min = Math.round(g.alvo * g.minPct / 100);
   const dias = Math.max(0, diasEntre(hoje(), g.prazo)); const decorr = diasEntre(g.inicio, hoje());
   const falta = Math.max(0, g.alvo - tot);
-  const abaixo = ms.filter(x => (g.contrib[x.id] || 0) < min);
-  const escala = Math.max(min * 2, ...ms.map(x => g.contrib[x.id] || 0)) * 1.1;
   const ritmo = dias ? Math.ceil(falta / dias) : falta;
   const ritmoAtual = decorr ? Math.round(tot / decorr) : 0;
-  return `<section class="hello"><h1>${esc(g.nome)}</h1><p class="muted">Meta coletiva · ${dias} dias restantes de ${diasEntre(g.inicio, g.prazo)}</p></section>
-  <div class="card">
-    <div class="spread"><span class="goal-big num">${fmt(tot)}</span><span class="muted num">de ${fmt(g.alvo)} pontos</span></div>
-    <div class="bigmeter" role="img" aria-label="${Math.round(tot/g.alvo*100)}% da meta"><i style="width:${Math.min(100, tot/g.alvo*100)}%"></i></div>
-    <p class="formula num">Faltam <b>${fmt(falta)}</b> pontos: <b>${ritmo} por dia</b> a partir de hoje. Ritmo atual: ${ritmoAtual} por dia${ritmoAtual >= ritmo ? ', dentro do prazo.' : ', abaixo do necessário.'}</p>
+  const cores = ['cq-m0','cq-m1','cq-m2','cq-m3'];
+  const fora = S.membros.filter(x => !g.membros.includes(x.id));
+  return `<div class="cq-section-label" style="margin-top:4px">Meta coletiva <span>${dias} dias restantes</span></div>
+  <div class="cq-goal px-frame" style="margin:4px">
+    <div class="cq-goal-head">${icon('bau', 36)}<div><div class="cq-goal-title">${esc(g.nome)}</div><div class="cq-goal-sub"><span class="cq-num">${fmt(tot)}/${fmt(g.alvo)}</span> pontos · até ${dataCurta(g.prazo)}</div></div></div>
+    <div class="cq-goal-track" role="progressbar" aria-valuemin="0" aria-valuemax="${g.alvo}" aria-valuenow="${tot}" aria-label="${esc(g.nome)}">${ms.map((x, i) => `<i class="${cores[i % 4]}" style="width:${Math.min(100, (g.contrib[x.id] || 0) / g.alvo * 100)}%"></i>`).join('')}</div>
+    <ul class="cq-goal-members">${ms.map((x, i) => { const c = g.contrib[x.id] || 0; const ok = c >= min; return `<li><i class="${cores[i % 4]}" aria-hidden="true"></i><span>${esc(x.nome)}</span><span class="cq-num">${fmt(c)}</span><span class="${ok ? 'cq-goal-ok' : 'cq-goal-falta'}">${ok ? 'mínimo ok' : `faltam ${fmt(min - c)}`}</span></li>`; }).join('')}</ul>
   </div>
-  <h2 class="sec">Contribuição de cada um <span class="muted">mínimo ${fmt(min)} (${g.minPct}%)</span></h2>
-  <div class="card">${ms.map(x => { const c = g.contrib[x.id] || 0; return `<div class="contrib"><span>${esc(x.nome)}</span><div class="cbar"><i class="${c < min ? 'low' : ''}" style="width:${c/escala*100}%"></i><span class="mk" style="left:${min/escala*100}%" title="mínimo"></span></div><span class="num" style="text-align:right">${fmt(c)}</span></div>`; }).join('')}
-  <p class="note">A linha marca a contribuição mínima. O prêmio só sai com todos acima dela, então ninguém carrega o grupo sozinho.</p></div>
-  <h2 class="sec">Para liberar o prêmio</h2>
-  <ul class="conds card">
-    <li class="${tot >= g.alvo ? 'ok' : ''}">Somar ${fmt(g.alvo)} pontos até ${dataCurta(g.prazo)} (faltam ${fmt(falta)})</li>
-    <li class="${abaixo.length ? '' : 'ok'}">Todos com pelo menos ${fmt(min)} pontos${abaixo.length ? ` (falta: ${abaixo.map(x => `${esc(x.nome)} +${fmt(min - (g.contrib[x.id] || 0))}`).join(', ')})` : ''}</li>
-  </ul>`;
+  <div class="card px-frame">
+    <p class="formula">Cada um precisa de <b>${fmt(min)}</b> pontos (${g.minPct}% do alvo) para o prêmio sair. Faltam <b>${fmt(falta)}</b> no total: <b>${ritmo} por dia</b> a partir de hoje. Ritmo atual: ${ritmoAtual} por dia${ritmoAtual >= ritmo ? ', dentro do prazo.' : ', abaixo do necessário.'}</p>
+    ${fora.length && S.tipo === 'familia' ? `<p class="cap">Nesta meta jogam os filhos. ${esc(nomes(fora.map(x => x.nome)))} ${fora.length > 1 ? 'acompanham' : 'acompanha'} e ${fora.length > 1 ? 'combinam' : 'combina'} o prêmio.</p>` : ''}
+  </div>`;
 }
 
 /* ---------- folhas (diálogos) ---------- */
@@ -1064,71 +962,77 @@ function renderSheet(){
     const ok = req === 'antes_depois' ? !!(d.antes && d.depois) : req === 'depois' ? !!d.depois : true;
     const pts = calcPts(atv.peso, evid);
     const avr = avaliadorPara(a);
-    const slot = (k, lbl, obrig) => `<div class="slot"><span class="slot-k">${lbl} <em>${obrig ? 'obrigatória' : 'opcional'}</em></span>
-      ${d[k] ? `<figure style="margin:0"><img src="${d[k]}" alt="Foto ${lbl.toLowerCase()}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px"></figure><button class="link" data-act="limpar-foto" data-k="${k}">Trocar foto</button>`
-      : `<label class="drop" for="f-${k}">Tirar ou escolher foto</label><input class="vh" type="file" id="f-${k}" accept="image/*" capture="environment" data-file="${k}"><button class="link" data-act="foto-exemplo" data-k="${k}">Usar foto de exemplo</button>`}</div>`;
-    return `<h2>${esc(atv.nome)}</h2>
-      <p class="note">Peso ${fmt(atv.peso)} · evidência pedida: ${EVID[req].label.toLowerCase()} · ${avr === 'auto' ? 'aprovação automática' : `quem aprova: ${esc(avr ? membro(avr).nome : nomes(admins().filter(x => x.id !== a.membroId).map(x => x.nome)))}`}</p>
+    const slot = (k, lbl, obrig) => `<div class="slot"><span><b>${lbl}</b> <span class="cap">${obrig ? 'obrigatória' : 'opcional'}</span></span>
+      ${d[k] ? `<img src="${d[k]}" alt="Foto ${lbl.toLowerCase()}" style="width:100%;aspect-ratio:4/3;object-fit:cover"><button class="cq-btn cq-btn-ghost sm-link" data-act="limpar-foto" data-k="${k}">Trocar foto</button>`
+      : `<label class="drop" for="f-${k}">${icon('camera', 36)}Tirar ou escolher foto</label><input class="vh" type="file" id="f-${k}" accept="image/*" capture="environment" data-file="${k}"><button class="cq-btn cq-btn-ghost sm-link" data-act="foto-exemplo" data-k="${k}">Usar foto de exemplo</button>`}</div>`;
+    return `<h2 class="t-md">${esc(atv.nome)}</h2>
+      <p class="formula">Peso ${fmt(atv.peso)} · evidência: ${EVID[req].label.toLowerCase()} · ${avr === 'auto' ? 'aprovação automática' : `quem aprova: ${esc(avr ? membro(avr).nome : nomes(admins().filter(x => x.id !== a.membroId).map(x => x.nome)))}`}</p>
       <div class="photos">${slot('antes','Antes', req === 'antes_depois')}${slot('depois','Depois', req !== 'nenhuma')}</div>
       <label class="f" for="obs">Comentário (opcional)<input type="text" id="obs" data-draft="obs" value="${esc(d.obs || '')}" placeholder="Ex.: troquei o saco do lixo também"></label>
-      <div class="callout"><span class="num">${fmt(atv.peso)} × 10 × ${fmt(EVID[evid].mult)} (${EVID[evid].label.toLowerCase()}) = <b>${fmt(pts)} pontos</b></span>${req === 'depois' && !d.antes ? `<br><span class="note">Com a foto do antes vale ${fmt(calcPts(atv.peso,'antes_depois'))}.</span>` : ''}</div>
-      <p class="note">Data, hora e autor entram no registro. A foto fica visível só para o grupo e é apagada em 90 dias (RN18).</p>
-      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="enviar" ${ok ? '' : 'disabled'}>${avr === 'auto' ? 'Concluir' : 'Marcar como concluída'}</button></div>`;
+      <div class="cq-dialog"><div class="cq-dialog-icon">${icon('xp', 36)}</div><div class="cq-dialog-text"><div class="cq-dialog-title">Esta missão vale +${fmt(pts)}</div><div>${fmt(atv.peso)} × 10 × ${fmt(EVID[evid].mult)} (${EVID[evid].label.toLowerCase()})${req === 'depois' && !d.antes ? `. Com a foto do antes, vale +${fmt(calcPts(atv.peso,'antes_depois'))}.` : '.'}</div></div></div>
+      <p class="cap">Data, hora e autor entram no registro. A foto fica só com a família e é apagada em 90 dias (RN18).</p>
+      <div class="row" style="justify-content:flex-end">${btn('Cancelar', 'fechar', {s:'sm'})}${btn('Registrar', 'enviar', {v:'primary', s:'sm', ic:'camera', dis:!ok})}</div>`;
+  }
+  if (s.t === 'perfil'){
+    return `<h2 class="t-md">Trocar perfil</h2>
+      <div class="who">${S.membros.map(m => `<button data-act="who" data-id="${m.id}" aria-pressed="${m.id === ui.who}">${av(m)}${esc(m.nome)}${m.admin ? ' <span class="adm">ADM</span>' : ''}</button>`).join('')}</div>
+      <div class="row">${btn(ui.tema === 'noite' ? 'Tema dia' : 'Tema noite', 'tema', {s:'sm'})}${location.hash === '#app' ? btn('Sair do modo app', 'sair-app', {s:'sm', v:'blue'}) : btn('Abrir só o app', 'modo-app', {s:'sm', v:'blue'})}</div>
+      <div class="row" style="justify-content:flex-end">${btn('Fechar', 'fechar', {s:'sm'})}</div>`;
   }
   if (s.t === 'nova-tarefa'){
     const eu = membro(ui.who);
-    return `<h2>Criar tarefa</h2><p class="note">Atribua a você ou a alguém. Quem cria aprova a conclusão; se for para você mesmo, ${esc(nomes(admins().filter(x => x.id !== eu.id).map(x => x.nome)) || 'outro membro')} aprova.</p>
-      <label class="f" for="nt-nome">Título<input type="text" id="nt-nome" placeholder="Ex.: Regar as plantas da varanda"></label>
+    return `<h2 class="t-md">Criar missão</h2><p class="formula">Para você ou para alguém. Quem cria aprova a conclusão; se for para você, ${esc(nomes(admins().filter(x => x.id !== eu.id).map(x => x.nome)) || 'outra pessoa')} aprova.</p>
+      <label class="f" for="nt-nome">Nome da missão<input type="text" id="nt-nome" placeholder="Ex.: Regar as plantas da varanda"></label>
       <div class="grid2"><label class="f" for="nt-para">Para<select id="nt-para">${S.membros.map(x => `<option value="${x.id}" ${x.id === eu.id ? 'selected' : ''}>${x.id === eu.id ? 'Eu' : esc(x.nome)}</option>`).join('')}</select></label>
-      <label class="f" for="nt-peso">Peso<select id="nt-peso">${PESOS.map(p => `<option value="${p}" ${p === 1 ? 'selected' : ''}>${fmt(p)} (${p*10} pts)</option>`).join('')}</select></label>
+      <label class="f" for="nt-peso">Peso<select id="nt-peso">${PESOS.map(p => `<option value="${p}" ${p === 1 ? 'selected' : ''}>${fmt(p)} (+${p*10})</option>`).join('')}</select></label>
       <label class="f" for="nt-evid">Evidência<select id="nt-evid">${Object.entries(EVID).map(([k, v]) => `<option value="${k}" ${k === 'depois' ? 'selected' : ''}>${v.label}</option>`).join('')}</select></label></div>
       <p class="err" id="sheet-err"></p>
-      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="salvar-tarefa">Criar e atribuir</button></div>`;
+      <div class="row" style="justify-content:flex-end">${btn('Cancelar', 'fechar', {s:'sm'})}${btn('Criar', 'salvar-tarefa', {v:'primary', s:'sm'})}</div>`;
   }
   if (s.t === 'rejeitar'){
     const r = S.registros.find(x => x.id === s.id);
-    return `<h2>${r.status === 'contestado' ? 'Manter a rejeição' : 'Rejeitar registro'}</h2>
-      <p class="note">${esc(membro(r.membroId).nome)} · ${esc(ativ(r.atividadeId).nome)}. O motivo é obrigatório e aparece para quem fez a tarefa.</p>
-      <div class="tags">${['A foto não mostra o resultado','Faltou parte da tarefa','Foto repetida de outro dia'].map(t => `<button class="tagbtn" data-act="motivo-rapido" data-v="${t}">${t}</button>`).join('')}</div>
+    return `<h2 class="t-md">${r.status === 'contestado' ? 'Manter rejeição' : 'Rejeitar registro'}</h2>
+      <p class="formula">${esc(membro(r.membroId).nome)} · ${esc(ativ(r.atividadeId).nome)}. O motivo é obrigatório e aparece para quem fez a missão.</p>
+      <div class="row">${['A foto não mostra o resultado','Faltou parte da missão','Foto repetida de outro dia'].map(t => `<button class="cq-chip" style="cursor:pointer;font:inherit;font-size:14px" data-act="motivo-rapido" data-v="${t}">${t}</button>`).join('')}</div>
       <label class="f" for="motivo">Motivo<textarea id="motivo"></textarea></label><p class="err" id="sheet-err"></p>
-      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn bad" data-act="confirmar-rejeicao" data-id="${r.id}">Rejeitar</button></div>`;
+      <div class="row" style="justify-content:flex-end">${btn('Cancelar', 'fechar', {s:'sm'})}${btn('Rejeitar', 'confirmar-rejeicao', {v:'danger', s:'sm', id:r.id})}</div>`;
   }
   if (s.t === 'contestar'){
     const r = S.registros.find(x => x.id === s.id);
-    return `<h2>Contestar rejeição</h2><p class="note">Motivo dado: “${esc(r.motivo)}”. Os admins decidem em última instância.</p>
+    return `<h2 class="t-md">Contestar</h2><p class="formula">Motivo dado: “${esc(r.motivo)}”. Os admins decidem em última instância.</p>
       <label class="f" for="cont">Sua justificativa<textarea id="cont" placeholder="Ex.: as panelas estavam de molho, lavei depois."></textarea></label><p class="err" id="sheet-err"></p>
-      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="confirmar-contestacao" data-id="${r.id}">Enviar contestação</button></div>`;
+      <div class="row" style="justify-content:flex-end">${btn('Cancelar', 'fechar', {s:'sm'})}${btn('Contestar', 'confirmar-contestacao', {v:'blue', s:'sm', id:r.id})}</div>`;
   }
   if (s.t === 'resgatar'){
     const rec = S.recompensas.find(x => x.id === s.id); const m = membro(ui.who);
-    return `<h2>Resgatar “${esc(rec.nome)}”?</h2>
-      <p class="formula num">Créditos: ${fmt(m.cred)} → <b>${fmt(m.cred - rec.custo)}</b>. XP e pontos da semana continuam iguais.</p>
-      ${rec.minutos ? `<p class="note">Os ${rec.minutos} minutos entram no saldo do computador na hora.</p>` : `<p class="note">${esc(membro(rec.por)?.nome || 'Os admins')} recebe o pedido para entregar.</p>`}
-      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn gold" data-act="confirmar-resgate" data-id="${rec.id}">Resgatar por ${fmt(rec.custo)}</button></div>`;
+    return `<h2 class="t-md">Resgatar tesouro</h2>
+      <div class="cq-dialog"><div class="cq-dialog-icon">${icon(rec.icone || 'bau', 48)}</div><div class="cq-dialog-text"><div class="cq-dialog-title">${esc(rec.nome)}</div><div>Créditos: ${fmt(m.cred)} para ${fmt(m.cred - rec.custo)}. Seu XP e sua evolução continuam iguais.</div></div></div>
+      <p class="formula">${rec.minutos ? `Os ${rec.minutos} minutos entram no saldo do computador na hora.` : `${esc(membro(rec.por)?.nome || 'Os admins')} recebe o pedido para entregar.`}</p>
+      <div class="row" style="justify-content:flex-end">${btn('Cancelar', 'fechar', {s:'sm'})}${btn(`Resgatar por ${fmt(rec.custo)}`, 'confirmar-resgate', {v:'primary', s:'sm', id:rec.id, ic:'moeda'})}</div>`;
   }
   if (s.t === 'emergencia'){
-    return `<h2>Liberação de emergência</h2><p class="note">Para prova on-line ou trabalho escolar. Fica registrada na auditoria e pode passar do limite diário.</p>
+    return `<h2 class="t-md">Emergência</h2><p class="formula">Para prova on-line ou trabalho escolar. Fica na auditoria e pode passar do limite diário.</p>
       <div class="grid2"><label class="f" for="em-m">Para<select id="em-m">${S.membros.filter(crianca).map(x => `<option value="${x.id}">${esc(x.nome)}</option>`).join('')}</select></label>
       <label class="f" for="em-min">Minutos<select id="em-min"><option>15</option><option selected>30</option><option>60</option></select></label></div>
       <label class="f" for="em-j">Justificativa<input type="text" id="em-j" placeholder="Ex.: prova de matemática on-line"></label>
-      <label class="f" for="em-pin">PIN dos admins <span class="note">(no protótipo: 1234)</span><input type="password" id="em-pin" inputmode="numeric" maxlength="6"></label>
+      <label class="f" for="em-pin">PIN dos admins <span class="cap">(no protótipo: 1234)</span><input type="password" id="em-pin" inputmode="numeric" maxlength="6"></label>
       <p class="err" id="sheet-err"></p>
-      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="confirmar-emergencia">Liberar</button></div>`;
+      <div class="row" style="justify-content:flex-end">${btn('Cancelar', 'fechar', {s:'sm'})}${btn('Liberar', 'confirmar-emergencia', {v:'blue', s:'sm'})}</div>`;
   }
   if (s.t === 'atividades'){
-    return `<h2>Atividades e pesos</h2><p class="note">Ajuste de peso vale para os próximos registros e fica na auditoria.</p>
-      ${S.atividades.filter(a => !a.avulsa).map(a => `<div class="tpl"><input type="checkbox" id="at-${a.id}" data-ativo="${a.id}" ${a.ativo ? 'checked' : ''} aria-label="Ativa"><label for="at-${a.id}"><b>${esc(a.nome)}</b><br><span class="note">${a.freq} · ${EVID[a.evid].label.toLowerCase()} · ${a.valid === 'auto' ? 'automática' : 'aprovada'}${a.idadeMin ? ` · ${a.idadeMin}+` : ''}${a.pessoal ? ' · de cada criança' : ' · sorteada'}</span></label><select data-peso="${a.id}" aria-label="Peso de ${esc(a.nome)}">${PESOS.map(p => `<option value="${p}" ${a.peso === p ? 'selected' : ''}>${fmt(p)}</option>`).join('')}</select></div>`).join('')}
-      <div class="row end"><button class="btn" data-act="fechar">Pronto</button></div>`;
+    return `<h2 class="t-md">Pesos das missões</h2><p class="formula">O peso novo vale para os próximos registros e fica na auditoria.</p>
+      ${S.atividades.filter(a => !a.avulsa).map(a => `<div class="tpl px-frame-2"><input type="checkbox" id="at-${a.id}" data-ativo="${a.id}" ${a.ativo ? 'checked' : ''} aria-label="Ativa"><label for="at-${a.id}"><b>${esc(a.nome)}</b><br><span class="cap">${a.freq} · ${EVID[a.evid].label} · ${a.valid === 'auto' ? 'automática' : 'aprovada'}${a.idadeMin ? ` · ${a.idadeMin}+` : ''}${a.pessoal ? ' · de cada criança' : ' · sorteada'}</span></label><select data-peso="${a.id}" aria-label="Peso de ${esc(a.nome)}">${PESOS.map(p => `<option value="${p}" ${a.peso === p ? 'selected' : ''}>${fmt(p)}</option>`).join('')}</select></div>`).join('')}
+      <div class="row" style="justify-content:flex-end">${btn('Pronto', 'fechar', {v:'primary', s:'sm'})}</div>`;
   }
   if (s.t === 'recompensa'){
-    return `<h2>Oferecer recompensa</h2><p class="note">Mudanças valem a partir da próxima temporada (regra combinada antes).</p>
+    return `<h2 class="t-md">Oferecer recompensa</h2><p class="formula">Mudanças valem a partir da próxima temporada (regra combinada antes).</p>
       <label class="f" for="nr-nome">Nome<input type="text" id="nr-nome" placeholder="Ex.: Escolher o almoço de domingo"></label>
       <div class="grid2"><label class="f" for="nr-custo">Custo em créditos<input type="number" id="nr-custo" value="40" min="5"></label>
       <label class="f" for="nr-h">Horizonte<select id="nr-h">${Object.entries(HORIZ).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
       <label class="f" for="nr-est">Estoque por semana<input type="number" id="nr-est" placeholder="sem limite" min="1"></label>
       <label class="f" for="nr-min">Minutos de tela<input type="number" id="nr-min" placeholder="0" min="0"></label></div>
       <p class="err" id="sheet-err"></p>
-      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="salvar-recompensa">Oferecer</button></div>`;
+      <div class="row" style="justify-content:flex-end">${btn('Cancelar', 'fechar', {s:'sm'})}${btn('Oferecer', 'salvar-recompensa', {v:'primary', s:'sm', ic:'bau'})}</div>`;
   }
   return '';
 }
@@ -1146,90 +1050,110 @@ function onbPadrao(tipo){
 }
 function renderOnb(){
   const o = ui.onb;
-  const passos = `<div class="onb-steps" aria-label="Passo ${o.passo} de 3">${[1,2,3].map(n => `<span class="${n <= o.passo ? 'on' : ''}"></span>`).join('')}</div>`;
+  const passos = `<div class="steps-bar" aria-label="Passo ${o.passo} de 3">${[1,2,3].map(n => `<span class="${n <= o.passo ? 'on' : ''}"></span>`).join('')}</div>`;
   let corpo;
   if (o.passo === 1){
-    corpo = `<h1 style="font-size:24px">Comece sua guilda</h1><p class="muted">Leva menos de 10 minutos. Tudo fica privado ao grupo.</p>
+    corpo = `<div style="display:grid;place-items:center;padding:8px 0">${logo('casa-quest-logo-empilhado', 120, 'CasaQuest')}</div>
+      <h1 class="t-md">Comece sua guilda</h1><p class="formula">Leva menos de 10 minutos. Tudo fica só com o seu grupo.</p>
       <div class="seg" role="group" aria-label="Tipo de grupo"><button data-act="onb-tipo" data-v="familia" aria-pressed="${o.tipo === 'familia'}">Família</button><button data-act="onb-tipo" data-v="casal" aria-pressed="${o.tipo === 'casal'}">Casal</button></div>
-      <p class="note">${o.tipo === 'casal' ? 'Casal: um aprova o registro do outro (avaliação cruzada).' : 'Família: pai, mãe ou responsáveis aprovam os registros dos filhos. Pode haver mais de um admin.'}</p>
+      <p class="cap">${o.tipo === 'casal' ? 'Casal: um aprova o registro do outro.' : 'Família: pai, mãe ou responsáveis aprovam os registros dos filhos. Pode haver mais de um admin.'}</p>
       <label class="f" for="o-fam">Nome do grupo<input type="text" id="o-fam" data-onb="familia" value="${esc(o.familia)}"></label>`;
   } else if (o.passo === 2){
-    corpo = `<h1 style="font-size:22px">Atividades e pesos</h1><p class="muted">Tarefa pesada vale mais. Pontos base = peso × 10.</p>
-      ${o.atv.map((a, i) => { const t = TPL.find(x => x.id === a.id); return `<div class="tpl"><input type="checkbox" id="o-a${i}" data-onb-atv="${i}" data-k="on" ${a.on ? 'checked' : ''}><label for="o-a${i}"><b>${esc(t.nome)}</b><br><span class="note">${t.freq}${t.pessoal ? ' · de cada criança' : ' · sorteada'}${t.idadeMin ? ` · ${t.idadeMin}+` : ''}</span><select data-onb-atv="${i}" data-k="evid" aria-label="Evidência de ${esc(t.nome)}" style="margin-top:4px">${Object.entries(EVID).map(([k, v]) => `<option value="${k}" ${a.evid === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select></label><select data-onb-atv="${i}" data-k="peso" aria-label="Peso de ${esc(t.nome)}">${PESOS.map(p => `<option value="${p}" ${a.peso === p ? 'selected' : ''}>${fmt(p)}</option>`).join('')}</select></div>`; }).join('')}`;
+    corpo = `<h1 class="t-md">Missões e pesos</h1><p class="formula">Missão pesada vale mais: pontos = peso × 10.</p>
+      ${o.atv.map((a, i) => { const t = TPL.find(x => x.id === a.id); return `<div class="tpl px-frame-2"><input type="checkbox" id="o-a${i}" data-onb-atv="${i}" data-k="on" ${a.on ? 'checked' : ''}><label for="o-a${i}"><b>${esc(t.nome)}</b><br><span class="cap">${t.freq}${t.pessoal ? ' · de cada criança' : ' · sorteada'}${t.idadeMin ? ` · ${t.idadeMin}+` : ''}</span><select data-onb-atv="${i}" data-k="evid" aria-label="Evidência de ${esc(t.nome)}">${Object.entries(EVID).map(([k, v]) => `<option value="${k}" ${a.evid === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select></label><select data-onb-atv="${i}" data-k="peso" aria-label="Peso de ${esc(t.nome)}">${PESOS.map(p => `<option value="${p}" ${a.peso === p ? 'selected' : ''}>${fmt(p)}</option>`).join('')}</select></div>`; }).join('')}`;
   } else {
-    corpo = `<h1 style="font-size:22px">Quem joga</h1><p class="muted">Nome, idade, equipe e quem administra.</p>
-      <div class="mrow note"><span>Nome</span><span>Idade</span><span>Equipe</span></div>
+    corpo = `<h1 class="t-md">Quem joga</h1><p class="formula">Nome, idade, equipe e quem administra.</p>
+      <div class="mrow cap"><span>Nome</span><span>Idade</span><span>Equipe</span></div>
       ${o.membros.map((m, i) => `<div class="mrow"><input type="text" aria-label="Nome ${i+1}" data-onb-m="${i}" data-k="nome" value="${esc(m.nome)}" placeholder="Nome"><input type="number" aria-label="Idade ${i+1}" data-onb-m="${i}" data-k="idade" value="${m.idade}" min="3" max="99"><select aria-label="Equipe ${i+1}" data-onb-m="${i}" data-k="equipe"><option value="raposa" ${m.equipe === 'raposa' ? 'selected' : ''}>Raposa</option><option value="coruja" ${m.equipe === 'coruja' ? 'selected' : ''}>Coruja</option></select></div>
-        <label class="check" style="margin:-4px 0 4px"><input type="checkbox" data-onb-m="${i}" data-k="admin" ${m.admin ? 'checked' : ''} ${o.tipo === 'casal' ? 'disabled' : ''}>Administra o grupo${o.tipo === 'casal' ? ' (no casal, os dois)' : ''}</label>`).join('')}
-      <label class="check"><input type="checkbox" id="o-hist" data-onb="historico" ${o.historico ? 'checked' : ''}><span>Carregar semanas de histórico de exemplo (pontos, evolução e meta)</span></label>`;
+        <label class="check"><input type="checkbox" data-onb-m="${i}" data-k="admin" ${m.admin ? 'checked' : ''} ${o.tipo === 'casal' ? 'disabled' : ''}>Administra o grupo${o.tipo === 'casal' ? ' (no casal, os dois)' : ''}</label>`).join('')}
+      <label class="check"><input type="checkbox" id="o-hist" data-onb="historico" ${o.historico ? 'checked' : ''}><span>Carregar semanas de histórico de exemplo</span></label>`;
   }
-  return `<header class="app-head"><img class="px" src="../assets/brand/casa-quest-app-icon.svg" alt="CasaQuest"><div style="flex:1"><h1>Novo cadastro</h1><small>Passo ${o.passo} de 3</small></div><button class="btn sm ghost" data-act="onb-sair">Sair</button></header>
+  return `<header class="app-head"><img src="${DS}assets/Logos/casa-quest-app-icon.svg" width="32" height="32" alt="CasaQuest" style="image-rendering:pixelated"><div class="fam"><b>Novo cadastro</b><span>Passo ${o.passo} de 3</span></div>${btn('Sair', 'onb-sair', {s:'sm'})}</header>
     <main class="app-main">${passos}${corpo}<p class="err" id="sheet-err"></p></main>
-    <div style="display:flex;gap:8px;padding:12px 16px;background:var(--surface);border-top:2px solid var(--line)">
-      ${o.passo > 1 ? `<button class="btn ghost" data-act="onb-voltar">Voltar</button>` : ''}
-      <button class="btn block" data-act="onb-avancar">${o.passo < 3 ? 'Continuar' : 'Criar e sortear o dia'}</button></div>`;
+    <div class="row" style="padding:8px 12px;background:var(--surface-100);border-top:4px solid var(--outline)">
+      ${o.passo > 1 ? btn('Voltar', 'onb-voltar', {s:'sm'}) : ''}
+      <span style="flex:1"></span>${btn(o.passo < 3 ? 'Continuar' : 'Criar e sortear', 'onb-avancar', {v:'primary', s:'sm'})}</div>`;
 }
 
-/* ---------- guia lateral ---------- */
+/* ---------- roteiro do pitch (painel lateral) ---------- */
 function renderGuide(){
-  const [ana, , bruno] = S.membros;
-  const b = bruno && S.tipo === 'familia' ? bruno : null;
+  const b = S.tipo === 'familia' ? S.membros[2] : null; const ana = S.membros[0];
   const banheiro = b && S.registros.find(r => r.membroId === b.id && r.atividadeId === 'banheiro');
   const steps = [
-    {t:'Abrir as missões da família com tarefas e pontos já carregados', s:'Painel de status com XP, semana, tempo de tela e créditos', done:b && ui.vis[b.id+':hoje'], go:'p1'},
-    {t:`${b ? 'Bruno' : 'Um filho'} registra “Limpar o banheiro” com foto; ${ana ? esc(ana.nome) : 'um admin'} aprova e os pontos entram no extrato`, s:'A tela mostra quanto a tarefa vale antes de enviar', done:banheiro?.status === 'aprovado', go:'p2'},
-    {t:'Mostrar a evolução da semana e o ranking das equipes', s:'Cada um compara consigo mesmo; o ranking só compara equipes', done:b && ui.vis[b.id+':evolucao'], go:'p3'},
-    {t:'Resgatar 30 min de computador e desbloquear a tela', s:'Créditos caem; XP e evolução não mudam', done:!!(b && S.resgates.some(x => x.membroId === b.id && x.recompensaId === 'r1')), go:'p4'},
-    {t:'Mostrar a meta coletiva e fechar com a visão de longo prazo', s:'Privacidade por padrão, cooperação e prêmios em três horizontes', done:b && ui.vis[b.id+':meta'], go:'p5'}
+    {t:'Abrir as missões da família com tudo carregado', done:b && ui.vis[b.id+':hoje'], go:'p1'},
+    {t:`${b ? 'Bruno' : 'Um filho'} registra “Limpar o banheiro” com foto e ${ana ? esc(ana.nome) : 'um admin'} aprova`, done:banheiro?.status === 'aprovado', go:'p2'},
+    {t:'Evolução da semana e ranking de equipes', done:b && ui.vis[b.id+':evolucao'], go:'p3'},
+    {t:'Resgatar 30 min de computador e desbloquear a tela', done:!!(b && S.resgates.some(x => x.membroId === b.id && x.recompensaId === 'r1')), go:'p4'},
+    {t:'Meta coletiva e fechamento', done:b && ui.vis[b.id+':meta'], go:'p5'}
   ];
-  return `<header><span class="logo"><img class="px" src="../assets/brand/casa-quest-logo-horizontal.svg" alt="CasaQuest"></span>
-    <p>Protótipo navegável para discutir a ideia. Atualizado com o repositório: nome CasaQuest, decisões consolidadas da <code>docs/ideia.md</code>, identidade visual de <code>assets/brand</code> e o diagrama de entidades. Dados fictícios, guardados só neste navegador.</p></header>
-  <section><h2>Roteiro da demo, em dois minutos</h2>
-    <ol class="steps">${steps.map((x, i) => `<li class="${x.done ? 'done' : ''}"><span class="n">${x.done ? '✓' : i+1}</span><div><p>${x.t}</p><small>${x.s}</small></div><button class="btn sm ghost" data-act="go" data-go="${x.go}">Abrir</button></li>`).join('')}</ol>
-  </section>
-  <section><h2>O que mudou com o repositório</h2>
-    <table class="map"><tbody>
-      <tr><td>Competição</td><td><span class="st chg">mudou</span>Saiu o ranking individual. Entrou a aba Evolução (semana atual contra a anterior) e o ranking que compara só equipes.</td></tr>
-      <tr><td>Administradores</td><td><span class="st chg">mudou</span>Pai e mãe administram juntos, no lugar do rodízio. Na família os pais aprovam; no casal, um aprova o outro.</td></tr>
-      <tr><td>Mesada</td><td><span class="st chg">novo</span>No Admin, valor fixo ou conversão de pontos. O app calcula e registra como pago; o pagamento é feito por fora (RN20).</td></tr>
-      <tr><td>Dívida</td><td><span class="st chg">mudou</span>Saiu a dívida de tarefa: não feita é redistribuída, sem saldo negativo (RN07).</td></tr>
-      <tr><td>Diagrama de entidades</td><td><span class="st chg">novo</span>Qualquer pessoa cria tarefa para si ou para alguém (botão +), quem cria aprova, e o extrato virou “movimentos de pontos” com crédito e débito.</td></tr>
-      <tr><td>Identidade visual</td><td><span class="st chg">novo</span>Logo, ícone e paleta 8 bits de <code>assets/brand</code>, avatares em pixel e painel de status no estilo RPG da referência enviada.</td></tr>
-      <tr><td>Fotos e público</td><td><span class="st ok">mantido</span>Fotos apagadas em 90 dias. Visão simplificada para menores de 9 anos (veja como Davi). Cadastro de família ou casal.</td></tr>
-      <tr><td>Bloqueio</td><td><span class="st ok">mantido</span>Só simulação no app, como decidido para o MVP.</td></tr>
-    </tbody></table>
-  </section>
-  <section><h2>Para caber em 40 minutos</h2>
-    <div class="cut">
-      <div><b>Construir</b><ul><li>Missões com o painel de status</li><li>Registrar com foto e calcular pontos</li><li>Evolução e ranking de equipes</li><li>Prêmios com 30 min de tela</li><li>Tela de saldo e meta coletiva</li></ul></div>
-      <div><b>Deixar só no pitch</b><ul><li>Cadastro e login</li><li>Sorteio balanceado</li><li>Mesada e auditoria</li><li>Contestação e emergência com PIN</li><li>Agente real e IA nas fotos</li></ul></div>
+  const kpi = (v, t) => `<div class="kpi px-frame"><b>${v}</b><span>${t}</span></div>`;
+  return `<span class="logo px-frame">${logo('casa-quest-logo-horizontal', 72, 'CasaQuest')}</span>
+  <p class="muted">Protótipo navegável e roteiro do pitch, na ordem das notas da equipe: dor, tese, demo, escala e validação. Usa o design system de <code>design-system/</code>. Dados fictícios, guardados só neste navegador.</p>
+
+  ${panel('1. Dor', 'balde', `<ul class="dots">
+      <li><b>Quem sofre:</b> famílias com ou sem filhos, incluindo casais.</li>
+      <li><b>Com que frequência:</b> todos os dias. A casa não para.</li>
+      <li><b>Quanto custa:</b> conflitos e sobrecarga de alguns membros, que fazem mais do que os outros e sem reconhecimento.</li>
+    </ul>`, 'red')}
+
+  ${panel('2. Tese', 'd20', `<ul class="dots">
+      <li>Dividir as tarefas de forma gamificada e divertida.</li>
+      <li>O jogo incentiva a execução das tarefas rotineiras: cada missão com foto vira XP, evolução, tesouro e tempo de tela.</li>
+      <li>Pesos e sorteio balanceado tornam a divisão justa; a evolução individual e o ranking de equipes evitam que o jogo vire briga.</li>
+    </ul>`)}
+
+  ${panel('3. Demo (2 minutos)', 'tela', `
+    <ol class="demo-steps">${steps.map((x, i) => `<li class="${x.done ? 'done' : ''}"><span class="n">${x.done ? icon('check', 16) : i+1}</span><p>${x.t}</p>${btn('Abrir', 'go', {s:'sm', extra:` data-go="${x.go}"`})}</li>`).join('')}</ol>
+    <div class="row">${btn('Apresentar só o app', 'modo-app', {v:'primary', s:'sm', ic:'tela'})}</div>
+    <p class="cap">O modo app (endereço terminado em <code>#app</code>) mostra só o celular, em tela cheia no telefone. Para trocar de pessoa ou sair, toque no avatar no topo do app.</p>`, 'gold')}
+
+  ${panel('4. Escala', 'trofeu', `
+    <div class="arch">${['PWA', 'API serverless', 'Postgres', 'Storage de fotos'].map((n, i) => `${i ? '<span class="to">›</span>' : ''}<span class="node px-frame-2">${n}</span>`).join('')}</div>
+    <p>Isolamento lógico por família: escala horizontal sem uma equipe dedicada à operação.</p>
+    <div class="kpis">
+      ${kpi('~90 fotos', 'por mês numa família de 4, com compressão e retenção de 90 dias')}
+      ${kpi('< R$ 1', 'de infraestrutura por família por mês')}
+      ${kpi('R$ 1–2', 'por família por mês, já com suporte')}
+      ${kpi('R$ 30–60', 'para conquistar cada família pagante (CAC)')}
+      ${kpi('R$ 19,90', 'por mês no plano pago')}
+      ${kpi('> 80%', 'de margem; o CAC se paga em 2 a 4 meses')}
     </div>
-    <p class="note" style="margin-top:8px">Este protótipo foi além do corte de 40 minutos de propósito, para servir de referência na conversa. A demo usa só as telas da coluna da esquerda.</p>
-  </section>
-  <section><h2>Para decidir com a equipe</h2>
-    <ol class="qs">
-      <li><b>Aprovação entra ou sai da demo?</b> O <code>ideia.md</code> tira a aprovação do protótipo de 40 minutos, mas o diagrama mantém “quem atribuiu aprova”. Aqui ela ficou, com um toque.</li>
-      <li><b>Formato da mesada.</b> Valor fixo por cumprimento ou conversão de pontos? Os dois estão no Admin para comparar.</li>
-      <li><b>Equipes de tamanhos diferentes.</b> O ranking soma pontos, como pede a ideia; o Time Raposa tem 3 pessoas e o Coruja, 2. Usar média?</li>
-      <li><b>Notas da equipe que mudaram.</b> “Administração rotativa” virou administração conjunta, e “pagamento de dívida” pode ser lido como a mesada. Confirmar se era isso.</li>
-      <li><b>Ferramenta do protótipo.</b> O app será mobile: este HTML já funciona no celular. Seguir assim (PWA) ou usar low-code?</li>
-      <li><b>Critérios da banca.</b> O que pesa mais: demo funcionando, narrativa ou viabilidade técnica?</li>
-    </ol>
-  </section>
-  <section><h2>Fora do protótipo</h2>
-    <p class="muted" style="margin:0">Servidor, login, notificações, encerramento automático de temporada, bloqueio de foto repetida (RN12), validação por IA, agente desktop real e monetização freemium.</p>
-  </section>`;
+    <p class="formula">Conferência: (19,90 − 2) ÷ 19,90 = 90% de margem, acima dos 80%. O CAC de R$ 30 a 60 dividido por cerca de R$ 18 por mês dá de 1,7 a 3,4 meses. Ainda não entram impostos e taxas de pagamento.</p>
+    <p><b>Gargalo:</b> aquisição e suporte, não infraestrutura. <b>Alavancas:</b> convite entre famílias e parcerias B2B2C com escolas, condomínios e benefícios corporativos.</p>`, 'blue')}
+
+  ${panel('5. Plano de validação', 'check', `<ul class="dots">
+      <li>Versão beta liberada para algumas famílias, com e sem filhos.</li>
+      <li>Avaliação feita pelas próprias famílias.</li>
+      <li><b>Sugestão:</b> medir com as métricas da <code>ideia.md</code>: missões validadas por semana por família (North Star), retenção em 7 e 30 dias, equilíbrio de carga entre membros e percentual de missões com foto.</li>
+    </ul>`, 'gold')}
+
+  ${panel('Para caber em 40 minutos', 'ampulheta', `<div class="cut">
+      <div><b class="micro gold">Construir</b><ul class="dots"><li>Missões com o HeroHeader</li><li>Registrar com foto e pontuar</li><li>Evolução e ranking de equipes</li><li>Tesouro com 30 min de tela</li><li>Tela de saldo e meta</li></ul></div>
+      <div><b class="micro muted">Só no pitch</b><ul class="dots"><li>Cadastro e login</li><li>Sorteio balanceado</li><li>Mesada e auditoria</li><li>Contestação e emergência</li><li>Agente real e IA nas fotos</li></ul></div>
+    </div>`)}
+
+  ${panel('Para decidir', 'd20', `<ol class="dots" style="padding-left:20px">
+      <li><b>Aprovação na demo?</b> A <code>ideia.md</code> tira do protótipo de 40 minutos; o diagrama mantém “quem atribuiu aprova”. Aqui ela ficou, com um toque.</li>
+      <li><b>Mesada fixa ou por pontos?</b> As duas estão no Admin.</li>
+      <li><b>Equipes de tamanhos diferentes:</b> soma, como pede a ideia, ou média?</li>
+      <li><b>Meta coletiva só dos filhos?</b> O componente GoalProgress aceita até 4 membros; a família tem 5. Aqui a meta é dos filhos, como no exemplo da ideia.</li>
+      <li><b>Plano gratuito:</b> a ideia fala em freemium; o que fica no grátis e o que justifica os R$ 19,90?</li>
+    </ol>`, 'red')}`;
 }
 
 /* ============ eventos ============ */
-function toast(t){ ui.toast = t; clearTimeout(toastTimer); render(); toastTimer = setTimeout(() => { ui.toast = null; render(); }, 2600); }
+function toast(t, x, ic){ ui.toast = {t, x, ic}; clearTimeout(toastTimer); render(); toastTimer = setTimeout(() => { ui.toast = null; render(); }, 3000); }
 function setWho(id){ pcStop('desligado ao trocar de usuário'); ui.who = id; ui.sheet = null; ui.onb = null; }
 const errSheet = t => { const e = document.getElementById('sheet-err'); if (e) e.textContent = t; };
 
 const ACT = {
   who: d => { setWho(d.id); render(); },
   tab: d => { if (d.tab !== 'tela') pcStop('desligado ao sair da tela'); ui.tab = d.tab; render(); },
-  reset: () => { pcStop(); try { localStorage.removeItem(KEY); } catch(e){} seed(); ui.who = 'm3'; ui.tab = 'hoje'; ui.onb = null; ui.sheet = null; ui.vis = {}; toast('Dados de exemplo restaurados'); },
+  perfil: () => { ui.sheet = {t:'perfil'}; render(); },
+  tema: () => { ui.tema = ui.tema === 'noite' ? 'dia' : 'noite'; try { localStorage.setItem(KEY + ':tema', ui.tema); } catch(e){} render(); },
+  'modo-app': () => { ui.sheet = null; location.hash = 'app'; },
+  'sair-app': () => { ui.sheet = null; history.replaceState(null, '', location.pathname + location.search); render(); },
+  reset: () => { pcStop(); try { localStorage.removeItem(KEY); } catch(e){} seed(); ui.who = 'm3'; ui.tab = 'hoje'; ui.onb = null; ui.sheet = null; ui.vis = {}; toast('Exemplo restaurado', 'A família da Ana voltou ao começo do dia.', 'casa'); },
   onb: () => { pcStop(); ui.onb = onbPadrao('familia'); ui.sheet = null; render(); },
   'onb-tipo': d => { ui.onb = onbPadrao(d.v); render(); },
   'onb-sair': () => { ui.onb = null; render(); },
@@ -1237,7 +1161,7 @@ const ACT = {
   'onb-avancar': () => {
     const o = ui.onb;
     if (o.passo === 1 && !o.familia.trim()) return errSheet('Dê um nome para o grupo.');
-    if (o.passo === 2 && o.atv.filter(a => a.on).length < 3) return errSheet('Escolha pelo menos 3 atividades.');
+    if (o.passo === 2 && o.atv.filter(a => a.on).length < 3) return errSheet('Escolha pelo menos 3 missões.');
     if (o.passo < 3){ o.passo++; render(); return; }
     const ms = o.membros.filter(m => m.nome.trim());
     if (o.tipo === 'casal'){ if (ms.length !== 2) return errSheet('No casal, cadastre as duas pessoas.'); ms.forEach(m => { m.admin = true; }); }
@@ -1247,21 +1171,21 @@ const ACT = {
     }
     seed({tipo:o.tipo, familia:o.familia, atividades:o.atv.filter(a => a.on), membros:ms, historico:o.historico, criadaAgora:true});
     ui.onb = null; ui.who = admins()[0].id; ui.tab = 'admin'; ui.vis = {};
-    toast(`${S.familia.nome} criada e tarefas do dia sorteadas`);
+    toast('Guilda criada!', `${S.familia.nome} está pronta e as missões do dia foram sorteadas.`, 'casa');
   },
   go: d => {
     const bruno = S.tipo === 'familia' ? S.membros[2] : null;
     ui.onb = null; ui.sheet = null;
-    if (!bruno && S.tipo !== 'familia'){ toast('O roteiro usa a família de exemplo. Clique em “Restaurar exemplo”.'); return; }
-    if (d.go === 'p1' && bruno){ setWho(bruno.id); ui.tab = 'hoje'; }
-    if (d.go === 'p2' && bruno){
+    if (!bruno){ toast('Roteiro da família', 'Clique em Restaurar exemplo para voltar à família da Ana.', 'casa'); return; }
+    if (d.go === 'p1'){ setWho(bruno.id); ui.tab = 'hoje'; }
+    if (d.go === 'p2'){
       const atb = S.atribuicoes.find(a => a.membroId === bruno.id && a.atividadeId === 'banheiro');
       const r = atb && atb.registroId && S.registros.find(x => x.id === atb.registroId);
       if (r && r.status === 'pendente'){ setWho(admins()[0].id); ui.tab = 'admin'; } else { setWho(bruno.id); ui.tab = 'hoje'; }
     }
-    if (d.go === 'p3' && bruno){ setWho(bruno.id); ui.tab = 'evolucao'; }
-    if (d.go === 'p4' && bruno){ setWho(bruno.id); ui.tab = 'premios'; }
-    if (d.go === 'p5' && bruno){ setWho(bruno.id); ui.tab = 'meta'; }
+    if (d.go === 'p3'){ setWho(bruno.id); ui.tab = 'evolucao'; }
+    if (d.go === 'p4'){ setWho(bruno.id); ui.tab = 'premios'; }
+    if (d.go === 'p5'){ setWho(bruno.id); ui.tab = 'meta'; }
     render();
     if (window.matchMedia('(max-width:900px)').matches) document.getElementById('stage').scrollIntoView({behavior:'smooth'});
   },
@@ -1275,16 +1199,16 @@ const ACT = {
   'motivo-rapido': d => { const t = document.getElementById('motivo'); if (t) t.value = d.v; },
   'confirmar-rejeicao': d => { const v = document.getElementById('motivo').value.trim(); if (!v) return errSheet('Escreva o motivo da rejeição.'); rejeitar(d.id, v); },
   contestar: d => { ui.sheet = {t:'contestar', id:d.id}; render(); },
-  'confirmar-contestacao': d => { const v = document.getElementById('cont').value.trim(); if (!v) return errSheet('Explique por que a tarefa foi feita.'); contestar(d.id, v); },
+  'confirmar-contestacao': d => { const v = document.getElementById('cont').value.trim(); if (!v) return errSheet('Explique por que a missão foi feita.'); contestar(d.id, v); },
   resgatar: d => { ui.sheet = {t:'resgatar', id:d.id}; render(); },
   'confirmar-resgate': d => resgatar(d.id),
   converter: () => converter(),
   'pc-start': () => pcStart(),
   'pc-stop': () => { pcStop('desligado com saldo guardado'); render(); },
-  sortear: () => { sortear(Math.floor(Math.random()*1e6)+1); save(); toast(`Novo sorteio: diferença de ${fmt(S.sorteio.diff)}%`); },
+  sortear: () => { sortear(Math.floor(Math.random()*1e6)+1); save(); toast('Sorteio feito!', `Diferença de carga de ${fmt(S.sorteio.diff)}% entre os membros.`, 'd20'); },
   'nao-feita': d => naoFeita(d.id),
   pagar: d => pagarMesada(d.id, d.m),
-  'mesada-modo': d => { S.config.mesada.modo = d.v; audit('mesada', `${membro(ui.who).nome} mudou a mesada para ${d.v === 'fixo' ? 'valor fixo' : 'conversão de pontos'}.`); save(); render(); },
+  'mesada-modo': d => { S.config.mesada.modo = d.v; audit('mesada', `${membro(ui.who).nome} mudou a mesada para ${d.v === 'fixo' ? 'valor fixo' : 'pontos'}.`); save(); render(); },
   emergencia: () => { ui.sheet = {t:'emergencia'}; render(); },
   'confirmar-emergencia': () => {
     const mid = document.getElementById('em-m').value, min = +document.getElementById('em-min').value, j = document.getElementById('em-j').value.trim(), pin = document.getElementById('em-pin').value;
@@ -1292,28 +1216,28 @@ const ACT = {
     if (pin !== S.config.pin) return errSheet('PIN incorreto.');
     const m = membro(mid); m.minutos += min;
     audit('emergência', `${membro(ui.who).nome} liberou ${min} min para ${m.nome} com PIN: ${j}.`);
-    ui.sheet = null; save(); toast(`+${min} min de emergência para ${m.nome}`);
+    ui.sheet = null; save(); toast('Tempo liberado!', `+${min} min de emergência para ${m.nome}.`, 'tela');
   },
   atividades: () => { ui.sheet = {t:'atividades'}; render(); },
   'nova-tarefa': () => { ui.sheet = {t:'nova-tarefa'}; render(); },
   'salvar-tarefa': () => {
     const nome = document.getElementById('nt-nome').value.trim();
-    if (!nome) return errSheet('Dê um título para a tarefa.');
+    if (!nome) return errSheet('Dê um nome para a missão.');
     const para = document.getElementById('nt-para').value, peso = +document.getElementById('nt-peso').value, evid = document.getElementById('nt-evid').value;
-    const a = {id:uid('a'), nome, peso, freq:'Avulsa', evid, valid:'admin', idadeMin:0, prazo:'hoje', ativo:false, avulsa:true};
+    const a = {id:uid('a'), nome, icone:'vassoura', peso, freq:'Avulsa', evid, valid:'admin', idadeMin:0, prazo:'hoje', ativo:false, avulsa:true};
     S.atividades.push(a);
     S.atribuicoes.push({id:uid('at'), atividadeId:a.id, membroId:para, data:hoje(), status:'a_fazer', origem:'avulsa', criadoPor:ui.who});
-    audit('tarefa', `${membro(ui.who).nome} criou “${nome}” (peso ${fmt(peso)}) para ${para === ui.who ? 'si' : membro(para).nome}.`);
-    ui.sheet = null; save(); toast(para === ui.who ? 'Tarefa criada para você' : `Tarefa atribuída a ${membro(para).nome}`);
+    audit('missão', `${membro(ui.who).nome} criou “${nome}” (peso ${fmt(peso)}) para ${para === ui.who ? 'si' : membro(para).nome}.`);
+    ui.sheet = null; save(); toast('Missão criada!', para === ui.who ? `“${nome}” entrou na sua lista.` : `“${nome}” foi para ${membro(para).nome}. Você aprova a conclusão.`, 'vassoura');
   },
   'nova-recompensa': () => { ui.sheet = {t:'recompensa'}; render(); },
   'salvar-recompensa': () => {
     const nome = document.getElementById('nr-nome').value.trim(); const custo = +document.getElementById('nr-custo').value;
     if (!nome || !(custo > 0)) return errSheet('Preencha nome e custo.');
     const est = +document.getElementById('nr-est').value; const min = +document.getElementById('nr-min').value;
-    S.recompensas.push({id:uid('r'), nome, custo, horizonte:document.getElementById('nr-h').value, estoque: est > 0 ? est : null, minutos: min > 0 ? min : undefined, por:ui.who});
-    audit('recompensa', `${membro(ui.who).nome} ofereceu a recompensa “${nome}” (${custo} créditos).`);
-    ui.sheet = null; save(); toast('Recompensa oferecida');
+    S.recompensas.push({id:uid('r'), nome, icone: min > 0 ? 'tela' : 'bau', custo, horizonte:document.getElementById('nr-h').value, estoque: est > 0 ? est : null, minutos: min > 0 ? min : undefined, por:ui.who});
+    audit('recompensa', `${membro(ui.who).nome} ofereceu “${nome}” (${custo} créditos).`);
+    ui.sheet = null; save(); toast('Tesouro novo!', `“${nome}” entrou no Tesouro por ${custo} créditos.`, 'bau');
   },
   'fechar-fundo': (d, el, ev) => { if (ev.target === el){ ui.sheet = null; ui.draft = null; render(); } }
 };
@@ -1333,7 +1257,7 @@ document.addEventListener('input', ev => {
 document.addEventListener('change', async ev => {
   const t = ev.target;
   if (t.dataset.file && ui.draft && t.files && t.files[0]){
-    try { ui.draft[t.dataset.file] = await lerFoto(t.files[0]); } catch(e){ toast('Não consegui ler essa imagem. Tente outra.'); return; }
+    try { ui.draft[t.dataset.file] = await lerFoto(t.files[0]); } catch(e){ toast('Foto não lida', 'Não consegui abrir essa imagem. Tente outra.', 'camera'); return; }
     render(); return;
   }
   if (t.dataset.quali){ ui.quali[t.dataset.quali] = +t.value; render(); return; }
@@ -1345,6 +1269,7 @@ document.addEventListener('change', async ev => {
   if (t.dataset.onbM != null){ const m = ui.onb.membros[+t.dataset.onbM]; m[t.dataset.k] = t.type === 'checkbox' ? t.checked : t.value; return; }
 });
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && ui.sheet){ ui.sheet = null; ui.draft = null; render(); } });
+window.addEventListener('hashchange', () => { ui.sheet = null; render(); });
 
 /* ============ início ============ */
 S = load();
@@ -1354,6 +1279,7 @@ else if (S.dia !== hoje()){
   if (segunda() !== S.semana){ S.membros.forEach(m => { m.semanas = m.semanas.slice(1).concat(0); m.tarefasSemana = 0; m.atribSemana = 0; }); S.semana = segunda(); }
   S.dia = hoje(); sortear(Math.floor(Math.random()*1e6)+1); save();
 }
+try { ui.tema = localStorage.getItem(KEY + ':tema') || 'noite'; } catch(e){}
 ui.who = (S.membros[2] || S.membros[0]).id; ui.tab = 'hoje';
 render();
 </script>

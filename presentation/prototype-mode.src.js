@@ -29,11 +29,26 @@
   bar.innerHTML = `<span class="cq-modebrand">CASA QUEST</span><div class="cq-mode-tabs"><button id="cq-demo-mode" aria-pressed="true">Modo demo</button><button id="cq-presentation-mode" aria-pressed="false">Modo apresentação</button></div><div class="cq-mode-demo-tools"><select id="cq-demo-step" aria-label="Etapa da demonstração"><option value="mission">Missões de Bruno</option><option value="register">Registrar com fotos</option><option value="approval">Ana aprova</option><option value="evolution">Evolução e equipes</option><option value="treasure">Tesouro</option><option value="screen">Tempo de tela</option><option value="goal">Meta coletiva</option></select><button id="cq-reset-demo">Restaurar exemplo</button></div>`;
   document.body.prepend(bar);
   const frame = document.createElement('iframe');frame.className='cq-pitch-host';frame.title='Apresentação Casa Quest';
-  frame.setAttribute('allow','fullscreen');document.body.appendChild(frame);
+  frame.setAttribute('allow','fullscreen');frame.setAttribute('allowfullscreen','');document.body.appendChild(frame);
   document.body.classList.add('cq-has-modes');
   let loaded=false;
+  function postToDeck(payload){if(!loaded||!frame.contentWindow)return;frame.contentWindow.postMessage(Object.assign({channel:'casaquest-pitch'},payload),'*');}
+  function syncFullscreen(){postToDeck({type:'fullscreen-state',active:!!document.fullscreenElement});}
+  async function toggleFullscreen(){
+    let failed=false;
+    try{
+      if(document.fullscreenElement)await document.exitFullscreen();
+      else if(frame.requestFullscreen)await frame.requestFullscreen();
+      else await document.documentElement.requestFullscreen();
+    }catch{
+      try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();}catch{failed=true;}
+    }
+    postToDeck({type:'fullscreen-state',active:!!document.fullscreenElement,error:failed&&!document.fullscreenElement});
+  }
+  document.addEventListener('fullscreenchange',syncFullscreen);
   function setMode(mode,step){
     const presentation=mode==='presentation';
+    if(!presentation&&document.fullscreenElement)document.exitFullscreen().catch(()=>{});
     if(presentation&&!loaded){frame.srcdoc=decode(deckSource);loaded=true;}
     document.body.classList.toggle('cq-presentation-mode',presentation);
     document.getElementById('cq-demo-mode').setAttribute('aria-pressed',!presentation);
@@ -52,9 +67,10 @@
   document.getElementById('cq-reset-demo').onclick=()=>CasaQuestPitchBridge.reset();
   addEventListener('message',event=>{
     if(event.source!==frame.contentWindow||event.data?.channel!=='casaquest-pitch')return;
-    if(event.data.type==='hello')frame.contentWindow.postMessage({channel:'casaquest-pitch',type:'host-ready'},'*');
+    if(event.data.type==='hello')frame.contentWindow.postMessage({channel:'casaquest-pitch',type:'host-ready',fullscreen:!!document.fullscreenElement},'*');
     if(event.data.type==='open-demo')setMode('demo',event.data.step||'mission');
+    if(event.data.type==='toggle-fullscreen')toggleFullscreen();
   });
-  window.CasaQuestModes={setMode};
+  window.CasaQuestModes={setMode,toggleFullscreen};
   if(location.hash==='#apresentacao')setMode('presentation');else frame.hidden=true;
 })();

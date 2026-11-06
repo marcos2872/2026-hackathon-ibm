@@ -34,6 +34,10 @@ function draw(spec,parent,existing){
   n.name=String(spec.text).replace(/\n/g,' ').slice(0,80);
  }else if(spec.type==='asset'){
   n=components[spec.asset].createInstance();created.push(n.id);parent.appendChild(n);n.rescale(spec.w/n.width);n.name=spec.asset;
+ }else if(spec.type==='image'){
+  n=figma.createRectangle();created.push(n.id);parent.appendChild(n);n.resize(spec.w,spec.h);
+  const bytes=Uint8Array.from(atob(spec.src.split(',')[1]),c=>c.charCodeAt(0));
+  const image=figma.createImage(bytes);n.fills=[{type:'IMAGE',imageHash:image.hash,scaleMode:'FIT'}];n.name=spec.alt||'Imagem';
  }else{
   n=existing||figma.createAutoLayout();if(!existing){created.push(n.id);parent.appendChild(n);}
   n.name=spec.role||'Composição '+spec.dir;n.layoutMode=spec.dir==='row'?'HORIZONTAL':'VERTICAL';n.resize(spec.w||100,spec.h||100);

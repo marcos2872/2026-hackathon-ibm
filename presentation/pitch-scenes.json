@@ -2836,34 +2836,49 @@
                   {
                     "type": "asset",
                     "asset": "casa-quest-brasao",
-                    "w": 240,
-                    "h": 240
+                    "w": 150,
+                    "h": 139
                   },
                   {
                     "type": "text",
                     "text": "BETA",
-                    "size": 44,
+                    "size": 40,
                     "color": "gold",
                     "display": true
                   },
                   {
                     "type": "text",
                     "text": "Famílias\ncom e sem filhos.",
-                    "size": 32,
+                    "size": 28,
                     "color": "ink",
                     "w": 420,
                     "align": "CENTER"
                   },
                   {
                     "type": "text",
-                    "text": "Plano de validação.\nAvaliação pelas próprias famílias.",
-                    "size": 26,
+                    "text": "REPO DO PROJETO",
+                    "size": 14,
+                    "color": "gold",
+                    "display": true
+                  },
+                  {
+                    "type": "image",
+                    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAAC/ElEQVR4nO2cTW7bMBCF35QEvKQAH6BHoW+QIwW9mXQUHyAAuTRA4XXBISWnq9Sp7ErDRSDF8wEkPJh/Wogvr+nH1xnAIIMMMsgggwzaJyS6fPt39pBLewJyE7g8ZXsGbQ9FkmQCRIZZMA0Afw1oagFHkuQ9tN32DNoeyt0AZA8glPrEX4MKrC3If3Img74FiskRMQGILFU3mqF4he0Z9K8h/+mdyLMA4cMT+VwAzJ9FXv5MBj0Cta87EEAGML0VD+QTBXAQBEcBgHUl68XPZNA3QJOIiAyAvF9PzWskAPHqAWCuqcaztmfQ1jZibQDCTYgM6B/chPcCL38mgx6BULNKzT4dgUByDAX1iSzgCEeOTZjji5/JoEeg9iUDLecMRdOMmIBFD9bCL34mg74Bqipw9Ro96HKUSyDlkr2mpU/ankGbew19WpsHRJJrPYBT72I2Ys9QcwSBmmHUOKJ+pipQ/Yfqi2nEzqFuI7oBCAU1xowkgfqqEYVpxP6htdcY4Wq7q7a2alCZHDlWfSkWWR4ICqS88yaYfpJAuIn2NTBLa3ydaN3w/UNaoZreZk/kARKvgppmIHxUGUGYvarFxtszaHOoV6g0zVgqEy1wKN11WBxxBKhVsfMATOIIhA+POM6QyGY3AIh1ug4CabBYs4nQS9m4NwpB0xGLLPcP9Sq26kFTBtc8Se11LG0O04idQ9VrCELq/c1ZENO5OhEBZuH09qztGfQsKCYdkmiR5U0WyyAXOHLMNh9xBKiPzM2eCKlai+Y/AB2ty74AcC39fPEzGfQIdFfFTkulct3IUMlgfY0jQC3XaEtLEaFAh2WaHiz9UNOIXUMtsqzLFSKf2G5ynSlVok5lm9c4AvR5qq5aBnZ7sHYdVo84ErTc6YJrriOLYBocMYmI9TWOCumcfh+o673PmGa7CXxEqM/b1mBieZ3s3uchoD/vdF1ckZhmr2WqfF7mLC2yPAC0mqFqo3V6QUM/Tb0lbjNUh4DEfpnMIIMMMsgggwz6S+g35GFFezKGJS4AAAAASUVORK5CYII=",
+                    "w": 200,
+                    "h": 200,
+                    "alt": "QR code do repositório no GitHub",
+                    "href": "https://github.com/marcos2872/2026-hackathon-ibm"
+                  },
+                  {
+                    "type": "text",
+                    "text": "github.com/marcos2872/2026-hackathon-ibm",
+                    "size": 18,
                     "color": "ink-muted",
                     "w": 420,
                     "align": "CENTER"
                   }
                 ],
-                "gap": 28,
+                "gap": 18,
                 "align": "CENTER",
                 "justify": "CENTER"
               },

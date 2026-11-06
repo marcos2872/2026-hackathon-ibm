@@ -9,9 +9,11 @@ for (const name of ['casa-quest-brasao', 'casa-quest-logo-horizontal', 'casa-que
   assets[name] = fs.readFileSync(path.join(root, 'assets/brand', name + '.svg'), 'utf8');
 for (const name of ['vassoura','camera','check','xp','moeda','trofeu','tela','bau','d20','casa','balde','louca','ampulheta'])
   assets[name] = fs.readFileSync(path.join(root, 'design-system/project/assets/Icones', name + '.svg'), 'utf8');
+const qrRepoURI = 'data:image/png;base64,' + fs.readFileSync(path.join(root, 'qr-repo.png')).toString('base64');
 const T = (text, size=30, o={}) => ({type:'text', text, size, color:'ink', ...o});
 const B = (dir, w, h, children, o={}) => ({type:'box', dir, w, h, children, gap:16, ...o});
 const I = (asset, size=48, o={}) => ({type:'asset', asset, w:size, h:size, ...o});
+const IMG = (src, size, o={}) => ({type:'image', src, w:size, h:size, ...o});
 const tag = (text, color='gold', w=330) => B('row',w,40,[T(text,14,{display:true,color:color==='gold'?'on-gold':'on-blue'})],{bg:color,pad:12,justify:'CENTER',align:'CENTER',gap:0});
 const p = (text,w=720) => T(text,30,{w,color:'ink-muted'});
 const title = (text,w=1472,size=72) => T(text,size,{w,bold:true});
@@ -82,7 +84,7 @@ const slides = [
  ],1472,648,{gap:24}),
  'A rotina é comum, mas as regras precisam respeitar cada casa. O ciclo pode atender famílias, casais e moradias compartilhadas. O MVP proposto concentra registro, pontos e resgate com dados de exemplo. Depois vêm contas, persistência e um piloto real. Como hipótese de negócio, propomos um modelo freemium: entrada gratuita e recursos avançados pagos. A primeira meta é validar o ciclo antes de ampliar a solução.'),
  slide(6,'Validação e convite',row([
-  col([I('casa-quest-brasao',240),T('BETA',44,{display:true,color:'gold'}),T('Famílias\ncom e sem filhos.',32,{w:420,align:'CENTER'}),T('Plano de validação.\nAvaliação pelas próprias famílias.',26,{w:420,color:'ink-muted',align:'CENTER'})],448,648,{align:'CENTER',justify:'CENTER',gap:28}),
+  col([I('casa-quest-brasao',150,{h:139}),T('BETA',40,{display:true,color:'gold'}),T('Famílias\ncom e sem filhos.',28,{w:420,align:'CENTER'}),T('REPO DO PROJETO',14,{display:true,color:'gold'}),IMG(qrRepoURI,200,{alt:'QR code do repositório no GitHub',href:'https://github.com/marcos2872/2026-hackathon-ibm'}),T('github.com/marcos2872/2026-hackathon-ibm',18,{w:420,align:'CENTER',color:'ink-muted'})],448,648,{align:'CENTER',justify:'CENTER',gap:18}),
   col([title('A próxima missão:\naprender com\nfamílias reais.',912,76),
    col([['01','É fácil usar?','Registrar e resgatar sem ajuda.'],['02','Incentiva a participação?','As tarefas entram na rotina da família?'],['03','Reduz a sobrecarga?','Como a família avalia a divisão?']].map(([n,a,b])=>row([T(n,22,{display:true,color:'gold',w:64}),col([T(a,32,{bold:true}),T(b,27,{color:'ink-muted',w:800})],800,80,{gap:8})],912,80,{gap:24,align:'CENTER'})),912,264,{gap:12}),
    row([I('d20',40),T('Liberar o beta. Ouvir as famílias. Evoluir.',30,{bold:true,w:790,color:'on-gold'})],912,72,{bg:'gold',pad:16,gap:20,align:'CENTER',border:true})
@@ -126,6 +128,7 @@ function render(n){
  const dim=`${n.w?'--w:'+n.w+'px;':''}${n.h?'--h:'+n.h+'px;':''}`;
  if(n.type==='text')return `<div class="node text${n.display?' display':''}${n.bold?' bold':''}" style="${dim}--fs:${n.size}px;color:var(--${n.color});${n.align?'text-align:'+n.align.toLowerCase()+';':''}">${esc(n.text).replace(/\n/g,'<br>')}</div>`;
  if(n.type==='asset')return `<img class="node sprite" style="${dim}" src="data:image/svg+xml;base64,${Buffer.from(assets[n.asset]).toString('base64')}" alt="" aria-hidden="true">`;
+ if(n.type==='image'){const img=`<img class="node sprite" style="${dim}" src="${n.src}" alt="${esc(n.alt||'')}">`;return n.href?`<a class="node" style="${dim}display:block" href="${esc(n.href)}" target="_blank" rel="noopener">${img}</a>`:img;}
  let pad=Array.isArray(n.pad)?n.pad.map(x=>x+'px').join(' '):(n.pad||0)+'px';
  const tag=n.demoStep?'button':'div';
  return `<${tag}${n.demoStep?' type="button" data-demo-step="'+n.demoStep+'"':''} class="node box ${n.dir}${n.border?' pixel':''}${n.slide?' slide-canvas':''}${n.role&&!n.demoStep?' '+n.role:''}" style="${dim}--gap:${n.gap}px;--pad:${pad};${n.bg?'background:var(--'+n.bg+');':''}${n.align?'align-items:'+({CENTER:'center',MIN:'flex-start',MAX:'flex-end'}[n.align]||'stretch')+';':''}${n.justify?'justify-content:'+({CENTER:'center',MAX:'flex-end',SPACE_BETWEEN:'space-between'}[n.justify]||'flex-start')+';':''}">${n.children.map(render).join('')}</${tag}>`;
@@ -170,7 +173,11 @@ function fit(){const scale=Math.min((innerWidth-32)/1600,(innerHeight-112)/900,1
 function show(index){current=Math.max(0,Math.min(slides.length-1,index));slides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.hidden=i!==current;});$('position').textContent=String(current+1).padStart(2,'0')+' / 06';$('prev').disabled=current===0;$('next').disabled=current===5;$('noteText').textContent=notes[current];$('noteTitle').textContent='ROTEIRO / '+durations[current]+' SEGUNDOS';$('demo').classList.toggle('active',current===2||current===3);try{history.replaceState(null,'','#slide-'+(current+1));}catch{}fit();}
 function toggleNotes(){const open=$('notes').classList.toggle('open');$('notesButton').setAttribute('aria-expanded',open);}
 function toggleOverview(){const open=document.body.classList.toggle('overview');$('overview').setAttribute('aria-pressed',open);$('overview').textContent=open?'Voltar ao pitch':'Ver slides';if(open){const tile=document.querySelector('[data-slide="'+current+'"]');tile.focus();}else fit();}
-async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{ $('fullscreen').textContent='Use F11 no navegador';}}
+function fsLabel(on){const b=$('fullscreen');b.textContent=on?'Sair da tela cheia':'Tela cheia';b.setAttribute('aria-pressed',String(on));}
+function askHostFullscreen(){try{if(parent!==window&&parent.CasaQuestModes&&parent.CasaQuestModes.toggleFullscreen){parent.CasaQuestModes.toggleFullscreen();return true;}}catch{}try{if(parent!==window){parent.postMessage({channel:'casaquest-pitch',type:'toggle-fullscreen'},'*');return true;}}catch{}return false;}
+async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();fsLabel(!!document.fullscreenElement);return;}catch{}if(askHostFullscreen())return;$('fullscreen').textContent='Use F11 no navegador';}
+addEventListener('message',event=>{const d=event.data;if(!d||d.channel!=='casaquest-pitch'||event.source!==parent)return;if(d.type==='fullscreen-state'){fsLabel(!!d.active);if(d.error)$('fullscreen').textContent='Use F11 no navegador';}if(d.type==='host-ready')fsLabel(!!d.fullscreen);});
+document.addEventListener('fullscreenchange',()=>fsLabel(!!document.fullscreenElement));
 $('prev').onclick=()=>show(current-1);$('next').onclick=()=>show(current+1);$('notesButton').onclick=toggleNotes;$('overview').onclick=toggleOverview;$('fullscreen').onclick=fullscreen;
 document.querySelectorAll('[data-slide]').forEach(b=>b.onclick=()=>{show(Number(b.dataset.slide));if(document.body.classList.contains('overview'))toggleOverview();});
 document.addEventListener('keydown',e=>{if(document.body.classList.contains('mvp-open')||e.target.closest('input,textarea,select,[contenteditable="true"]')||(e.key===' '&&e.target.closest('button,a')))return;if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1);}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(current-1);}if(e.key==='Home')show(0);if(e.key==='End')show(5);if(e.key.toLowerCase()==='n')toggleNotes();if(e.key.toLowerCase()==='f')fullscreen();if(e.key==='Escape'&&document.body.classList.contains('overview'))toggleOverview();});

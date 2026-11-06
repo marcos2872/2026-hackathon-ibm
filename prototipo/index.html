@@ -99,6 +99,12 @@ textarea { min-height: 72px; resize: vertical; }
 .seg { display: flex; gap: 4px; margin: 4px; padding: 4px; background: var(--surface-000); }
 .seg button { flex: 1; border: 0; padding: var(--space-2); background: transparent; color: var(--ink-muted); font-family: var(--font-display); font-size: 8px; line-height: 12px; text-transform: uppercase; cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--gold); color: var(--on-gold); }
+.stars { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+.stars .f-k { font-size: 14px; font-weight: 600; margin-right: var(--space-2); }
+.stars .cap { margin-left: var(--space-2); }
+.star { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; background: none; cursor: pointer; }
+.star .ic { opacity: .3; filter: grayscale(1); }
+.star.on .ic { opacity: 1; filter: none; }
 .err { color: var(--red-ink); font-size: 14px; font-weight: 600; min-height: 1em; }
 .drop { display: grid; place-items: center; gap: var(--space-1); aspect-ratio: 4/3; background: var(--surface-000); color: var(--gold-ink); cursor: pointer; text-align: center; padding: var(--space-2); font-size: 14px; font-weight: 600; margin: 2px; box-shadow: 0 -2px 0 0 var(--outline), 0 2px 0 0 var(--outline), -2px 0 0 0 var(--outline), 2px 0 0 0 var(--outline); }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -332,7 +338,7 @@ function lerFoto(file){
 
 /* ============ estado ============ */
 let S;
-const ui = {who:null, tab:null, sheet:null, draft:null, onb:null, toast:null, quali:{}, qj:{}, vis:{}, tema:'noite', pc:{run:false, soft:0, owner:null}};
+const ui = {who:null, tab:null, sheet:null, draft:null, onb:null, toast:null, estrelas:{}, vis:{}, tema:'noite', pc:{run:false, soft:0, owner:null}};
 let pcTimer = null, toastTimer = null;
 
 const membro = id => S.membros.find(m => m.id === id);
@@ -346,6 +352,9 @@ const equipe = id => S.equipes.find(e => e.id === id);
 const minDeCred = c => Math.floor(c / S.config.credBloco) * S.config.minBloco;
 const calcPts = (peso, evid, q = 1) => r05(peso*10*EVID[evid].mult*q);
 const nomes = arr => arr.length <= 1 ? (arr[0] || '') : arr.slice(0,-1).join(', ') + ' e ' + arr[arr.length-1];
+/* qualidade em estrelas: 1 a 5, padrão 3; cada estrela vale 0,1 no multiplicador (0,8 a 1,2) */
+const ESTRELA_PADRAO = 3;
+const multEstrelas = n => Math.round((0.8 + (n - 1) * 0.1) * 10) / 10;
 const pesoClasse = p => 'cq-peso-' + String(p).replace('.', '_');
 
 /* quem aprova: quem criou a tarefa (se não for o executor); senão um dos admins, nunca o próprio executor */
@@ -560,7 +569,7 @@ function enviarRegistro(){
   audit('registro', `${m.nome} registrou “${atv.nome}” (${EVID[r.evid].label.toLowerCase()}).`, m.id);
   ui.sheet = null; ui.draft = null;
   if (r.auto){
-    aplicarAprovacao(r, 1, '', true);
+    aplicarAprovacao(r, ESTRELA_PADRAO, true);
     toast('Missão concluída!', `${atv.nome} rendeu +${fmt(r.pontos)} XP.`, 'check');
   } else {
     atr.status = 'pendente';
@@ -568,24 +577,24 @@ function enviarRegistro(){
   }
   save();
 }
-function aplicarAprovacao(r, q, just, auto){
+function aplicarAprovacao(r, estrelas, auto){
+  const q = multEstrelas(estrelas);
   const atv = ativ(r.atividadeId); const m = membro(r.membroId); const atr = S.atribuicoes.find(a => a.id === r.atribId);
   const pts = calcPts(atv.peso, r.evid, q);
   const nAntes = nivel(m.xp).n;
-  r.status = 'aprovado'; r.pontos = pts; r.quali = q; r.avaliadoPor = auto ? 'sistema' : ui.who; r.avaliadoEm = Date.now();
+  r.status = 'aprovado'; r.pontos = pts; r.quali = q; r.estrelas = estrelas; r.avaliadoPor = auto ? 'sistema' : ui.who; r.avaliadoEm = Date.now();
   if (atr) atr.status = 'aprovado';
   m.xp += pts; m.pts += pts; m.cred += pts; m.tarefasTemp++; m.pesoTemp += atv.peso; m.tarefasSemana++;
   m.semanas[m.semanas.length-1] += pts;
   if (S.meta.membros.includes(m.id)) S.meta.contrib[m.id] = (S.meta.contrib[m.id] || 0) + pts;
   movimento(m.id, `${atv.nome} aprovado`, {xp:pts, cred:pts});
-  audit('aprovação', `${auto ? 'Sistema' : membro(ui.who).nome} aprovou “${atv.nome}” de ${m.nome}: +${fmt(pts)}${q !== 1 ? ` (qualidade ×${fmt(q)}: ${just})` : ''}.`);
+  audit('aprovação', `${auto ? 'Sistema' : membro(ui.who).nome} aprovou “${atv.nome}” de ${m.nome}: +${fmt(pts)}${auto ? '' : ` (${estrelas} ${estrelas === 1 ? 'estrela' : 'estrelas'})`}.`);
   const nDepois = nivel(m.xp).n;
   if (nDepois > nAntes) setTimeout(() => toast('Nível novo!', `${m.nome} chegou ao nível ${nDepois}.`, 'xp'), 2200);
 }
 function aprovar(id){
-  const r = S.registros.find(x => x.id === id); const q = +(ui.quali[id] || 1); const just = (ui.qj[id] || '').trim();
-  if (q !== 1 && !just){ toast('Falta a justificativa', 'Ajuste de qualidade precisa de um motivo (RN14).', 'ampulheta'); return; }
-  aplicarAprovacao(r, q, just, false);
+  const r = S.registros.find(x => x.id === id);
+  aplicarAprovacao(r, ui.estrelas[id] || ESTRELA_PADRAO, false);
   toast('Missão aprovada!', `${ativ(r.atividadeId).nome} rendeu +${fmt(r.pontos)} XP para ${membro(r.membroId).nome}.`, 'check');
   save();
 }
@@ -827,18 +836,15 @@ function vAdmin(m){
 }
 function regCard(r){
   const m = membro(r.membroId), atv = ativ(r.atividadeId);
-  const q = +(ui.quali[r.id] || 1); const pts = calcPts(atv.peso, r.evid, q);
+  const est = ui.estrelas[r.id] || ESTRELA_PADRAO; const q = multEstrelas(est); const pts = calcPts(atv.peso, r.evid, q);
   const cont = r.status === 'contestado';
   return `<article class="card px-frame">
     <div class="split"><div class="row">${av(m)}<div><b>${esc(m.nome)}</b> · ${esc(atv.nome)}<br><span class="cap">${quando(r.quando)} · ${EVID[r.evid].label}</span></div></div>${badge(cont ? 'contestado' : 'pendente')}</div>
     <div class="photos">${r.fotos.antes ? `<figure><img src="${r.fotos.antes}" alt="Foto do antes"><figcaption class="cq-badge cq-badge-pendente">Antes</figcaption></figure>` : ''}${r.fotos.depois ? `<figure><img src="${r.fotos.depois}" alt="Foto do depois"><figcaption class="cq-badge cq-badge-aprovado">Depois</figcaption></figure>` : ''}${!r.fotos.antes && !r.fotos.depois ? '<div class="nophoto">Registro sem foto</div>' : ''}</div>
     ${r.obs ? `<p class="formula">“${esc(r.obs)}”</p>` : ''}
     ${cont ? `<div class="quest-extra" style="margin:0"><span><b>Motivo da rejeição:</b> ${esc(r.motivo)}</span><span><b>${esc(m.nome)} contestou:</b> ${esc(r.contestacao)}</span></div>` : ''}
-    <div class="grid2">
-      <label class="f" for="q-${r.id}">Qualidade<select id="q-${r.id}" data-quali="${r.id}">${[0.8,0.9,1,1.1,1.2].map(v => `<option value="${v}" ${q === v ? 'selected' : ''}>×${fmt(v)}${v === 1 ? ' (padrão)' : ''}</option>`).join('')}</select></label>
-      ${q !== 1 ? `<label class="f" for="qj-${r.id}">Justificativa<input type="text" id="qj-${r.id}" data-qj="${r.id}" value="${esc(ui.qj[r.id] || '')}" placeholder="Obrigatória"></label>` : '<span></span>'}
-    </div>
-    <p class="formula">${fmt(atv.peso)} × 10 × ${fmt(EVID[r.evid].mult)} evidência × ${fmt(q)} qualidade = <b class="gold lbl">+${fmt(pts)}</b></p>
+    <div class="stars" role="radiogroup" aria-label="Qualidade da missão"><span class="f-k">Qualidade</span>${[1,2,3,4,5].map(n => `<button type="button" class="star${n <= est ? ' on' : ''}" role="radio" aria-checked="${n === est}" aria-label="${n} ${n === 1 ? 'estrela' : 'estrelas'}" data-act="estrela" data-id="${r.id}" data-n="${n}">${icon('xp', 24)}</button>`).join('')}<span class="cap">${est} de 5${est === ESTRELA_PADRAO ? ' (padrão)' : ''}</span></div>
+    <p class="formula">${fmt(atv.peso)} × 10 × ${fmt(EVID[r.evid].mult)} evidência × ${fmt(q)} (${est} ${est === 1 ? 'estrela' : 'estrelas'}) = <b class="gold lbl">+${fmt(pts)}</b></p>
     <div class="row">${btn('Aprovar', 'aprovar', {v:'primary', s:'sm', id:r.id, ic:'check'})}${btn(cont ? 'Manter' : 'Rejeitar', 'rejeitar', {v:'danger', s:'sm', id:r.id})}</div>
   </article>`;
 }
@@ -1196,6 +1202,7 @@ const ACT = {
   enviar: () => enviarRegistro(),
   fechar: () => { ui.sheet = null; ui.draft = null; render(); },
   aprovar: d => aprovar(d.id),
+  estrela: d => { ui.estrelas[d.id] = +d.n; render(); },
   rejeitar: d => { ui.sheet = {t:'rejeitar', id:d.id}; render(); },
   'motivo-rapido': d => { const t = document.getElementById('motivo'); if (t) t.value = d.v; },
   'confirmar-rejeicao': d => { const v = document.getElementById('motivo').value.trim(); if (!v) return errSheet('Escreva o motivo da rejeição.'); rejeitar(d.id, v); },
@@ -1251,7 +1258,6 @@ document.addEventListener('click', ev => {
 document.addEventListener('input', ev => {
   const t = ev.target;
   if (t.dataset.draft && ui.draft) ui.draft[t.dataset.draft] = t.value;
-  if (t.dataset.qj) ui.qj[t.dataset.qj] = t.value;
   if (t.dataset.onb === 'familia') ui.onb.familia = t.value;
   if (t.dataset.onbM != null && t.type !== 'checkbox' && t.tagName !== 'SELECT') ui.onb.membros[+t.dataset.onbM][t.dataset.k] = t.value;
 });
@@ -1261,7 +1267,6 @@ document.addEventListener('change', async ev => {
     try { ui.draft[t.dataset.file] = await lerFoto(t.files[0]); } catch(e){ toast('Foto não lida', 'Não consegui abrir essa imagem. Tente outra.', 'camera'); return; }
     render(); return;
   }
-  if (t.dataset.quali){ ui.quali[t.dataset.quali] = +t.value; render(); return; }
   if (t.dataset.cfg){ S.config[t.dataset.cfg] = +t.value; audit('regra', `${membro(ui.who).nome} alterou “${t.dataset.cfg}”.`); save(); render(); return; }
   if (t.dataset.peso){ const a = ativ(t.dataset.peso); const antes = a.peso; a.peso = +t.value; audit('peso', `${membro(ui.who).nome} mudou o peso de “${a.nome}” de ${fmt(antes)} para ${fmt(a.peso)}.`); save(); render(); return; }
   if (t.dataset.ativo){ const a = ativ(t.dataset.ativo); a.ativo = t.checked; sortear(Math.floor(Math.random()*1e6)+1); save(); render(); return; }

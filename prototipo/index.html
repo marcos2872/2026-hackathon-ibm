@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CasaQuest</title>
+<link rel="icon" href="../assets/brand/casa-quest-favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Identidade CasaQuest (assets/brand): contorno #1a1c2c, azul heráldico, vermelho heráldico, ouro.
+     Layout: simulador de celular à esquerda, roteiro de discussão à direita; empilha no celular. */
+  --bg:#ECEEF5;
+  --surface:#FFFFFF;
+  --surface-2:#F4F5FA;
+  --ink:#1A1C2C;
+  --muted:#545A72;
+  --line:#D7DAE6;
+  --accent:#3B5DC9;
+  --accent-ink:#F4F4F4;
+  --accent-soft:#E2E7F8;
+  --brand-night:#29366F;
+  --heraldic-red:#B13E53;
+  --gold:#FFCD75;
+  --gold-deep:#EF7D57;
+  --hard:#1A1C2C;
+  --good:#1D7A4E; --good-soft:#DCF1E6; --warn:#9A5800; --warn-soft:#FCEBD0; --bad:#B13E53; --bad-soft:#F8E0E5;
+  --font-display:"Pixelify Sans","Courier New",ui-monospace,monospace;
+  --font-body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  --r:8px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14151F; --surface:#1F2133; --surface-2:#272A40; --ink:#F4F4F4; --muted:#A6ABC2; --line:#363A55;
+    --accent:#7F9BF2; --accent-ink:#1A1C2C; --accent-soft:#2A3566; --hard:#05060C;
+    --good:#5ACB92; --good-soft:#163526; --warn:#F2AE5C; --warn-soft:#3B2B12; --bad:#EC7C91; --bad-soft:#3F1C26;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14151F; --surface:#1F2133; --surface-2:#272A40; --ink:#F4F4F4; --muted:#A6ABC2; --line:#363A55;
+  --accent:#7F9BF2; --accent-ink:#1A1C2C; --accent-soft:#2A3566; --hard:#05060C;
+  --good:#5ACB92; --good-soft:#163526; --warn:#F2AE5C; --warn-soft:#3B2B12; --bad:#EC7C91; --bad-soft:#3F1C26;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.45}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.15;font-weight:700;letter-spacing:.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+img.px,svg.px{image-rendering:pixelated;shape-rendering:crispEdges}
+
+.shell{display:grid;grid-template-columns:minmax(340px,410px) minmax(0,1fr);gap:32px;max-width:1180px;margin:0 auto;padding:24px 24px 48px;align-items:start}
+@media (max-width:900px){.shell{grid-template-columns:1fr;padding:12px 16px 40px;gap:24px}}
+
+/* barra do simulador */
+.simbar{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.simbar-k{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.who{display:flex;flex-wrap:wrap;gap:6px}
+.who button{display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px 3px 3px;cursor:pointer;font-size:13px}
+.who button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.who .tag{font-size:10px;font-weight:700;color:var(--heraldic-red);text-transform:uppercase;letter-spacing:.03em}
+.simtools{display:flex;gap:8px;flex-wrap:wrap}
+
+.phone{position:relative;background:var(--surface-2);border:3px solid var(--hard);border-radius:26px;overflow:hidden;height:780px;display:flex;flex-direction:column;box-shadow:0 6px 0 var(--hard)}
+@media (max-width:900px){.phone{height:min(780px,calc(100dvh - 150px));min-height:560px}}
+.app-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--brand-night);color:#F4F4F4}
+.app-head img{width:34px;height:34px;border-radius:6px}
+.app-head h1{font-size:18px}
+.app-head small{display:block;color:#C9D0EE;font-size:12px}
+.app-main{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:14px}
+.tabbar{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--surface);border-top:2px solid var(--line)}
+.tabbar button{background:none;border:0;padding:8px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:var(--muted);cursor:pointer;position:relative}
+.tabbar button[aria-current="page"]{color:var(--accent);font-weight:700}
+.tabbar svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.badge{position:absolute;top:4px;right:calc(50% - 20px);background:var(--heraldic-red);color:#fff;font-size:10px;font-weight:700;border-radius:999px;min-width:16px;height:16px;line-height:16px;padding:0 4px}
+
+/* avatar 8 bits */
+.av{width:28px;height:28px;border-radius:6px;display:inline-block;flex:none;background:var(--surface-2);overflow:hidden}
+.av svg{width:100%;height:100%;display:block}
+.av.lg{width:64px;height:64px;border:3px solid var(--hard);border-radius:8px;background:#C9D0EE}
+
+/* painel de status no estilo RPG */
+.hero{background:var(--brand-night);color:#F4F4F4;border:3px solid var(--hard);border-radius:10px;padding:12px;display:grid;grid-template-columns:auto 1fr;gap:10px 12px;box-shadow:0 4px 0 var(--hard)}
+.hero h1{font-size:22px}
+.hero .sub{font-size:12px;color:#C9D0EE}
+.bars{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
+.bar{display:grid;grid-template-columns:74px 1fr auto;gap:8px;align-items:center;font-size:12px}
+.bar .k{font-family:var(--font-display);font-size:13px;color:#E6E9F7}
+.bar .v{font-variant-numeric:tabular-nums;color:#E6E9F7;min-width:72px;text-align:right}
+.track{height:10px;background:#141A3D;border:2px solid var(--hard);border-radius:3px;overflow:hidden}
+.track i{display:block;height:100%}
+.chips{display:flex;gap:6px;flex-wrap:wrap;grid-column:1/-1}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;border-radius:6px;padding:3px 8px;background:#1E2856;color:#F4F4F4}
+.chip svg{width:14px;height:14px}
+
+.card{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px}
+.sec{font-size:16px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sec .muted{font-family:var(--font-body);font-weight:500;font-size:13px;letter-spacing:0}
+.hello h1{font-size:24px}
+.hello p{margin:2px 0 0}
+
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.task{background:var(--surface);border:2px solid var(--line);border-left-width:8px;border-radius:var(--r);padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
+.task.w1{border-left-color:#7FC8A9}.task.w2{border-left-color:var(--gold)}.task.w3{border-left-color:var(--gold-deep)}.task.w4{border-left-color:var(--heraldic-red)}
+.task.done{opacity:.75}
+.task h3{font-family:var(--font-body);font-size:15px;font-weight:700;letter-spacing:0}
+.task .meta{font-size:12px;color:var(--muted);grid-column:1}
+.task .why{grid-column:1/-1;font-size:12px;background:var(--bad-soft);color:var(--bad);border-radius:6px;padding:6px 8px}
+.simples .task h3{font-size:17px}
+.simples .task{padding:14px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.pill.neutral{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.pill.wait{background:var(--warn-soft);color:var(--warn)}
+.pill.ok{background:var(--good-soft);color:var(--good)}
+.pill.no{background:var(--bad-soft);color:var(--bad)}
+.pill.info{background:var(--accent-soft);color:var(--accent)}
+
+.btn{border:2px solid var(--hard);border-radius:6px;padding:7px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:var(--accent-ink);font-size:14px;box-shadow:0 3px 0 var(--hard)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--hard)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:0 3px 0 var(--hard)}
+.btn.sm{padding:4px 10px;font-size:13px}
+.btn.ghost{background:var(--surface);color:var(--ink)}
+.btn.good{background:#38B764;color:#1A1C2C}
+.btn.bad{background:var(--surface);color:var(--bad)}
+.btn.gold{background:var(--gold);color:#1A1C2C}
+.btn.block{width:100%}
+.fab{position:absolute;right:16px;bottom:78px;width:52px;height:52px;border-radius:12px;font-size:28px;line-height:1;padding:0;z-index:3;background:var(--heraldic-red);color:#fff}
+.link{background:none;border:0;color:var(--accent);font-weight:700;cursor:pointer;padding:0;font-size:13px;text-decoration:underline;text-underline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.end{justify-content:flex-end}
+.spread{display:flex;justify-content:space-between;align-items:center;gap:8px}
+
+.feed{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.feed li{display:flex;gap:10px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:8px}
+.feed img{width:48px;height:36px;object-fit:cover;border-radius:4px}
+.feed p{margin:0;font-size:13px}
+
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.photos figure{margin:0;position:relative}
+.photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block}
+.photos figcaption{position:absolute;left:6px;top:6px;background:rgba(26,28,44,.8);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase}
+.nophoto{grid-column:1/-1;border:2px dashed var(--line);border-radius:6px;padding:12px;text-align:center;color:var(--muted);font-size:13px}
+.formula{font-size:13px;color:var(--muted);margin:0}
+.formula b{color:var(--ink)}
+.note{font-size:12px;color:var(--muted);margin:0}
+.callout{background:var(--accent-soft);border-radius:6px;padding:10px 12px;font-size:13px}
+.callout.warn{background:var(--warn-soft)}
+.callout.good{background:var(--good-soft)}
+
+.slot{display:flex;flex-direction:column;gap:6px}
+.slot-k{font-size:12px;font-weight:700}
+.slot-k em{font-style:normal;font-weight:500;color:var(--muted)}
+.drop{display:grid;place-items:center;aspect-ratio:4/3;border:2px dashed var(--line);border-radius:6px;color:var(--accent);font-weight:700;font-size:13px;cursor:pointer;text-align:center;padding:8px;background:var(--surface)}
+.drop:hover{border-color:var(--accent)}
+
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600}
+input[type=text],input[type=number],input[type=password],select,textarea{border:2px solid var(--line);background:var(--surface);border-radius:6px;padding:7px 10px;font-weight:400;width:100%}
+textarea{min-height:70px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tagbtn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:13px}
+.check input{margin-top:3px}
+.seg{display:flex;background:var(--surface);border:2px solid var(--line);border-radius:8px;padding:3px;gap:3px}
+.seg button{flex:1;border:0;background:none;border-radius:5px;padding:6px;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+
+/* evolução individual: barras semanais */
+.evo-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.evo-big{font-family:var(--font-display);font-size:40px;line-height:1}
+.chart{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;align-items:end;height:130px;border-bottom:1px solid var(--line);padding-top:18px}
+.chart .grid{position:absolute;left:0;right:0;border-top:1px dashed var(--line);font-size:10px;color:var(--muted)}
+.chart .grid span{position:absolute;right:0;top:-14px}
+.colb{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;outline:none}
+.colb i{display:block;width:60%;max-width:30px;background:var(--accent-soft);border-radius:4px 4px 0 0;border:1px solid var(--accent)}
+.colb.now i{background:var(--accent)}
+.colb .lbl{position:absolute;font-size:11px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;transform:translateY(-16px)}
+.colb .tip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:11px;font-weight:600;padding:4px 6px;border-radius:4px;white-space:nowrap;z-index:2}
+.colb:hover .tip,.colb:focus .tip{display:block}
+.xl{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;font-size:11px;color:var(--muted);text-align:center}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.tile span{font-size:11px;color:var(--muted);font-weight:600}
+.tile b{font-family:var(--font-display);font-size:20px;font-variant-numeric:tabular-nums}
+
+.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rank li{display:grid;grid-template-columns:24px auto 1fr auto;gap:10px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:8px 12px}
+.rank li.me{border-color:var(--accent)}
+.rank .pos{font-family:var(--font-display);font-size:20px;color:var(--muted);text-align:center}
+.rank li:first-child .pos{color:var(--gold-deep)}
+.rank .nm{font-weight:700;font-size:14px}
+.rank .sub{font-size:12px;color:var(--muted)}
+.rank .pts{font-family:var(--font-display);font-size:18px;text-align:right}
+.rank .pts small{display:block;font-family:var(--font-body);font-size:11px;color:var(--muted)}
+.crest{width:34px;height:34px;border:2px solid var(--hard);border-radius:6px 6px 14px 14px;display:grid;place-items:center;font-family:var(--font-display);color:#fff;font-size:15px}
+
+/* prêmios em grade */
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.reward{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:10px;display:flex;flex-direction:column;gap:6px}
+.reward h3{font-family:var(--font-body);font-size:14px;font-weight:700;letter-spacing:0}
+.reward .meta{font-size:11px;color:var(--muted)}
+.cost{display:flex;align-items:center;gap:4px;font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
+.cost svg{width:16px;height:16px}
+.meter{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--gold-deep)}
+
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding:4px 6px;border-bottom:2px solid var(--line)}
+table.t td{padding:6px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t td.r,table.t th.r{text-align:right;font-variant-numeric:tabular-nums}
+.scroll-x{overflow-x:auto}
+
+.goal-big{font-family:var(--font-display);font-size:32px}
+.bigmeter{height:16px;background:var(--line);border:2px solid var(--hard);border-radius:4px;overflow:hidden}
+.bigmeter i{display:block;height:100%;background:var(--gold)}
+.contrib{display:grid;grid-template-columns:70px 1fr 54px;gap:8px;align-items:center;font-size:13px}
+.cbar{position:relative;height:10px;background:var(--line);border-radius:3px}
+.cbar i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:3px}
+.cbar i.low{background:var(--gold-deep)}
+.cbar .mk{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.conds{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.conds li::before{content:"";display:inline-block;width:8px;height:8px;margin-right:8px;background:var(--gold-deep)}
+.conds li.ok::before{background:var(--good)}
+
+/* computador simulado */
+.monitor{background:#1A1C2C;border-radius:10px;padding:10px 10px 0;color:#E7EBF3;border:3px solid var(--hard)}
+.screen{position:relative;aspect-ratio:16/10;border-radius:4px;overflow:hidden;background:#29366F;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:12px}
+.screen.locked{background:radial-gradient(circle at 50% 30%,#3B4C8F,#1A1C2C)}
+.screen.desk{background:linear-gradient(160deg,#3B5DC9,#29366F);justify-content:flex-start;align-items:stretch;padding:0}
+.screen h3{font-size:18px;color:#fff}
+.screen p{margin:0;font-size:12px;color:#C9D0EE;max-width:260px}
+.win{background:#F4F4F4;border-radius:4px;margin:12px 0 0 12px;width:62%;height:52%;color:#333;font-size:11px;text-align:left}
+.win .wbar{background:#D6DBE5;border-radius:4px 4px 0 0;padding:3px 8px;font-weight:700}
+.win .body{padding:8px}
+.clock{position:absolute;right:8px;top:8px;background:rgba(26,28,44,.85);color:#fff;font-weight:700;font-size:12px;border-radius:4px;padding:4px 8px;font-variant-numeric:tabular-nums}
+.clock.warn{background:#EF7D57;color:#1A1C2C}
+.soft{position:absolute;inset:0;background:rgba(26,28,44,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px}
+.stand{height:14px;width:30%;margin:0 auto;background:#333C57}
+.lock-ic{width:34px;height:34px;stroke:#fff;fill:none;stroke-width:1.8}
+
+/* folhas */
+.sheet-wrap{position:absolute;inset:0;background:rgba(10,12,22,.5);display:flex;align-items:flex-end;z-index:5}
+.sheet{background:var(--surface);width:100%;max-height:88%;overflow-y:auto;border-radius:16px 16px 0 0;border-top:3px solid var(--hard);padding:16px 16px 20px;display:flex;flex-direction:column;gap:12px}
+.sheet h2{font-size:20px}
+.err{color:var(--bad);font-size:13px;font-weight:700;min-height:1em;margin:0}
+.toast{position:absolute;left:16px;right:16px;bottom:78px;background:var(--gold);color:#1A1C2C;border:2px solid var(--hard);border-radius:8px;padding:10px 14px;font-size:14px;font-weight:700;z-index:6;box-shadow:0 4px 0 var(--hard)}
+@media (prefers-reduced-motion:no-preference){.toast{animation:up .25s ease-out}.sheet{animation:up .2s ease-out}@keyframes up{from{transform:translateY(12px);opacity:.6}to{transform:none;opacity:1}}}
+
+/* cadastro */
+.onb-steps{display:flex;gap:6px}
+.onb-steps span{flex:1;height:6px;border-radius:2px;background:var(--line)}
+.onb-steps span.on{background:var(--accent)}
+.tpl{display:grid;grid-template-columns:auto 1fr 74px;gap:8px;align-items:center;font-size:13px;background:var(--surface);border:2px solid var(--line);border-radius:6px;padding:8px 10px}
+.tpl select{padding:4px 6px}
+.mrow{display:grid;grid-template-columns:1fr 56px 96px;gap:6px;align-items:center}
+.mrow input,.mrow select{padding:6px 8px;font-size:13px}
+
+/* guia lateral */
+.guide{display:flex;flex-direction:column;gap:24px;max-width:70ch}
+.guide .logo{background:var(--brand-night);border:3px solid var(--hard);border-radius:10px;padding:14px 18px;display:inline-flex;box-shadow:0 4px 0 var(--hard)}
+.guide .logo img{height:64px;width:auto}
+.guide header p{margin:12px 0 0;color:var(--muted);font-size:16px}
+.guide h2{font-size:21px;margin-bottom:10px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.steps li{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:10px 12px}
+.steps .n{width:26px;height:26px;border-radius:4px;display:grid;place-items:center;font-weight:700;font-size:13px;background:var(--surface-2);border:2px solid var(--line)}
+.steps li.done .n{background:#38B764;border-color:var(--hard);color:#1A1C2C}
+.steps p{margin:0;font-size:14px}
+.steps small{color:var(--muted);font-size:12px}
+.qs{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.qs b{font-weight:700}
+.map{width:100%;border-collapse:collapse;font-size:14px}
+.map td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.map td:first-child{font-weight:700;width:38%}
+.st{display:inline-block;font-size:11px;font-weight:700;border-radius:4px;padding:1px 6px;margin-right:4px}
+.st.ok{background:var(--good-soft);color:var(--good)}
+.st.chg{background:var(--warn-soft);color:var(--warn)}
+.st.out{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.cut{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cut div{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:13px}
+.cut b{display:block;font-family:var(--font-display);font-size:15px;margin-bottom:4px}
+.cut ul{margin:0;padding-left:18px}
+@media (max-width:520px){.cut{grid-template-columns:1fr}}
+code{font-size:12.5px;background:var(--surface-2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <section id="stage" aria-label="Simulador do aplicativo"></section>
+  <aside class="guide" id="guide"></aside>
+</div>
+
+<script>
+'use strict';
+/* ============ constantes e utilitários ============ */
+const KEY = 'casaquest-prototipo-v3';
+const EVID = {
+  antes_depois:{label:'Antes e depois', mult:1},
+  depois:{label:'Só depois', mult:0.8},
+  nenhuma:{label:'Sem foto', mult:0.5}
+};
+const HORIZ = {curto:'Curto prazo', medio:'Médio prazo', longo:'Longo prazo'};
+/* cor da camiseta, cabelo e pele de cada avatar 8 bits */
+const LOOK = [
+  {cor:'#B13E53', cabelo:'#5D275D', pele:'#F2C29B'},
+  {cor:'#3B5DC9', cabelo:'#333C57', pele:'#C98E64'},
+  {cor:'#38B764', cabelo:'#1A1C2C', pele:'#F2C29B'},
+  {cor:'#EF7D57', cabelo:'#B8873E', pele:'#E0A880'},
+  {cor:'#5D275D', cabelo:'#333C57', pele:'#C98E64'},
+  {cor:'#257179', cabelo:'#73464C', pele:'#F2C29B'}
+];
+const TPL = [
+  {id:'cama', nome:'Arrumar a cama', peso:0.5, freq:'Diária', evid:'depois', valid:'auto', pessoal:true, idadeMin:0, prazo:'09h'},
+  {id:'quarto', nome:'Organizar o quarto', peso:1, freq:'Diária', evid:'antes_depois', valid:'admin', pessoal:true, idadeMin:0, prazo:'19h'},
+  {id:'lixo', nome:'Tirar o lixo', peso:0.5, freq:'Diária', evid:'nenhuma', valid:'auto', idadeMin:0, prazo:'20h'},
+  {id:'louca', nome:'Lavar a louça', peso:1, freq:'2× ao dia', vezes:2, rotulos:['almoço','jantar'], evid:'depois', valid:'admin', idadeMin:7, prazo:'21h'},
+  {id:'jantar', nome:'Preparar o jantar', peso:1.5, freq:'Diária', evid:'depois', valid:'admin', idadeMin:16, prazo:'19h30'},
+  {id:'banheiro', nome:'Limpar o banheiro', peso:2, freq:'Diária', evid:'antes_depois', valid:'admin', idadeMin:10, prazo:'21h'},
+  {id:'pesada', nome:'Limpeza pesada da casa', peso:3, freq:'Semanal (sábado)', evid:'antes_depois', valid:'admin', idadeMin:12, prazo:'sábado', semanal:true},
+  {id:'pet', nome:'Alimentar o pet', peso:0.5, freq:'Diária', evid:'nenhuma', valid:'auto', idadeMin:6, prazo:'08h'}
+];
+const ONB_FAMILIA = ['cama','quarto','lixo','louca','jantar','banheiro'];
+const ONB_CASAL = ['lixo','louca','jantar','banheiro','pesada'];
+const PESOS = [0.5,1,1.5,2,2.5,3];
+
+const r05 = x => Math.round(x*2)/2;
+const fmt = n => Number(n).toLocaleString('pt-BR',{maximumFractionDigits:1});
+const brl = v => Number(v).toLocaleString('pt-BR',{style:'currency', currency:'BRL'});
+const uid = p => p + Math.random().toString(36).slice(2,9);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const isoLocal = d => d.toLocaleDateString('sv-SE');
+const hoje = () => isoLocal(new Date());
+const addDias = (iso, n) => { const d = new Date(iso+'T12:00:00'); d.setDate(d.getDate()+n); return isoLocal(d); };
+const diasEntre = (a,b) => Math.round((new Date(b+'T12:00:00') - new Date(a+'T12:00:00'))/864e5);
+const segunda = () => addDias(hoje(), -((new Date().getDay()+6)%7));
+const dataLonga = () => new Date().toLocaleDateString('pt-BR',{weekday:'long', day:'numeric', month:'long'});
+const dataCurta = iso => new Date(iso+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit', month:'2-digit'});
+function quando(ts){
+  const d = new Date(ts);
+  const h = d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  return isoLocal(d) === hoje() ? 'hoje, '+h : d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' '+h;
+}
+function lcg(seed){ let s = seed % 2147483647; if (s <= 0) s += 2147483646; return () => (s = s*16807 % 2147483647) / 2147483647; }
+function embaralha(arr, rnd){ for (let i = arr.length-1; i > 0; i--){ const j = Math.floor(rnd()*(i+1)); [arr[i],arr[j]] = [arr[j],arr[i]]; } return arr; }
+
+/* avatar 8 bits: matriz de texto -> SVG */
+const AV_MAP = [
+  '...oooooo...',
+  '..ohhhhhho..',
+  '.ohhhhhhhho.',
+  '.ohssssssho.',
+  '.osessssesо.',
+  '.ossssssssо.',
+  '..ossmmsso..',
+  '...oooooo...',
+  '..occccccо..',
+  '.occccccccо.',
+  '.occccccccо.',
+  '.oooooooooo.'
+].map(r => r.replace(/[^.ohsemc]/g, 'o'));
+function avatarSVG(m){
+  const L = {o:'#1A1C2C', h:m.cabelo, s:m.pele, e:'#1A1C2C', m:'#B13E53', c:m.cor};
+  let r = '';
+  AV_MAP.forEach((row, y) => [...row].forEach((ch, x) => { if (L[ch]) r += `<rect x="${x}" y="${y}" width="1" height="1" fill="${L[ch]}"/>`; }));
+  return `<svg class="px" viewBox="-1 -1 14 14" aria-hidden="true">${r}</svg>`;
+}
+const COIN = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><rect x="2" y="0" width="4" height="1" fill="#1A1C2C"/><rect x="1" y="1" width="6" height="6" fill="#1A1C2C"/><rect x="0" y="2" width="8" height="4" fill="#1A1C2C"/><rect x="2" y="1" width="4" height="6" fill="#FFCD75"/><rect x="1" y="2" width="6" height="4" fill="#FFCD75"/><rect x="3" y="2" width="1" height="4" fill="#EF7D57"/></svg>';
+const FLAME = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><rect x="3" y="0" width="2" height="2" fill="#EF7D57"/><rect x="2" y="2" width="4" height="2" fill="#EF7D57"/><rect x="1" y="4" width="6" height="3" fill="#EF7D57"/><rect x="3" y="4" width="2" height="3" fill="#FFCD75"/><rect x="2" y="7" width="4" height="1" fill="#B13E53"/></svg>';
+const SWORD = '<svg class="px" viewBox="0 0 8 8" aria-hidden="true"><rect x="5" y="0" width="3" height="1" fill="#C9D0EE"/><rect x="4" y="1" width="3" height="1" fill="#C9D0EE"/><rect x="3" y="2" width="3" height="1" fill="#C9D0EE"/><rect x="2" y="3" width="3" height="1" fill="#C9D0EE"/><rect x="1" y="4" width="3" height="1" fill="#FFCD75"/><rect x="0" y="6" width="2" height="2" fill="#B8873E"/><rect x="1" y="5" width="2" height="1" fill="#B8873E"/></svg>';
+
+/* foto de exemplo desenhada em canvas (antes = sujo, depois = limpo) */
+function fotoExemplo(tipo, nome, semente){
+  const c = document.createElement('canvas'); c.width = 360; c.height = 270;
+  const g = c.getContext('2d'); const rnd = lcg(semente || 7);
+  const antes = tipo === 'antes';
+  g.fillStyle = antes ? '#C7C0AE' : '#E6F0F3'; g.fillRect(0,0,360,270);
+  g.strokeStyle = antes ? '#A39A84' : '#C3D6DD'; g.lineWidth = 2;
+  for (let x = 0; x <= 360; x += 45){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,270); g.stroke(); }
+  for (let y = 0; y <= 270; y += 45){ g.beginPath(); g.moveTo(0,y); g.lineTo(360,y); g.stroke(); }
+  if (antes){
+    for (let i = 0; i < 26; i++){
+      g.fillStyle = `rgba(${90+rnd()*40|0},${70+rnd()*30|0},${40+rnd()*20|0},${.25+rnd()*.35})`;
+      g.beginPath(); g.ellipse(rnd()*360, rnd()*270, 6+rnd()*26, 4+rnd()*16, rnd()*3, 0, 7); g.fill();
+    }
+  } else {
+    g.fillStyle = '#FFFFFF';
+    for (let i = 0; i < 9; i++){
+      const x = 20+rnd()*320, y = 20+rnd()*200, s = 6+rnd()*10;
+      g.beginPath(); g.moveTo(x,y-s); g.lineTo(x+s*.25,y-s*.25); g.lineTo(x+s,y); g.lineTo(x+s*.25,y+s*.25);
+      g.lineTo(x,y+s); g.lineTo(x-s*.25,y+s*.25); g.lineTo(x-s,y); g.lineTo(x-s*.25,y-s*.25); g.closePath(); g.fill();
+    }
+  }
+  g.fillStyle = 'rgba(26,28,44,.78)'; g.fillRect(0,226,360,44);
+  g.fillStyle = '#fff'; g.font = '600 15px sans-serif';
+  g.fillText((antes ? 'ANTES · ' : 'DEPOIS · ') + nome, 12, 253);
+  return c.toDataURL('image/jpeg', .72);
+}
+function lerFoto(file){
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onerror = rej;
+    fr.onload = () => {
+      const img = new Image();
+      img.onerror = rej;
+      img.onload = () => {
+        const s = Math.min(1, 480/Math.max(img.width, img.height));
+        const c = document.createElement('canvas'); c.width = Math.round(img.width*s); c.height = Math.round(img.height*s);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        res(c.toDataURL('image/jpeg', .72));
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+/* ============ estado ============ */
+let S;
+const ui = {who:null, tab:null, sheet:null, draft:null, onb:null, toast:null, quali:{}, qj:{}, vis:{}, pc:{run:false, soft:0, owner:null}};
+let pcTimer = null, toastTimer = null;
+
+const membro = id => S.membros.find(m => m.id === id);
+const ativ = id => S.atividades.find(a => a.id === id);
+const admins = () => S.membros.filter(m => m.admin);
+const isAdmin = id => !!membro(id)?.admin;
+const crianca = m => m.idade < 18;
+const simples = m => m.idade < S.config.idadeSimples;
+const nivel = xp => { const n = Math.floor(xp/200)+1; const r = xp % 200; return {n, pct: r/2, falta: 200-r, prox: n*200}; };
+const equipe = id => S.equipes.find(e => e.id === id);
+const minDeCred = c => Math.floor(c / S.config.credBloco) * S.config.minBloco;
+const calcPts = (peso, evid, q = 1) => r05(peso*10*EVID[evid].mult*q);
+const nomes = arr => arr.length <= 1 ? (arr[0] || '') : arr.slice(0,-1).join(', ') + ' e ' + arr[arr.length-1];
+
+/* quem aprova: quem criou a tarefa (se não for o executor); senão um dos administradores, nunca o próprio executor */
+function avaliadorPara(atr){
+  const atv = ativ(atr.atividadeId);
+  if (atv.valid === 'auto') return 'auto';
+  if (atr.criadoPor && atr.criadoPor !== atr.membroId) return atr.criadoPor;
+  const outros = admins().filter(a => a.id !== atr.membroId);
+  if (outros.length) return null;
+  const maisVelho = S.membros.filter(x => x.id !== atr.membroId).sort((a, b) => b.idade - a.idade)[0];
+  return maisVelho ? maisVelho.id : null;
+}
+function quemAvalia(r){
+  if (r.avaliador) return membro(r.avaliador)?.nome || '';
+  return nomes(admins().filter(a => a.id !== r.membroId).map(a => a.nome)) || 'admin';
+}
+const podeAvaliar = (id, r) => r.membroId !== id && (r.avaliador ? r.avaliador === id : isAdmin(id));
+const filaDe = id => S.registros.filter(r => (r.status === 'pendente' || r.status === 'contestado') && podeAvaliar(id, r));
+
+function audit(tipo, texto, ator){ S.auditoria.unshift({id:uid('ev'), quando:Date.now(), ator: ator || ui.who, tipo, texto}); S.auditoria = S.auditoria.slice(0, 80); }
+function movimento(mid, desc, d){ S.extrato.unshift(Object.assign({id:uid('x'), membroId:mid, quando:Date.now(), desc, xp:0, cred:0}, d)); }
+
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(S)); }
+  catch(e){
+    try { S.registros.slice(6).forEach(r => { r.fotos = {}; }); localStorage.setItem(KEY, JSON.stringify(S)); } catch(e2){}
+  }
+}
+function load(){
+  try { const raw = localStorage.getItem(KEY); if (raw){ const s = JSON.parse(raw); if (s && s.v === 3) return s; } } catch(e){}
+  return null;
+}
+
+/* ============ mesada (RN20) ============ */
+function cumprimento(m){
+  const hojeN = S.atribuicoes.filter(a => a.membroId === m.id && a.data === hoje() && a.status !== 'nao_feita').length;
+  const tot = m.atribSemana + hojeN;
+  return tot ? m.tarefasSemana / tot : 0;
+}
+function mesadaDevida(m){
+  const c = S.config.mesada;
+  if (c.modo === 'fixo') return cumprimento(m) * 100 >= c.minPct ? c.valor : 0;
+  return Math.round(m.semanas[m.semanas.length-1] * c.taxa * 100) / 100;
+}
+const pagamentoDaSemana = (mid, semana) => S.pagamentos.find(p => p.membroId === mid && p.semana === semana);
+
+/* ============ dados de exemplo ============ */
+function seed(o){
+  const dia = hoje();
+  o = o || {
+    tipo:'familia', familia:'Casa da Ana',
+    atividades: ONB_FAMILIA.map(id => { const t = TPL.find(x => x.id === id); return {id, peso:t.peso, evid:t.evid}; }),
+    membros: [
+      {nome:'Ana', idade:41, equipe:'raposa', admin:true},
+      {nome:'Paulo', idade:43, equipe:'coruja', admin:true},
+      {nome:'Bruno', idade:14, equipe:'raposa', admin:false},
+      {nome:'Carla', idade:11, equipe:'coruja', admin:false},
+      {nome:'Davi', idade:8, equipe:'raposa', admin:false}
+    ],
+    historico:true
+  };
+  const hist = o.historico;
+  const H = [
+    {xp:1180, pts:70, cred:45, streak:9, tar:13, peso:11, sem:8.0, ontem:['jantar'], meta:520, semanas:[48,55,52,60,58,46], ts:9, as:10},
+    {xp:1050, pts:64, cred:30, streak:4, tar:11, peso:10, sem:7.5, ontem:['louca'], meta:470, semanas:[40,44,50,47,52,41], ts:8, as:9},
+    {xp:1590, pts:85, cred:60, streak:6, tar:14, peso:12.5, sem:5.5, ontem:['louca'], meta:1120, semanas:[52,60,58,66,71,63], ts:10, as:10},
+    {xp:1290, pts:92.5, cred:35, streak:11, tar:16, peso:13, sem:6.0, ontem:['banheiro'], meta:980, semanas:[70,66,72,75,68,59], ts:12, as:12, min:20},
+    {xp:610, pts:40, cred:20, streak:2, tar:8, peso:6, sem:5.5, ontem:['lixo'], meta:350, semanas:[18,22,25,24,30,27], ts:7, as:10}
+  ];
+  const vazio = {xp:0, pts:0, cred:0, streak:0, tar:0, peso:0, sem:0, ontem:[], meta:0, semanas:[0,0,0,0,0,0], ts:0, as:0};
+  const membros = o.membros.filter(m => m.nome.trim()).map((m, i) => {
+    const h = hist && H[i] ? H[i] : vazio;
+    return Object.assign({id:'m'+(i+1), nome:m.nome.trim(), idade:+m.idade || 10, equipe:m.equipe, admin:!!m.admin,
+      xp:h.xp, pts:h.pts, cred:h.cred, streak:h.streak, tarefasTemp:h.tar, pesoTemp:h.peso, pesoSemana:h.sem, ontem:h.ontem.slice(),
+      semanas:h.semanas.slice(), tarefasSemana:h.ts, atribSemana:h.as, minutos:h.min || 0, usadoHoje:0, _meta:h.meta}, LOOK[i % LOOK.length]);
+  });
+  const atividades = o.atividades.map(a => Object.assign({}, TPL.find(t => t.id === a.id), {peso:+a.peso, evid:a.evid, ativo:true}));
+  const ini = new Date(); const fimMes = new Date(ini.getFullYear(), ini.getMonth()+1, 0);
+  const casal = o.tipo === 'casal';
+  S = {
+    v:3, dia, tipo:o.tipo, semana:segunda(),
+    familia:{nome:o.familia.trim() || 'Minha casa'},
+    config:{credBloco:10, minBloco:20, limiteDiario:180, agenda:'18h às 21h', pin:'1234', idadeSimples:9, limiteSorteio:15,
+      mesada:{modo:'fixo', valor:20, minPct:80, taxa:0.10}},
+    membros,
+    equipes:[
+      {id:'raposa', nome:'Time Raposa', cor:'#B13E53', premio:'Escolhe a pizza e o filme do sábado'},
+      {id:'coruja', nome:'Time Coruja', cor:'#3B5DC9', premio:'Escolhe a pizza e o filme do sábado'}
+    ],
+    atividades, atribuicoes:[], registros:[], resgates:[], extrato:[], auditoria:[], pagamentos:[],
+    recompensas:[
+      {id:'r1', nome:'30 min de computador', custo:15, horizonte:'curto', minutos:30, estoque:null, por:'m1'},
+      {id:'r2', nome:'Escolher o filme da sexta', custo:20, horizonte:'curto', estoque:1, por:'m1'},
+      {id:'r3', nome:'Sobremesa especial', custo:25, horizonte:'curto', estoque:2, por:'m2'},
+      {id:'r4', nome:'Dormir 15 min mais tarde', custo:30, horizonte:'curto', estoque:null, por:'m2'},
+      {id:'r5', nome:'Passeio no parque', custo:150, horizonte:'medio', estoque:null, por:'m1'},
+      {id:'r6', nome:'Dia sem tarefas', custo:250, horizonte:'medio', estoque:1, por:'m2'},
+      {id:'r7', nome:'Jogo novo', custo:400, horizonte:'medio', estoque:null, por:'m1'},
+      {id:'r8', nome:'Console', custo:1500, horizonte:'longo', estoque:null, por:'m2'}
+    ],
+    meta:{nome: casal ? 'Fim de semana na serra' : 'Viagem para a praia em janeiro', alvo: casal ? 2000 : 5000, minPct: casal ? 30 : 10, inicio:addDias(dia,-36), prazo:addDias(dia,54), contrib:{}},
+    temporada:{nome:'Temporada de ' + ini.toLocaleDateString('pt-BR',{month:'long'}), fim:isoLocal(fimMes)},
+    sorteio:null,
+    demo:{criada: !!o.criadaAgora}
+  };
+  if (casal) S.recompensas = S.recompensas.filter(r => !r.minutos && r.id !== 'r4');
+  membros.forEach(m => { S.meta.contrib[m.id] = m._meta; delete m._meta; });
+  sortear(20261106, true);
+  if (hist){
+    const [ana, paulo, , carla, davi] = membros;
+    const cama = carla && S.atribuicoes.find(a => a.membroId === carla.id && a.atividadeId === 'cama');
+    if (cama){
+      const r = novoRegistro(cama, {depois: fotoExemplo('depois','Arrumar a cama', 3)}, 'Antes da escola!');
+      r.status = 'aprovado'; r.pontos = calcPts(.5,'depois'); r.quando = Date.now() - 6*3600e3; cama.status = 'aprovado';
+    }
+    const quarto = carla && S.atribuicoes.find(a => a.membroId === carla.id && a.atividadeId === 'quarto');
+    if (quarto){
+      const r = novoRegistro(quarto, {antes: fotoExemplo('antes','Organizar o quarto', 11), depois: fotoExemplo('depois','Organizar o quarto', 12)}, 'Guardei os livros na estante nova.');
+      r.quando = Date.now() - 40*60e3; quarto.status = 'pendente';
+    }
+    const louca = davi && S.atribuicoes.find(a => a.membroId === davi.id && a.atividadeId === 'louca');
+    if (louca){
+      const r = novoRegistro(louca, {depois: fotoExemplo('depois','Lavar a louça', 21)}, '');
+      r.status = 'rejeitado'; r.motivo = 'Ficaram as panelas do almoço na pia.'; r.quando = Date.now() - 3*3600e3; louca.status = 'rejeitado';
+    }
+    if (ana && ativ('jantar')){
+      S.registros.push({id:uid('rg'), atribId:null, atividadeId:'jantar', membroId:ana.id, avaliador:null, fotos:{depois: fotoExemplo('depois','Preparar o jantar', 31)}, evid:'depois', obs:'Escondidinho de abóbora', status:'aprovado', pontos:calcPts(1.5,'depois'), quando:Date.now() - 20*3600e3});
+    }
+    const semAnt = addDias(S.semana, -7);
+    membros.filter(crianca).forEach(m => S.pagamentos.push({id:uid('pg'), membroId:m.id, semana:semAnt, valor:20, metodo:'Pix', quando:Date.now() - 5*864e5, por: paulo ? paulo.id : membros[0].id}));
+    const d = Date.now();
+    membros.forEach((m, i) => {
+      if (!m.tarefasTemp) return;
+      S.extrato.push({id:uid('x'), membroId:m.id, quando:d - (26+i)*3600e3, desc:'Limpar o banheiro aprovado', xp:20, cred:20});
+      S.extrato.push({id:uid('x'), membroId:m.id, quando:d - (50+i)*3600e3, desc:'Resgate: Sobremesa especial', xp:0, cred:-25});
+      S.extrato.push({id:uid('x'), membroId:m.id, quando:d - (52+i)*3600e3, desc:'Lavar a louça aprovado', xp:8, cred:8});
+    });
+    S.extrato.sort((a,b) => b.quando - a.quando);
+    audit('sorteio', 'Sorteio balanceado do dia publicado (semente 20261106).', membros[0].id);
+    if (davi) audit('rejeição', `Paulo rejeitou “Lavar a louça” de ${davi.nome}: ficaram as panelas do almoço na pia.`, paulo ? paulo.id : membros[0].id);
+    audit('mesada', 'Mesada da semana passada registrada como paga via Pix.', paulo ? paulo.id : membros[0].id);
+  }
+  save();
+}
+function novoRegistro(atr, fotos, obs){
+  const av = avaliadorPara(atr);
+  const evid = fotos.antes && fotos.depois ? 'antes_depois' : (fotos.depois || fotos.antes) ? 'depois' : 'nenhuma';
+  const r = {id:uid('rg'), atribId:atr.id, atividadeId:atr.atividadeId, membroId:atr.membroId, avaliador: av === 'auto' ? null : av, auto: av === 'auto', fotos, evid, obs, status:'pendente', pontos:0, quando:Date.now()};
+  S.registros.push(r); atr.registroId = r.id;
+  return r;
+}
+
+/* ============ sorteio balanceado sem repetição ============ */
+function sortear(semente, silencioso){
+  const rnd = lcg(semente);
+  const dia = hoje();
+  const todos = S.membros;
+  const doDia = S.atribuicoes.filter(a => a.data === dia);
+  const manter = doDia.filter(a => a.status !== 'a_fazer' || a.origem === 'avulsa' || (ativ(a.atividadeId) || {}).pessoal);
+  S.atividades.filter(a => a.ativo && a.pessoal).forEach(a => {
+    todos.filter(crianca).forEach(m => {
+      if (!manter.some(x => x.membroId === m.id && x.atividadeId === a.id))
+        manter.push({id:uid('at'), atividadeId:a.id, membroId:m.id, data:dia, status:'a_fazer', origem:'fixa'});
+    });
+  });
+  const sabado = new Date().getDay() === 6;
+  const pool = [];
+  S.atividades.filter(a => a.ativo && !a.pessoal && !a.avulsa && (!a.semanal || sabado)).forEach(a => {
+    const n = a.vezes || 1;
+    for (let i = 0; i < n; i++) pool.push({a, rotulo: a.rotulos ? a.rotulos[i] : ''});
+  });
+  manter.filter(x => x.origem !== 'avulsa' && !(ativ(x.atividadeId) || {}).pessoal).forEach(x => {
+    const k = pool.findIndex(p => p.a.id === x.atividadeId && (p.rotulo || '') === (x.rotulo || ''));
+    if (k >= 0) pool.splice(k, 1);
+  });
+  embaralha(pool, rnd);
+  pool.sort((p, q) => q.a.peso - p.a.peso);
+  const carga = {};
+  todos.forEach(m => { carga[m.id] = m.pesoSemana + manter.filter(x => x.membroId === m.id).reduce((s, x) => s + (ativ(x.atividadeId)?.peso || 0), 0); });
+  const ordem = embaralha(todos.slice(), rnd);
+  const novos = [], semDono = [];
+  let repeticoesEvitadas = 0;
+  for (const it of pool){
+    const jaHoje = id => manter.concat(novos).some(x => x.membroId === id && x.atividadeId === it.a.id);
+    let eleg = ordem.filter(m => m.idade >= (it.a.idadeMin || 0));
+    if (!eleg.length){ semDono.push(it.a.nome); continue; }
+    const semRep = eleg.filter(m => !m.ontem.includes(it.a.id) && !jaHoje(m.id));
+    if (semRep.length && semRep.length < eleg.length) repeticoesEvitadas++;
+    if (semRep.length) eleg = semRep;
+    eleg = eleg.slice().sort((p, q) => carga[p.id] - carga[q.id]);
+    const m = eleg[0];
+    carga[m.id] += it.a.peso;
+    novos.push({id:uid('at'), atividadeId:it.a.id, membroId:m.id, data:dia, status:'a_fazer', rotulo:it.rotulo, origem:'sorteio'});
+  }
+  const spread = () => { const v = Object.values(carga); const mx = Math.max(...v); return mx ? (mx - Math.min(...v))/mx*100 : 0; };
+  let trocas = 0;
+  for (let it = 0; it < 8 && spread() > S.config.limiteSorteio; it++){
+    const ids = Object.keys(carga).sort((a, b) => carga[b] - carga[a]);
+    const mx = ids[0], mn = ids[ids.length-1];
+    const cand = novos.filter(x => x.membroId === mx && membro(mn).idade >= (ativ(x.atividadeId).idadeMin || 0) && !membro(mn).ontem.includes(x.atividadeId))
+      .filter(x => Math.abs((carga[mx] - ativ(x.atividadeId).peso) - (carga[mn] + ativ(x.atividadeId).peso)) < carga[mx] - carga[mn])
+      .sort((a, b) => ativ(b.atividadeId).peso - ativ(a.atividadeId).peso);
+    if (!cand.length) break;
+    const t = cand[0]; const p = ativ(t.atividadeId).peso;
+    carga[mx] -= p; carga[mn] += p; t.membroId = mn; trocas++;
+  }
+  S.atribuicoes = S.atribuicoes.filter(a => a.data !== dia).concat(manter, novos);
+  S.sorteio = {semente, quando:Date.now(), carga, diff: spread(), repeticoesEvitadas, trocas, semDono};
+  if (!silencioso) audit('sorteio', `Novo sorteio balanceado (semente ${semente}): diferença de ${fmt(spread())}% entre a maior e a menor carga.`);
+}
+
+/* ============ ações de negócio ============ */
+function enviarRegistro(){
+  const d = ui.draft; const atr = S.atribuicoes.find(a => a.id === d.atribId); const atv = ativ(atr.atividadeId); const m = membro(atr.membroId);
+  const r = novoRegistro(atr, {antes:d.antes || null, depois:d.depois || null}, d.obs || '');
+  audit('registro', `${m.nome} registrou “${atv.nome}” (${EVID[r.evid].label.toLowerCase()}).`, m.id);
+  if (r.auto){
+    aplicarAprovacao(r, 1, '', true);
+    toast(`Aprovação automática: +${fmt(r.pontos)} pontos`);
+  } else {
+    atr.status = 'pendente';
+    toast(`Enviado para ${quemAvalia(r)} aprovar`);
+  }
+  ui.sheet = null; ui.draft = null; save(); render();
+}
+function aplicarAprovacao(r, q, just, auto){
+  const atv = ativ(r.atividadeId); const m = membro(r.membroId); const atr = S.atribuicoes.find(a => a.id === r.atribId);
+  const pts = calcPts(atv.peso, r.evid, q);
+  const nAntes = nivel(m.xp).n;
+  r.status = 'aprovado'; r.pontos = pts; r.quali = q; r.avaliadoPor = auto ? 'sistema' : ui.who; r.avaliadoEm = Date.now();
+  if (atr) atr.status = 'aprovado';
+  m.xp += pts; m.pts += pts; m.cred += pts; m.tarefasTemp++; m.pesoTemp += atv.peso; m.tarefasSemana++;
+  m.semanas[m.semanas.length-1] += pts;
+  S.meta.contrib[m.id] = (S.meta.contrib[m.id] || 0) + pts;
+  movimento(m.id, `${atv.nome} aprovado`, {xp:pts, cred:pts});
+  audit('aprovação', `${auto ? 'Sistema' : membro(ui.who).nome} aprovou “${atv.nome}” de ${m.nome}: +${fmt(pts)}${q !== 1 ? ` (qualidade ×${fmt(q)}: ${just})` : ''}.`);
+  const nDepois = nivel(m.xp).n;
+  if (nDepois > nAntes) setTimeout(() => toast(`${m.nome} subiu para o nível ${nDepois}!`), 1600);
+}
+function aprovar(id){
+  const r = S.registros.find(x => x.id === id); const q = +(ui.quali[id] || 1); const just = (ui.qj[id] || '').trim();
+  if (q !== 1 && !just){ toast('Ajuste de qualidade precisa de justificativa (RN14).'); return; }
+  aplicarAprovacao(r, q, just, false);
+  toast(`Aprovado: +${fmt(r.pontos)} para ${membro(r.membroId).nome}`);
+  save(); render();
+}
+function rejeitar(id, motivo){
+  const r = S.registros.find(x => x.id === id); const atr = S.atribuicoes.find(a => a.id === r.atribId);
+  const final = r.status === 'contestado';
+  r.status = 'rejeitado'; r.motivo = motivo; r.final = final; if (atr) atr.status = 'rejeitado';
+  audit('rejeição', `${membro(ui.who).nome} ${final ? 'manteve a rejeição de' : 'rejeitou'} “${ativ(r.atividadeId).nome}” de ${membro(r.membroId).nome}: ${motivo}`);
+  ui.sheet = null; toast('Rejeição registrada com motivo'); save(); render();
+}
+function contestar(id, texto){
+  const r = S.registros.find(x => x.id === id); const atr = S.atribuicoes.find(a => a.id === r.atribId);
+  r.status = 'contestado'; r.contestacao = texto; r.avaliador = null; if (atr) atr.status = 'contestado';
+  audit('contestação', `${membro(r.membroId).nome} contestou a rejeição de “${ativ(r.atividadeId).nome}”.`, r.membroId);
+  ui.sheet = null; toast(`Contestação enviada para ${quemAvalia(r)}`); save(); render();
+}
+function resgatesNaSemana(recId){ return S.resgates.filter(x => x.recompensaId === recId && isoLocal(new Date(x.quando)) >= S.semana).length; }
+function bloqueioResgate(m, rec){
+  if (m.cred < rec.custo) return `Faltam ${fmt(rec.custo - m.cred)} créditos`;
+  if (rec.estoque != null && resgatesNaSemana(rec.id) >= rec.estoque) return 'Estoque da semana esgotado';
+  if (rec.minutos && m.minutos + m.usadoHoje + rec.minutos > S.config.limiteDiario) return `Passaria do limite de ${S.config.limiteDiario/60} h por dia`;
+  return null;
+}
+function resgatar(recId){
+  const m = membro(ui.who); const rec = S.recompensas.find(r => r.id === recId);
+  const b = bloqueioResgate(m, rec); if (b){ toast(b); return; }
+  m.cred -= rec.custo;
+  if (rec.minutos) m.minutos += rec.minutos;
+  S.resgates.push({id:uid('rs'), recompensaId:rec.id, membroId:m.id, custo:rec.custo, quando:Date.now(), status: rec.minutos ? 'liberado' : 'aguardando entrega'});
+  movimento(m.id, 'Resgate: ' + rec.nome, {cred:-rec.custo});
+  audit('resgate', `${m.nome} resgatou “${rec.nome}” por ${rec.custo} créditos.`, m.id);
+  ui.sheet = null;
+  toast(rec.minutos ? `+${rec.minutos} min liberados no computador` : `Pedido enviado para ${membro(rec.por)?.nome || 'os admins'} entregar`);
+  save(); render();
+}
+function converter(){
+  const m = membro(ui.who); const {credBloco, minBloco, limiteDiario} = S.config;
+  if (m.cred < credBloco){ toast(`Você precisa de ${credBloco} créditos`); return; }
+  if (m.minutos + m.usadoHoje + minBloco > limiteDiario){ toast(`Limite diário de ${limiteDiario/60} h atingido (RN10)`); return; }
+  m.cred -= credBloco; m.minutos += minBloco;
+  movimento(m.id, `Troca por ${minBloco} min de computador`, {cred:-credBloco});
+  audit('tempo', `${m.nome} trocou ${credBloco} créditos por ${minBloco} min.`, m.id);
+  toast(`+${minBloco} min de computador`); save(); render();
+}
+function naoFeita(atrId){
+  const a = S.atribuicoes.find(x => x.id === atrId); const atv = ativ(a.atividadeId); const m = membro(a.membroId);
+  a.status = 'nao_feita'; m.streak = 0;
+  const outros = S.membros.filter(x => x.id !== m.id && x.idade >= (atv.idadeMin || 0)).sort((p, q) => (S.sorteio.carga[p.id] || 0) - (S.sorteio.carga[q.id] || 0));
+  if (outros[0]){
+    S.atribuicoes.push({id:uid('at'), atividadeId:a.atividadeId, membroId:outros[0].id, data:hoje(), status:'a_fazer', rotulo:'redistribuída', origem:'redistribuida'});
+    S.sorteio.carga[outros[0].id] = (S.sorteio.carga[outros[0].id] || 0) + atv.peso;
+    audit('redistribuição', `“${atv.nome}” passou de ${m.nome} para ${outros[0].nome}, que fica com os pontos. Sem dívida nem saldo negativo (RN07).`);
+    toast(`Redistribuída para ${outros[0].nome}`);
+  }
+  save(); render();
+}
+function pagarMesada(mid, metodo){
+  const m = membro(mid); const valor = mesadaDevida(m);
+  S.pagamentos.push({id:uid('pg'), membroId:mid, semana:S.semana, valor, metodo, quando:Date.now(), por:ui.who});
+  audit('mesada', `${membro(ui.who).nome} registrou a mesada de ${m.nome} (${brl(valor)}) como paga via ${metodo}.`);
+  toast(`Mesada de ${m.nome} registrada como paga`); save(); render();
+}
+
+/* ============ computador simulado (1 s = 1 min) ============ */
+function pcStart(){
+  const m = membro(ui.who); if (m.minutos <= 0) return;
+  ui.pc = {run:true, soft:0, owner:m.id};
+  audit('tempo', `Computador de ${m.nome} desbloqueado com ${m.minutos} min de saldo.`, m.id);
+  clearInterval(pcTimer); pcTimer = setInterval(pcTick, 1000); render();
+}
+function pcStop(msg){
+  if (!ui.pc.run) return;
+  clearInterval(pcTimer); pcTimer = null;
+  const m = membro(ui.pc.owner);
+  ui.pc = {run:false, soft:0, owner:null};
+  if (m) audit('tempo', `Computador de ${m.nome} ${msg || 'desligado'}.`, m.id);
+  save();
+}
+function pcTick(){
+  const m = membro(ui.pc.owner); if (!m){ pcStop(); return; }
+  if (ui.pc.soft > 0){
+    ui.pc.soft--;
+    if (ui.pc.soft === 0){ pcStop('bloqueado: saldo esgotado'); toast('Computador bloqueado'); }
+  } else {
+    m.minutos = Math.max(0, m.minutos - 1); m.usadoHoje++;
+    if (m.minutos === 0) ui.pc.soft = 5;
+  }
+  if (ui.tab === 'tela' && !ui.sheet) render();
+}
+
+/* ============ interface ============ */
+const IC = {
+  hoje:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  admin:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  evolucao:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  premios:'<path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7"/><path d="M12 7H8a2.5 2.5 0 1 1 0-5c3 0 4 5 4 5zM12 7h4a2.5 2.5 0 1 0 0-5c-3 0-4 5-4 5z"/>',
+  tela:'<path d="M3 4h18v12H3zM8 20h8M12 16v4"/>',
+  meta:'<path d="M5 22V4M5 4h12l-2.5 4L17 12H5"/>'
+};
+const LBL = {hoje:'Missões', admin:'Admin', evolucao:'Evolução', premios:'Prêmios', tela:'Tela', meta:'Meta'};
+function abas(m){ const t = ['hoje']; if (isAdmin(m.id)) t.push('admin'); t.push('evolucao','premios'); if (crianca(m)) t.push('tela'); t.push('meta'); return t; }
+const av = (m, cls = '') => `<span class="av ${cls}">${avatarSVG(m)}</span>`;
+
+function render(){
+  const main = document.querySelector('.app-main'); const st = main ? main.scrollTop : 0; const antes = ui._k;
+  if (!membro(ui.who)) ui.who = (S.membros.find(m => crianca(m) && m.idade >= 12) || S.membros[0]).id;
+  const m = membro(ui.who);
+  const tabs = abas(m); if (!tabs.includes(ui.tab)) ui.tab = 'hoje';
+  if (!ui.onb) ui.vis[m.id + ':' + ui.tab] = true;
+  document.getElementById('stage').innerHTML = renderSim() + `<div class="phone">${ui.onb ? renderOnb() : renderApp(m, tabs)}</div>`;
+  document.getElementById('guide').innerHTML = renderGuide();
+  const nm = document.querySelector('.app-main');
+  if (nm && antes === ui.tab + ui.who) nm.scrollTop = st;
+  ui._k = ui.tab + ui.who;
+}
+function renderSim(){
+  return `<div class="simbar">
+    <span class="simbar-k" id="who-k">Ver o app como</span>
+    <div class="who" role="group" aria-labelledby="who-k">${S.membros.map(m => `<button data-act="who" data-id="${m.id}" aria-pressed="${m.id === ui.who}">${av(m)}${esc(m.nome)}${m.admin ? ' <span class="tag">admin</span>' : ''}</button>`).join('')}</div>
+    <div class="simtools"><button class="btn sm ghost" data-act="onb">Cadastrar do zero</button><button class="btn sm ghost" data-act="reset">Restaurar exemplo</button></div>
+  </div>`;
+}
+function renderApp(m, tabs){
+  const views = {hoje:vHoje, admin:vAdmin, evolucao:vEvolucao, premios:vPremios, tela:vTela, meta:vMeta};
+  const fila = filaDe(m.id).length;
+  return `<header class="app-head">
+      <img class="px" src="../assets/brand/casa-quest-app-icon.svg" alt="CasaQuest">
+      <div><h1>${esc(S.familia.nome)}</h1><small>${esc(S.temporada.nome)} · admins: ${esc(nomes(admins().map(a => a.nome)))}</small></div>
+    </header>
+    <main class="app-main ${simples(m) ? 'simples' : ''}">${views[ui.tab](m)}</main>
+    ${ui.tab === 'hoje' ? '<button class="btn fab" data-act="nova-tarefa" aria-label="Criar tarefa">+</button>' : ''}
+    <nav class="tabbar" aria-label="Seções">${tabs.map(t => `<button data-act="tab" data-tab="${t}" ${ui.tab === t ? 'aria-current="page"' : ''}><svg viewBox="0 0 24 24" aria-hidden="true">${IC[t]}</svg>${LBL[t]}${(t === 'admin' || (t === 'hoje' && !isAdmin(m.id))) && fila ? `<span class="badge">${fila}</span>` : ''}</button>`).join('')}</nav>
+    ${ui.sheet ? `<div class="sheet-wrap" data-act="fechar-fundo"><div class="sheet" role="dialog" aria-modal="true">${renderSheet()}</div></div>` : ''}
+    ${ui.toast ? `<div class="toast" role="status">${esc(ui.toast)}</div>` : ''}`;
+}
+
+/* ---------- painel de status (estilo RPG) ---------- */
+function heroPanel(m){
+  const lv = nivel(m.xp); const sem = m.semanas; const atual = sem[sem.length-1], ant = sem[sem.length-2] || 0;
+  const bar = (k, pct, cor, v) => `<div class="bar"><span class="k">${k}</span><div class="track"><i style="width:${Math.max(0, Math.min(100, pct))}%;background:${cor}"></i></div><span class="v">${v}</span></div>`;
+  return `<section class="hero">
+    ${av(m,'lg')}
+    <div><h1>${esc(m.nome)}</h1><div class="sub">Nível ${lv.n} · ${esc(equipe(m.equipe)?.nome || '')}${m.admin ? ' · admin' : ''}</div><div class="sub">${dataLonga()}</div></div>
+    <div class="bars">
+      ${bar('XP', lv.pct, '#FFCD75', `${fmt(m.xp)} / ${fmt(lv.prox)}`)}
+      ${simples(m) ? '' : bar('Semana', ant ? atual/ant*100 : 100, '#7F9BF2', `${fmt(atual)} / ${fmt(ant)} pts`)}
+      ${crianca(m) ? bar('Tela', m.minutos/S.config.limiteDiario*100, '#EF7D57', `${m.minutos} min`) : ''}
+    </div>
+    <div class="chips"><span class="chip">${COIN}${fmt(m.cred)} créditos</span><span class="chip">${FLAME}${m.streak} dias seguidos</span>${simples(m) ? '' : `<span class="chip">${SWORD}${m.tarefasSemana} missões na semana</span>`}</div>
+  </section>`;
+}
+
+/* ---------- Missões (Hoje) ---------- */
+function vHoje(m){
+  const atrs = S.atribuicoes.filter(a => a.membroId === m.id && a.data === hoje() && a.status !== 'nao_feita').sort((a, b) => ord(a) - ord(b));
+  const feitas = atrs.filter(a => a.status === 'aprovado').length;
+  const avaliar = isAdmin(m.id) ? [] : filaDe(m.id);
+  const feed = S.registros.filter(r => r.status === 'aprovado').sort((a, b) => b.quando - a.quando).slice(0, 4);
+  return `${heroPanel(m)}
+  ${simples(m) ? `<p class="note">Visão simplificada para quem tem menos de ${S.config.idadeSimples} anos.</p>` : ''}
+  ${avaliar.length ? `<div class="callout"><b>${avaliar.length} registro${avaliar.length > 1 ? 's' : ''} para você aprovar.</b> Quem cria a tarefa aprova a conclusão.</div>${avaliar.map(regCard).join('')}` : ''}
+  <h2 class="sec">Missões de hoje <span class="muted num">${feitas} de ${atrs.length} concluídas</span></h2>
+  ${atrs.length ? `<ul class="tasks">${atrs.map(taskRow).join('')}</ul>` : `<p class="note">Nenhuma tarefa para você hoje. Use o + para criar uma.</p>`}
+  ${simples(m) ? '' : `<h2 class="sec">Feed da família</h2>
+  <ul class="feed">${feed.map(r => { const a = membro(r.membroId); return `<li>${r.fotos.depois ? `<img src="${r.fotos.depois}" alt="">` : av(a)}<p><b>${esc(a.nome)}</b> concluiu ${esc(ativ(r.atividadeId)?.nome || '')} <span class="muted">· +${fmt(r.pontos)} · ${quando(r.quando)}</span></p></li>`; }).join('') || '<li><p class="muted">Ainda não há registros aprovados.</p></li>'}</ul>`}`;
+}
+const ord = a => ({a_fazer:0, rejeitado:1, contestado:2, pendente:3, aprovado:4})[a.status] ?? 5;
+function taskRow(a){
+  const atv = ativ(a.atividadeId); if (!atv) return '';
+  const r = a.registroId && S.registros.find(x => x.id === a.registroId);
+  const max = calcPts(atv.peso, 'antes_depois');
+  const w = atv.peso <= .5 ? 1 : atv.peso <= 1 ? 2 : atv.peso <= 2 ? 3 : 4;
+  let pill, acao = '', why = '';
+  switch (a.status){
+    case 'pendente': pill = `<span class="pill wait">Com ${esc(quemAvalia(r))}</span>`; break;
+    case 'aprovado': pill = `<span class="pill ok">+${fmt(r ? r.pontos : 0)} pts</span>`; break;
+    case 'contestado': pill = `<span class="pill wait">Em contestação</span>`; break;
+    case 'rejeitado':
+      pill = `<span class="pill no">Rejeitada</span>`;
+      why = `<div class="why"><b>Motivo:</b> ${esc(r.motivo)}${r.final ? ' · decisão final dos admins' : ''}</div>`;
+      acao = r.final ? `<button class="btn sm ghost" data-act="registrar" data-id="${a.id}">Refazer</button>` : `<button class="btn sm ghost" data-act="contestar" data-id="${r.id}">Contestar</button> <button class="link" data-act="registrar" data-id="${a.id}">Refazer</button>`;
+      break;
+    default:
+      pill = `<span class="pill neutral">A fazer</span>`;
+      acao = `<button class="btn sm" data-act="registrar" data-id="${a.id}">Registrar</button>`;
+  }
+  const extra = a.origem === 'avulsa' ? ` · criada por ${esc(membro(a.criadoPor)?.nome || '')}` : a.origem === 'sorteio' ? ' · sorteada' : a.origem === 'redistribuida' ? ' · redistribuída' : '';
+  return `<li class="task w${w} ${a.status === 'aprovado' ? 'done' : ''}">
+    <div><h3>${esc(atv.nome)}${a.rotulo && a.rotulo !== 'redistribuída' ? ` <span class="muted" style="font-weight:500">· ${esc(a.rotulo)}</span>` : ''}</h3>
+    <div class="meta">Peso ${fmt(atv.peso)} · até ${fmt(max)} pts · ${EVID[atv.evid].label.toLowerCase()} · até ${esc(atv.prazo)}${extra}</div></div>
+    <div class="row end">${acao || pill}</div>
+    ${acao ? `<div class="meta">${pill}</div>` : ''}
+    ${why}
+  </li>`;
+}
+
+/* ---------- Admin ---------- */
+function vAdmin(m){
+  const fila = filaDe(m.id);
+  const proprios = S.registros.filter(r => r.membroId === m.id && (r.status === 'pendente' || r.status === 'contestado'));
+  const sort = S.sorteio; const dia = hoje();
+  const doDia = S.atribuicoes.filter(a => a.data === dia && a.status !== 'nao_feita');
+  const filhos = S.membros.filter(crianca);
+  const mc = S.config.mesada;
+  return `<section class="hello"><h1>Painel dos admins</h1><p class="muted">${esc(nomes(admins().map(a => a.nome)))} administram juntos. Ninguém aprova o próprio registro.</p></section>
+  <h2 class="sec">Aprovações <span class="muted">${fila.length} na fila</span></h2>
+  ${fila.length ? fila.map(regCard).join('') : '<p class="note">Fila vazia. Atividades leves são aprovadas automaticamente e entram na auditoria por amostragem.</p>'}
+  ${proprios.length ? `<p class="note">${proprios.length} registro seu aguarda ${esc(quemAvalia(proprios[0]))}.</p>` : ''}
+
+  ${filhos.length ? `<h2 class="sec">Mesada <span class="muted">semana de ${dataCurta(S.semana)}</span></h2>
+  <div class="card">
+    <div class="seg" role="group" aria-label="Formato da mesada"><button data-act="mesada-modo" data-v="fixo" aria-pressed="${mc.modo === 'fixo'}">Valor fixo</button><button data-act="mesada-modo" data-v="conversao" aria-pressed="${mc.modo === 'conversao'}">Conversão de pontos</button></div>
+    <p class="note">${mc.modo === 'fixo' ? `${brl(mc.valor)} por semana para quem cumprir pelo menos ${mc.minPct}% das tarefas.` : `${brl(mc.taxa)} por ponto ganho na semana.`} O app calcula e registra; o pagamento acontece fora dele, por Pix ou dinheiro (RN20).</p>
+    <div class="scroll-x"><table class="t"><thead><tr><th>Filho</th><th class="r">${mc.modo === 'fixo' ? 'Cumpriu' : 'Pontos'}</th><th class="r">Devido</th><th></th></tr></thead><tbody>
+    ${filhos.map(x => { const p = pagamentoDaSemana(x.id, S.semana); const v = mesadaDevida(x); return `<tr><td>${esc(x.nome)}</td><td class="r">${mc.modo === 'fixo' ? Math.round(cumprimento(x)*100) + '%' : fmt(x.semanas[x.semanas.length-1])}</td><td class="r">${brl(p ? p.valor : v)}</td><td class="r">${p ? `<span class="pill ok">pago · ${esc(p.metodo)}</span>` : v > 0 ? `<button class="link" data-act="pagar" data-id="${x.id}" data-m="Pix">Pix</button> · <button class="link" data-act="pagar" data-id="${x.id}" data-m="dinheiro">Dinheiro</button>` : '<span class="muted">nada devido</span>'}</td></tr>`; }).join('')}
+    </tbody></table></div>
+  </div>` : ''}
+
+  <h2 class="sec">Distribuição de hoje <span class="muted">sorteio balanceado</span></h2>
+  <div class="card">
+    <div class="scroll-x"><table class="t"><thead><tr><th>Membro</th><th>Tarefas de hoje</th><th class="r">Carga</th></tr></thead><tbody>
+    ${S.membros.map(x => `<tr><td>${esc(x.nome)}</td><td>${doDia.filter(a => a.membroId === x.id).map(a => `<div class="spread"><span>${esc(ativ(a.atividadeId)?.nome)}${a.rotulo ? ` <span class="muted">(${esc(a.rotulo)})</span>` : ''}</span>${a.status === 'a_fazer' ? `<button class="link" data-act="nao-feita" data-id="${a.id}">não feita</button>` : `<span class="muted" style="font-size:11px">${{aprovado:'feita', pendente:'pendente', rejeitado:'rejeitada', contestado:'contestada'}[a.status] || ''}</span>`}</div>`).join('') || '<span class="muted">—</span>'}</td><td class="r">${fmt(sort.carga[x.id] || 0)}</td></tr>`).join('')}
+    </tbody></table></div>
+    <p class="formula">Diferença entre a maior e a menor carga da semana: <b>${fmt(sort.diff)}%</b> (limite ${S.config.limiteSorteio}%) · ${sort.repeticoesEvitadas} repetições evitadas · semente ${sort.semente}</p>
+    <p class="note">Maior peso primeiro, para quem tem menos carga na semana; respeita idade mínima; ninguém repete a tarefa de ontem. Tarefa não feita é redistribuída e quem fizer ganha os pontos, sem dívida (RN07).</p>
+    <div class="row"><button class="btn sm" data-act="sortear">Sortear de novo</button><button class="btn sm ghost" data-act="atividades">Atividades e pesos</button></div>
+  </div>
+
+  ${filhos.length ? `<h2 class="sec">Tempo de computador <span class="muted">simulado no MVP</span></h2>
+  <div class="card">
+    <div class="scroll-x"><table class="t"><thead><tr><th>Criança</th><th class="r">Saldo</th><th class="r">Usado hoje</th></tr></thead><tbody>
+    ${filhos.map(x => `<tr><td>${esc(x.nome)}</td><td class="r">${x.minutos} min</td><td class="r">${x.usadoHoje} min</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="grid2">
+      <label class="f" for="cfg-limite">Limite diário<select id="cfg-limite" data-cfg="limiteDiario">${[60,120,180,240].map(v => `<option value="${v}" ${S.config.limiteDiario === v ? 'selected' : ''}>${v/60} h</option>`).join('')}</select></label>
+      <label class="f" for="cfg-fator">Conversão<select id="cfg-fator" data-cfg="minBloco">${[10,20,30].map(v => `<option value="${v}" ${S.config.minBloco === v ? 'selected' : ''}>${S.config.credBloco} créd. = ${v} min</option>`).join('')}</select></label>
+    </div>
+    <button class="btn sm ghost" data-act="emergencia">Liberação de emergência com PIN</button>
+  </div>` : ''}
+
+  <h2 class="sec">Auditoria</h2>
+  <ul class="feed">${S.auditoria.slice(0, 8).map(e => `<li><p><b>${esc(e.tipo)}</b> · ${esc(e.texto)} <span class="muted">· ${quando(e.quando)}</span></p></li>`).join('')}</ul>`;
+}
+function regCard(r){
+  const m = membro(r.membroId), atv = ativ(r.atividadeId);
+  const q = +(ui.quali[r.id] || 1); const pts = calcPts(atv.peso, r.evid, q);
+  const cont = r.status === 'contestado';
+  return `<article class="card">
+    <div class="spread"><div class="row">${av(m)}<div><b>${esc(m.nome)}</b> · ${esc(atv.nome)}<br><span class="note">${quando(r.quando)} · ${EVID[r.evid].label.toLowerCase()}</span></div></div>
+    <span class="pill ${cont ? 'no' : 'wait'}">${cont ? 'Contestação' : 'Pendente'}</span></div>
+    <div class="photos">${r.fotos.antes ? `<figure><img src="${r.fotos.antes}" alt="Foto do antes"><figcaption>Antes</figcaption></figure>` : ''}${r.fotos.depois ? `<figure><img src="${r.fotos.depois}" alt="Foto do depois"><figcaption>Depois</figcaption></figure>` : ''}${!r.fotos.antes && !r.fotos.depois ? '<div class="nophoto">Registro sem foto</div>' : ''}</div>
+    ${r.obs ? `<p class="formula">“${esc(r.obs)}”</p>` : ''}
+    ${cont ? `<div class="callout warn"><b>Rejeitado antes:</b> ${esc(r.motivo)}<br><b>${esc(m.nome)} contestou:</b> ${esc(r.contestacao)}</div>` : ''}
+    <div class="grid2">
+      <label class="f" for="q-${r.id}">Qualidade<select id="q-${r.id}" data-quali="${r.id}">${[0.8,0.9,1,1.1,1.2].map(v => `<option value="${v}" ${q === v ? 'selected' : ''}>×${fmt(v)}${v === 1 ? ' (padrão)' : ''}</option>`).join('')}</select></label>
+      ${q !== 1 ? `<label class="f" for="qj-${r.id}">Justificativa<input type="text" id="qj-${r.id}" data-qj="${r.id}" value="${esc(ui.qj[r.id] || '')}" placeholder="Obrigatória"></label>` : '<span></span>'}
+    </div>
+    <p class="formula num">${fmt(atv.peso)} × 10 × ${fmt(EVID[r.evid].mult)} evidência × ${fmt(q)} qualidade = <b>${fmt(pts)} pts</b></p>
+    <div class="row"><button class="btn good" data-act="aprovar" data-id="${r.id}">Aprovar +${fmt(pts)}</button><button class="btn bad" data-act="rejeitar" data-id="${r.id}">${cont ? 'Manter rejeição' : 'Rejeitar'}</button></div>
+  </article>`;
+}
+
+/* ---------- Evolução individual + ranking por equipe ---------- */
+function vEvolucao(m){
+  const sem = m.semanas; const n = sem.length; const atual = sem[n-1], ant = sem[n-2] || 0;
+  const diff = atual - ant; const melhor = Math.max(...sem.slice(0, -1));
+  const topo = Math.max(10, ...sem) ; const escala = Math.ceil(topo / 20) * 20;
+  const inicioSem = i => addDias(S.semana, -7*(n-1-i));
+  const chart = `<div class="chart" role="img" aria-label="Pontos por semana nas últimas ${n} semanas">
+      <div class="grid" style="bottom:${50}%"><span>${escala/2}</span></div><div class="grid" style="bottom:100%"><span>${escala}</span></div>
+      ${sem.map((v, i) => `<div class="colb ${i === n-1 ? 'now' : ''}" tabindex="0"><i style="height:${Math.max(2, v/escala*100)}%"></i>${i >= n-2 ? `<span class="lbl" style="bottom:${v/escala*100}%">${fmt(v)}</span>` : ''}<span class="tip">Semana de ${dataCurta(inicioSem(i))}: ${fmt(v)} pts</span></div>`).join('')}
+    </div>
+    <div class="xl">${sem.map((v, i) => `<span>${i === n-1 ? 'esta' : dataCurta(inicioSem(i))}</span>`).join('')}</div>`;
+  const eqs = S.equipes.map(e => { const ms = S.membros.filter(x => x.equipe === e.id); return {e, ms, tot: ms.reduce((s, x) => s + x.pts, 0), tar: ms.reduce((s, x) => s + x.tarefasTemp, 0)}; })
+    .filter(x => x.ms.length).sort((a, b) => b.tot - a.tot || b.tar - a.tar);
+  const dias = Math.max(0, diasEntre(hoje(), S.temporada.fim));
+  const metaTot = S.membros.reduce((s, x) => s + (S.meta.contrib[x.id] || 0), 0);
+  return `<section class="hello"><h1>Sua evolução</h1><p class="muted">Você contra você mesmo, semana a semana.</p></section>
+  <div class="card">
+    <div class="evo-top"><span class="evo-big num">${fmt(atual)}</span><span class="muted">pontos nesta semana</span>
+      <span class="pill ${diff >= 0 ? 'ok' : 'info'}">${diff >= 0 ? `+${fmt(diff)} sobre a semana passada` : `faltam ${fmt(-diff)} para igualar a semana passada`}</span></div>
+    ${chart}
+    <p class="note">${atual > melhor ? 'Esta já é a sua melhor semana!' : `Sua melhor semana teve ${fmt(melhor)} pontos.`} A semana fecha no domingo.</p>
+  </div>
+  <div class="tiles">
+    <div class="tile"><span>Sequência</span><b>${m.streak} dias</b></div>
+    <div class="tile"><span>Missões na semana</span><b>${m.tarefasSemana}</b></div>
+    <div class="tile"><span>Nível</span><b>${nivel(m.xp).n}</b></div>
+  </div>
+  <h2 class="sec">Ranking por equipe <span class="muted">${esc(S.temporada.nome)} · ${dias} dias</span></h2>
+  ${eqs.length > 1 ? `<ol class="rank">${eqs.map((x, i) => `<li class="${x.e.id === m.equipe ? 'me' : ''}"><span class="pos">${i+1}</span><span class="crest" style="background:${x.e.cor}">${esc(x.e.nome.split(' ').pop()[0])}</span><div><div class="nm">${esc(x.e.nome)}${x.e.id === m.equipe ? ' · sua equipe' : ''}</div><div class="sub">${esc(nomes(x.ms.map(y => y.nome)))}</div></div><div class="pts num">${fmt(x.tot)}<small>${x.tar} tarefas</small></div></li>`).join('')}</ol>
+  <div class="callout"><b>Prêmio da equipe vencedora:</b> ${esc(eqs[0].e.premio)}. O ranking soma os pontos de temporada da equipe e não compara pessoas.</div>`
+  : `<div class="card"><b>${esc(eqs[0]?.e.nome || 'Equipe')}</b><p class="note">Com uma equipe só, o ranking vira a posição em relação à meta coletiva: ${fmt(metaTot)} de ${fmt(S.meta.alvo)} pontos.</p><div class="bigmeter"><i style="width:${Math.min(100, metaTot/S.meta.alvo*100)}%"></i></div></div>`}`;
+}
+
+/* ---------- Prêmios ---------- */
+function vPremios(m){
+  const ext = S.extrato.filter(x => x.membroId === m.id).slice(0, 8);
+  const grupo = h => `<div class="rgrid">${S.recompensas.filter(r => r.horizonte === h).map(r => {
+    const b = bloqueioResgate(m, r);
+    return `<div class="reward"><h3>${esc(r.nome)}</h3>
+      <div class="cost num">${COIN}${fmt(r.custo)}</div>
+      <div class="meter"><i style="width:${Math.min(100, m.cred/r.custo*100)}%"></i></div>
+      <div class="meta">${b ? esc(b) : 'Pode resgatar agora'}${r.estoque != null ? ` · ${Math.max(0, r.estoque - resgatesNaSemana(r.id))}/${r.estoque} na semana` : ''}</div>
+      <button class="btn sm ${b ? 'ghost' : 'gold'}" data-act="resgatar" data-id="${r.id}" ${b ? 'disabled' : ''}>Resgatar</button></div>`;
+  }).join('')}</div>`;
+  const mc = S.config.mesada; const pago = pagamentoDaSemana(m.id, S.semana); const antP = pagamentoDaSemana(m.id, addDias(S.semana, -7));
+  return `<section class="hello"><h1>Prêmios</h1><p class="muted">Você tem <b class="num">${fmt(m.cred)} créditos</b>. Resgatar não mexe no seu XP nem na sua evolução.</p></section>
+  ${crianca(m) ? `<div class="card"><div class="spread"><b>Mesada da semana</b><span class="cost num">${brl(pago ? pago.valor : mesadaDevida(m))}</span></div>
+    <p class="note">${mc.modo === 'fixo' ? `${brl(mc.valor)} se cumprir ${mc.minPct}% das tarefas. Você está em ${Math.round(cumprimento(m)*100)}%.` : `${brl(mc.taxa)} por ponto da semana.`} ${pago ? `Paga via ${esc(pago.metodo)}.` : 'Os admins pagam por Pix ou em dinheiro no fim da semana.'}${antP ? ` Semana passada: ${brl(antP.valor)} pagos.` : ''}</p></div>` : ''}
+  <h2 class="sec">${HORIZ.curto} <span class="muted">dia a dia</span></h2>${grupo('curto')}
+  <h2 class="sec">${HORIZ.medio} <span class="muted">no mês</span></h2>${grupo('medio')}
+  <h2 class="sec">${HORIZ.longo} <span class="muted">trimestre ou ano</span></h2>${grupo('longo')}
+  <button class="card" style="text-align:left;cursor:pointer" data-act="tab" data-tab="meta"><b>Meta coletiva: ${esc(S.meta.nome)}</b><span class="note">Todos somam pontos; cada um precisa contribuir com o mínimo. Ver progresso.</span></button>
+  ${isAdmin(m.id) ? `<button class="btn ghost" data-act="nova-recompensa">Oferecer recompensa</button>` : ''}
+  <h2 class="sec">Extrato <span class="muted">movimentos de pontos</span></h2>
+  <div class="card scroll-x"><table class="t"><thead><tr><th>Movimento</th><th class="r">XP</th><th class="r">Créd.</th></tr></thead><tbody>
+  ${ext.map(x => `<tr><td>${esc(x.desc)}<br><span class="note">${quando(x.quando)} · ${x.cred < 0 ? 'débito' : 'crédito'}</span></td><td class="r">${x.xp ? '+' + fmt(x.xp) : '—'}</td><td class="r" style="color:${x.cred < 0 ? 'var(--bad)' : 'var(--good)'}">${x.cred > 0 ? '+' : ''}${fmt(x.cred)}</td></tr>`).join('') || '<tr><td colspan="3" class="muted">Sem movimentos ainda.</td></tr>'}
+  </tbody></table></div>`;
+}
+
+/* ---------- Tela (computador) ---------- */
+function vTela(m){
+  const {credBloco, minBloco, limiteDiario} = S.config;
+  const rodando = ui.pc.run && ui.pc.owner === m.id;
+  let tela;
+  if (rodando){
+    tela = `<div class="screen desk"><div class="win"><div class="wbar">Trabalho de geografia.doc</div><div class="body">Os biomas brasileiros são...</div></div>
+      <span class="clock ${m.minutos <= 5 ? 'warn' : ''}">${m.minutos} min</span>
+      ${m.minutos <= 5 && !ui.pc.soft ? `<div class="soft" style="inset:auto 8px 8px 8px;border-radius:4px;padding:8px;background:rgba(239,125,87,.95)"><p style="color:#1A1C2C;font-weight:700">Faltam ${m.minutos} min. Salve o que estiver fazendo.</p></div>` : ''}
+      ${ui.pc.soft ? `<div class="soft"><h3>Tempo esgotado</h3><p>Salvando seu trabalho. O computador bloqueia em ${ui.pc.soft} s.</p></div>` : ''}</div>`;
+  } else if (m.minutos > 0){
+    tela = `<div class="screen locked"><h3>Pronto para usar</h3><p>Você tem ${m.minutos} min liberados.</p><button class="btn sm gold" data-act="pc-start">Desbloquear computador</button></div>`;
+  } else {
+    tela = `<div class="screen locked"><svg class="lock-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><h3>Computador bloqueado</h3>
+      <p>${m.cred >= credBloco ? `Troque ${credBloco} créditos por ${minBloco} min ou conclua uma missão.` : `Faltam ${credBloco - m.cred} créditos para liberar ${minBloco} min. Conclua uma missão.`}</p></div>`;
+  }
+  return `<section class="hello"><h1>Tempo de computador</h1><p class="muted">Simulação no app (decisão do MVP). Aqui 1 segundo vale 1 minuto.</p></section>
+  <div class="monitor">${tela}<div class="stand"></div></div>
+  <div class="row">${rodando ? `<button class="btn ghost" data-act="pc-stop">Desligar e guardar o saldo</button>` : ''}<button class="btn ${rodando ? 'ghost' : ''}" data-act="converter" ${m.cred < credBloco ? 'disabled' : ''}>Trocar ${credBloco} créditos por ${minBloco} min</button></div>
+  <div class="tiles">
+    <div class="tile"><span>Saldo</span><b>${m.minutos} min</b></div>
+    <div class="tile"><span>Usado hoje</span><b>${m.usadoHoje} min</b></div>
+    <div class="tile"><span>Créditos</span><b>${fmt(m.cred)}</b></div>
+  </div>
+  <p class="note">Limite de ${limiteDiario/60} h por dia, agenda ${esc(S.config.agenda)}. Aviso nos 5 minutos finais e bloqueio suave para salvar o trabalho. Só o tempo de uso é medido.</p>`;
+}
+
+/* ---------- Meta coletiva ---------- */
+function vMeta(m){
+  const g = S.meta; const ms = S.membros;
+  const tot = ms.reduce((s, x) => s + (g.contrib[x.id] || 0), 0);
+  const min = g.alvo * g.minPct / 100;
+  const dias = Math.max(0, diasEntre(hoje(), g.prazo)); const decorr = diasEntre(g.inicio, hoje());
+  const falta = Math.max(0, g.alvo - tot);
+  const abaixo = ms.filter(x => (g.contrib[x.id] || 0) < min);
+  const escala = Math.max(min * 2, ...ms.map(x => g.contrib[x.id] || 0)) * 1.1;
+  const ritmo = dias ? Math.ceil(falta / dias) : falta;
+  const ritmoAtual = decorr ? Math.round(tot / decorr) : 0;
+  return `<section class="hello"><h1>${esc(g.nome)}</h1><p class="muted">Meta coletiva · ${dias} dias restantes de ${diasEntre(g.inicio, g.prazo)}</p></section>
+  <div class="card">
+    <div class="spread"><span class="goal-big num">${fmt(tot)}</span><span class="muted num">de ${fmt(g.alvo)} pontos</span></div>
+    <div class="bigmeter" role="img" aria-label="${Math.round(tot/g.alvo*100)}% da meta"><i style="width:${Math.min(100, tot/g.alvo*100)}%"></i></div>
+    <p class="formula num">Faltam <b>${fmt(falta)}</b> pontos: <b>${ritmo} por dia</b> a partir de hoje. Ritmo atual: ${ritmoAtual} por dia${ritmoAtual >= ritmo ? ', dentro do prazo.' : ', abaixo do necessário.'}</p>
+  </div>
+  <h2 class="sec">Contribuição de cada um <span class="muted">mínimo ${fmt(min)} (${g.minPct}%)</span></h2>
+  <div class="card">${ms.map(x => { const c = g.contrib[x.id] || 0; return `<div class="contrib"><span>${esc(x.nome)}</span><div class="cbar"><i class="${c < min ? 'low' : ''}" style="width:${c/escala*100}%"></i><span class="mk" style="left:${min/escala*100}%" title="mínimo"></span></div><span class="num" style="text-align:right">${fmt(c)}</span></div>`; }).join('')}
+  <p class="note">A linha marca a contribuição mínima. O prêmio só sai com todos acima dela, então ninguém carrega o grupo sozinho.</p></div>
+  <h2 class="sec">Para liberar o prêmio</h2>
+  <ul class="conds card">
+    <li class="${tot >= g.alvo ? 'ok' : ''}">Somar ${fmt(g.alvo)} pontos até ${dataCurta(g.prazo)} (faltam ${fmt(falta)})</li>
+    <li class="${abaixo.length ? '' : 'ok'}">Todos com pelo menos ${fmt(min)} pontos${abaixo.length ? ` (falta: ${abaixo.map(x => `${esc(x.nome)} +${fmt(min - (g.contrib[x.id] || 0))}`).join(', ')})` : ''}</li>
+  </ul>`;
+}
+
+/* ---------- folhas (diálogos) ---------- */
+function renderSheet(){
+  const s = ui.sheet;
+  if (s.t === 'registrar'){
+    const d = ui.draft; const a = S.atribuicoes.find(x => x.id === d.atribId); const atv = ativ(a.atividadeId);
+    const req = atv.evid;
+    const evid = d.antes && d.depois ? 'antes_depois' : (d.depois || d.antes) ? 'depois' : 'nenhuma';
+    const ok = req === 'antes_depois' ? !!(d.antes && d.depois) : req === 'depois' ? !!d.depois : true;
+    const pts = calcPts(atv.peso, evid);
+    const avr = avaliadorPara(a);
+    const slot = (k, lbl, obrig) => `<div class="slot"><span class="slot-k">${lbl} <em>${obrig ? 'obrigatória' : 'opcional'}</em></span>
+      ${d[k] ? `<figure style="margin:0"><img src="${d[k]}" alt="Foto ${lbl.toLowerCase()}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px"></figure><button class="link" data-act="limpar-foto" data-k="${k}">Trocar foto</button>`
+      : `<label class="drop" for="f-${k}">Tirar ou escolher foto</label><input class="vh" type="file" id="f-${k}" accept="image/*" capture="environment" data-file="${k}"><button class="link" data-act="foto-exemplo" data-k="${k}">Usar foto de exemplo</button>`}</div>`;
+    return `<h2>${esc(atv.nome)}</h2>
+      <p class="note">Peso ${fmt(atv.peso)} · evidência pedida: ${EVID[req].label.toLowerCase()} · ${avr === 'auto' ? 'aprovação automática' : `quem aprova: ${esc(avr ? membro(avr).nome : nomes(admins().filter(x => x.id !== a.membroId).map(x => x.nome)))}`}</p>
+      <div class="photos">${slot('antes','Antes', req === 'antes_depois')}${slot('depois','Depois', req !== 'nenhuma')}</div>
+      <label class="f" for="obs">Comentário (opcional)<input type="text" id="obs" data-draft="obs" value="${esc(d.obs || '')}" placeholder="Ex.: troquei o saco do lixo também"></label>
+      <div class="callout"><span class="num">${fmt(atv.peso)} × 10 × ${fmt(EVID[evid].mult)} (${EVID[evid].label.toLowerCase()}) = <b>${fmt(pts)} pontos</b></span>${req === 'depois' && !d.antes ? `<br><span class="note">Com a foto do antes vale ${fmt(calcPts(atv.peso,'antes_depois'))}.</span>` : ''}</div>
+      <p class="note">Data, hora e autor entram no registro. A foto fica visível só para o grupo e é apagada em 90 dias (RN18).</p>
+      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="enviar" ${ok ? '' : 'disabled'}>${avr === 'auto' ? 'Concluir' : 'Marcar como concluída'}</button></div>`;
+  }
+  if (s.t === 'nova-tarefa'){
+    const eu = membro(ui.who);
+    return `<h2>Criar tarefa</h2><p class="note">Atribua a você ou a alguém. Quem cria aprova a conclusão; se for para você mesmo, ${esc(nomes(admins().filter(x => x.id !== eu.id).map(x => x.nome)) || 'outro membro')} aprova.</p>
+      <label class="f" for="nt-nome">Título<input type="text" id="nt-nome" placeholder="Ex.: Regar as plantas da varanda"></label>
+      <div class="grid2"><label class="f" for="nt-para">Para<select id="nt-para">${S.membros.map(x => `<option value="${x.id}" ${x.id === eu.id ? 'selected' : ''}>${x.id === eu.id ? 'Eu' : esc(x.nome)}</option>`).join('')}</select></label>
+      <label class="f" for="nt-peso">Peso<select id="nt-peso">${PESOS.map(p => `<option value="${p}" ${p === 1 ? 'selected' : ''}>${fmt(p)} (${p*10} pts)</option>`).join('')}</select></label>
+      <label class="f" for="nt-evid">Evidência<select id="nt-evid">${Object.entries(EVID).map(([k, v]) => `<option value="${k}" ${k === 'depois' ? 'selected' : ''}>${v.label}</option>`).join('')}</select></label></div>
+      <p class="err" id="sheet-err"></p>
+      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="salvar-tarefa">Criar e atribuir</button></div>`;
+  }
+  if (s.t === 'rejeitar'){
+    const r = S.registros.find(x => x.id === s.id);
+    return `<h2>${r.status === 'contestado' ? 'Manter a rejeição' : 'Rejeitar registro'}</h2>
+      <p class="note">${esc(membro(r.membroId).nome)} · ${esc(ativ(r.atividadeId).nome)}. O motivo é obrigatório e aparece para quem fez a tarefa.</p>
+      <div class="tags">${['A foto não mostra o resultado','Faltou parte da tarefa','Foto repetida de outro dia'].map(t => `<button class="tagbtn" data-act="motivo-rapido" data-v="${t}">${t}</button>`).join('')}</div>
+      <label class="f" for="motivo">Motivo<textarea id="motivo"></textarea></label><p class="err" id="sheet-err"></p>
+      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn bad" data-act="confirmar-rejeicao" data-id="${r.id}">Rejeitar</button></div>`;
+  }
+  if (s.t === 'contestar'){
+    const r = S.registros.find(x => x.id === s.id);
+    return `<h2>Contestar rejeição</h2><p class="note">Motivo dado: “${esc(r.motivo)}”. Os admins decidem em última instância.</p>
+      <label class="f" for="cont">Sua justificativa<textarea id="cont" placeholder="Ex.: as panelas estavam de molho, lavei depois."></textarea></label><p class="err" id="sheet-err"></p>
+      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="confirmar-contestacao" data-id="${r.id}">Enviar contestação</button></div>`;
+  }
+  if (s.t === 'resgatar'){
+    const rec = S.recompensas.find(x => x.id === s.id); const m = membro(ui.who);
+    return `<h2>Resgatar “${esc(rec.nome)}”?</h2>
+      <p class="formula num">Créditos: ${fmt(m.cred)} → <b>${fmt(m.cred - rec.custo)}</b>. XP e pontos da semana continuam iguais.</p>
+      ${rec.minutos ? `<p class="note">Os ${rec.minutos} minutos entram no saldo do computador na hora.</p>` : `<p class="note">${esc(membro(rec.por)?.nome || 'Os admins')} recebe o pedido para entregar.</p>`}
+      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn gold" data-act="confirmar-resgate" data-id="${rec.id}">Resgatar por ${fmt(rec.custo)}</button></div>`;
+  }
+  if (s.t === 'emergencia'){
+    return `<h2>Liberação de emergência</h2><p class="note">Para prova on-line ou trabalho escolar. Fica registrada na auditoria e pode passar do limite diário.</p>
+      <div class="grid2"><label class="f" for="em-m">Para<select id="em-m">${S.membros.filter(crianca).map(x => `<option value="${x.id}">${esc(x.nome)}</option>`).join('')}</select></label>
+      <label class="f" for="em-min">Minutos<select id="em-min"><option>15</option><option selected>30</option><option>60</option></select></label></div>
+      <label class="f" for="em-j">Justificativa<input type="text" id="em-j" placeholder="Ex.: prova de matemática on-line"></label>
+      <label class="f" for="em-pin">PIN dos admins <span class="note">(no protótipo: 1234)</span><input type="password" id="em-pin" inputmode="numeric" maxlength="6"></label>
+      <p class="err" id="sheet-err"></p>
+      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="confirmar-emergencia">Liberar</button></div>`;
+  }
+  if (s.t === 'atividades'){
+    return `<h2>Atividades e pesos</h2><p class="note">Ajuste de peso vale para os próximos registros e fica na auditoria.</p>
+      ${S.atividades.filter(a => !a.avulsa).map(a => `<div class="tpl"><input type="checkbox" id="at-${a.id}" data-ativo="${a.id}" ${a.ativo ? 'checked' : ''} aria-label="Ativa"><label for="at-${a.id}"><b>${esc(a.nome)}</b><br><span class="note">${a.freq} · ${EVID[a.evid].label.toLowerCase()} · ${a.valid === 'auto' ? 'automática' : 'aprovada'}${a.idadeMin ? ` · ${a.idadeMin}+` : ''}${a.pessoal ? ' · de cada criança' : ' · sorteada'}</span></label><select data-peso="${a.id}" aria-label="Peso de ${esc(a.nome)}">${PESOS.map(p => `<option value="${p}" ${a.peso === p ? 'selected' : ''}>${fmt(p)}</option>`).join('')}</select></div>`).join('')}
+      <div class="row end"><button class="btn" data-act="fechar">Pronto</button></div>`;
+  }
+  if (s.t === 'recompensa'){
+    return `<h2>Oferecer recompensa</h2><p class="note">Mudanças valem a partir da próxima temporada (regra combinada antes).</p>
+      <label class="f" for="nr-nome">Nome<input type="text" id="nr-nome" placeholder="Ex.: Escolher o almoço de domingo"></label>
+      <div class="grid2"><label class="f" for="nr-custo">Custo em créditos<input type="number" id="nr-custo" value="40" min="5"></label>
+      <label class="f" for="nr-h">Horizonte<select id="nr-h">${Object.entries(HORIZ).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
+      <label class="f" for="nr-est">Estoque por semana<input type="number" id="nr-est" placeholder="sem limite" min="1"></label>
+      <label class="f" for="nr-min">Minutos de tela<input type="number" id="nr-min" placeholder="0" min="0"></label></div>
+      <p class="err" id="sheet-err"></p>
+      <div class="row end"><button class="btn ghost" data-act="fechar">Cancelar</button><button class="btn" data-act="salvar-recompensa">Oferecer</button></div>`;
+  }
+  return '';
+}
+
+/* ---------- cadastro (família ou casal) ---------- */
+function onbPadrao(tipo){
+  tipo = tipo || 'familia';
+  const lista = tipo === 'casal' ? ONB_CASAL : ONB_FAMILIA;
+  return {passo:1, tipo, familia: tipo === 'casal' ? 'Casa de Ana e Paulo' : 'Casa da Ana',
+    atv: TPL.map(t => ({id:t.id, on: lista.includes(t.id), peso:t.peso, evid:t.evid})),
+    membros: tipo === 'casal'
+      ? [{nome:'Ana', idade:34, equipe:'raposa', admin:true},{nome:'Paulo', idade:36, equipe:'raposa', admin:true}]
+      : [{nome:'Ana', idade:41, equipe:'raposa', admin:true},{nome:'Paulo', idade:43, equipe:'coruja', admin:true},{nome:'Bruno', idade:14, equipe:'raposa', admin:false},{nome:'Carla', idade:11, equipe:'coruja', admin:false},{nome:'Davi', idade:8, equipe:'raposa', admin:false},{nome:'', idade:10, equipe:'coruja', admin:false}],
+    historico:true};
+}
+function renderOnb(){
+  const o = ui.onb;
+  const passos = `<div class="onb-steps" aria-label="Passo ${o.passo} de 3">${[1,2,3].map(n => `<span class="${n <= o.passo ? 'on' : ''}"></span>`).join('')}</div>`;
+  let corpo;
+  if (o.passo === 1){
+    corpo = `<h1 style="font-size:24px">Comece sua guilda</h1><p class="muted">Leva menos de 10 minutos. Tudo fica privado ao grupo.</p>
+      <div class="seg" role="group" aria-label="Tipo de grupo"><button data-act="onb-tipo" data-v="familia" aria-pressed="${o.tipo === 'familia'}">Família</button><button data-act="onb-tipo" data-v="casal" aria-pressed="${o.tipo === 'casal'}">Casal</button></div>
+      <p class="note">${o.tipo === 'casal' ? 'Casal: um aprova o registro do outro (avaliação cruzada).' : 'Família: pai, mãe ou responsáveis aprovam os registros dos filhos. Pode haver mais de um admin.'}</p>
+      <label class="f" for="o-fam">Nome do grupo<input type="text" id="o-fam" data-onb="familia" value="${esc(o.familia)}"></label>`;
+  } else if (o.passo === 2){
+    corpo = `<h1 style="font-size:22px">Atividades e pesos</h1><p class="muted">Tarefa pesada vale mais. Pontos base = peso × 10.</p>
+      ${o.atv.map((a, i) => { const t = TPL.find(x => x.id === a.id); return `<div class="tpl"><input type="checkbox" id="o-a${i}" data-onb-atv="${i}" data-k="on" ${a.on ? 'checked' : ''}><label for="o-a${i}"><b>${esc(t.nome)}</b><br><span class="note">${t.freq}${t.pessoal ? ' · de cada criança' : ' · sorteada'}${t.idadeMin ? ` · ${t.idadeMin}+` : ''}</span><select data-onb-atv="${i}" data-k="evid" aria-label="Evidência de ${esc(t.nome)}" style="margin-top:4px">${Object.entries(EVID).map(([k, v]) => `<option value="${k}" ${a.evid === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select></label><select data-onb-atv="${i}" data-k="peso" aria-label="Peso de ${esc(t.nome)}">${PESOS.map(p => `<option value="${p}" ${a.peso === p ? 'selected' : ''}>${fmt(p)}</option>`).join('')}</select></div>`; }).join('')}`;
+  } else {
+    corpo = `<h1 style="font-size:22px">Quem joga</h1><p class="muted">Nome, idade, equipe e quem administra.</p>
+      <div class="mrow note"><span>Nome</span><span>Idade</span><span>Equipe</span></div>
+      ${o.membros.map((m, i) => `<div class="mrow"><input type="text" aria-label="Nome ${i+1}" data-onb-m="${i}" data-k="nome" value="${esc(m.nome)}" placeholder="Nome"><input type="number" aria-label="Idade ${i+1}" data-onb-m="${i}" data-k="idade" value="${m.idade}" min="3" max="99"><select aria-label="Equipe ${i+1}" data-onb-m="${i}" data-k="equipe"><option value="raposa" ${m.equipe === 'raposa' ? 'selected' : ''}>Raposa</option><option value="coruja" ${m.equipe === 'coruja' ? 'selected' : ''}>Coruja</option></select></div>
+        <label class="check" style="margin:-4px 0 4px"><input type="checkbox" data-onb-m="${i}" data-k="admin" ${m.admin ? 'checked' : ''} ${o.tipo === 'casal' ? 'disabled' : ''}>Administra o grupo${o.tipo === 'casal' ? ' (no casal, os dois)' : ''}</label>`).join('')}
+      <label class="check"><input type="checkbox" id="o-hist" data-onb="historico" ${o.historico ? 'checked' : ''}><span>Carregar semanas de histórico de exemplo (pontos, evolução e meta)</span></label>`;
+  }
+  return `<header class="app-head"><img class="px" src="../assets/brand/casa-quest-app-icon.svg" alt="CasaQuest"><div style="flex:1"><h1>Novo cadastro</h1><small>Passo ${o.passo} de 3</small></div><button class="btn sm ghost" data-act="onb-sair">Sair</button></header>
+    <main class="app-main">${passos}${corpo}<p class="err" id="sheet-err"></p></main>
+    <div style="display:flex;gap:8px;padding:12px 16px;background:var(--surface);border-top:2px solid var(--line)">
+      ${o.passo > 1 ? `<button class="btn ghost" data-act="onb-voltar">Voltar</button>` : ''}
+      <button class="btn block" data-act="onb-avancar">${o.passo < 3 ? 'Continuar' : 'Criar e sortear o dia'}</button></div>`;
+}
+
+/* ---------- guia lateral ---------- */
+function renderGuide(){
+  const [ana, , bruno] = S.membros;
+  const b = bruno && S.tipo === 'familia' ? bruno : null;
+  const banheiro = b && S.registros.find(r => r.membroId === b.id && r.atividadeId === 'banheiro');
+  const steps = [
+    {t:'Abrir as missões da família com tarefas e pontos já carregados', s:'Painel de status com XP, semana, tempo de tela e créditos', done:b && ui.vis[b.id+':hoje'], go:'p1'},
+    {t:`${b ? 'Bruno' : 'Um filho'} registra “Limpar o banheiro” com foto; ${ana ? esc(ana.nome) : 'um admin'} aprova e os pontos entram no extrato`, s:'A tela mostra quanto a tarefa vale antes de enviar', done:banheiro?.status === 'aprovado', go:'p2'},
+    {t:'Mostrar a evolução da semana e o ranking das equipes', s:'Cada um compara consigo mesmo; o ranking só compara equipes', done:b && ui.vis[b.id+':evolucao'], go:'p3'},
+    {t:'Resgatar 30 min de computador e desbloquear a tela', s:'Créditos caem; XP e evolução não mudam', done:!!(b && S.resgates.some(x => x.membroId === b.id && x.recompensaId === 'r1')), go:'p4'},
+    {t:'Mostrar a meta coletiva e fechar com a visão de longo prazo', s:'Privacidade por padrão, cooperação e prêmios em três horizontes', done:b && ui.vis[b.id+':meta'], go:'p5'}
+  ];
+  return `<header><span class="logo"><img class="px" src="../assets/brand/casa-quest-logo-horizontal.svg" alt="CasaQuest"></span>
+    <p>Protótipo navegável para discutir a ideia. Atualizado com o repositório: nome CasaQuest, decisões consolidadas da <code>docs/ideia.md</code>, identidade visual de <code>assets/brand</code> e o diagrama de entidades. Dados fictícios, guardados só neste navegador.</p></header>
+  <section><h2>Roteiro da demo, em dois minutos</h2>
+    <ol class="steps">${steps.map((x, i) => `<li class="${x.done ? 'done' : ''}"><span class="n">${x.done ? '✓' : i+1}</span><div><p>${x.t}</p><small>${x.s}</small></div><button class="btn sm ghost" data-act="go" data-go="${x.go}">Abrir</button></li>`).join('')}</ol>
+  </section>
+  <section><h2>O que mudou com o repositório</h2>
+    <table class="map"><tbody>
+      <tr><td>Competição</td><td><span class="st chg">mudou</span>Saiu o ranking individual. Entrou a aba Evolução (semana atual contra a anterior) e o ranking que compara só equipes.</td></tr>
+      <tr><td>Administradores</td><td><span class="st chg">mudou</span>Pai e mãe administram juntos, no lugar do rodízio. Na família os pais aprovam; no casal, um aprova o outro.</td></tr>
+      <tr><td>Mesada</td><td><span class="st chg">novo</span>No Admin, valor fixo ou conversão de pontos. O app calcula e registra como pago; o pagamento é feito por fora (RN20).</td></tr>
+      <tr><td>Dívida</td><td><span class="st chg">mudou</span>Saiu a dívida de tarefa: não feita é redistribuída, sem saldo negativo (RN07).</td></tr>
+      <tr><td>Diagrama de entidades</td><td><span class="st chg">novo</span>Qualquer pessoa cria tarefa para si ou para alguém (botão +), quem cria aprova, e o extrato virou “movimentos de pontos” com crédito e débito.</td></tr>
+      <tr><td>Identidade visual</td><td><span class="st chg">novo</span>Logo, ícone e paleta 8 bits de <code>assets/brand</code>, avatares em pixel e painel de status no estilo RPG da referência enviada.</td></tr>
+      <tr><td>Fotos e público</td><td><span class="st ok">mantido</span>Fotos apagadas em 90 dias. Visão simplificada para menores de 9 anos (veja como Davi). Cadastro de família ou casal.</td></tr>
+      <tr><td>Bloqueio</td><td><span class="st ok">mantido</span>Só simulação no app, como decidido para o MVP.</td></tr>
+    </tbody></table>
+  </section>
+  <section><h2>Para caber em 40 minutos</h2>
+    <div class="cut">
+      <div><b>Construir</b><ul><li>Missões com o painel de status</li><li>Registrar com foto e calcular pontos</li><li>Evolução e ranking de equipes</li><li>Prêmios com 30 min de tela</li><li>Tela de saldo e meta coletiva</li></ul></div>
+      <div><b>Deixar só no pitch</b><ul><li>Cadastro e login</li><li>Sorteio balanceado</li><li>Mesada e auditoria</li><li>Contestação e emergência com PIN</li><li>Agente real e IA nas fotos</li></ul></div>
+    </div>
+    <p class="note" style="margin-top:8px">Este protótipo foi além do corte de 40 minutos de propósito, para servir de referência na conversa. A demo usa só as telas da coluna da esquerda.</p>
+  </section>
+  <section><h2>Para decidir com a equipe</h2>
+    <ol class="qs">
+      <li><b>Aprovação entra ou sai da demo?</b> O <code>ideia.md</code> tira a aprovação do protótipo de 40 minutos, mas o diagrama mantém “quem atribuiu aprova”. Aqui ela ficou, com um toque.</li>
+      <li><b>Formato da mesada.</b> Valor fixo por cumprimento ou conversão de pontos? Os dois estão no Admin para comparar.</li>
+      <li><b>Equipes de tamanhos diferentes.</b> O ranking soma pontos, como pede a ideia; o Time Raposa tem 3 pessoas e o Coruja, 2. Usar média?</li>
+      <li><b>Notas da equipe que mudaram.</b> “Administração rotativa” virou administração conjunta, e “pagamento de dívida” pode ser lido como a mesada. Confirmar se era isso.</li>
+      <li><b>Ferramenta do protótipo.</b> O app será mobile: este HTML já funciona no celular. Seguir assim (PWA) ou usar low-code?</li>
+      <li><b>Critérios da banca.</b> O que pesa mais: demo funcionando, narrativa ou viabilidade técnica?</li>
+    </ol>
+  </section>
+  <section><h2>Fora do protótipo</h2>
+    <p class="muted" style="margin:0">Servidor, login, notificações, encerramento automático de temporada, bloqueio de foto repetida (RN12), validação por IA, agente desktop real e monetização freemium.</p>
+  </section>`;
+}
+
+/* ============ eventos ============ */
+function toast(t){ ui.toast = t; clearTimeout(toastTimer); render(); toastTimer = setTimeout(() => { ui.toast = null; render(); }, 2600); }
+function setWho(id){ pcStop('desligado ao trocar de usuário'); ui.who = id; ui.sheet = null; ui.onb = null; }
+const errSheet = t => { const e = document.getElementById('sheet-err'); if (e) e.textContent = t; };
+
+const ACT = {
+  who: d => { setWho(d.id); render(); },
+  tab: d => { if (d.tab !== 'tela') pcStop('desligado ao sair da tela'); ui.tab = d.tab; render(); },
+  reset: () => { pcStop(); try { localStorage.removeItem(KEY); } catch(e){} seed(); ui.who = 'm3'; ui.tab = 'hoje'; ui.onb = null; ui.sheet = null; ui.vis = {}; toast('Dados de exemplo restaurados'); },
+  onb: () => { pcStop(); ui.onb = onbPadrao('familia'); ui.sheet = null; render(); },
+  'onb-tipo': d => { ui.onb = onbPadrao(d.v); render(); },
+  'onb-sair': () => { ui.onb = null; render(); },
+  'onb-voltar': () => { ui.onb.passo--; render(); },
+  'onb-avancar': () => {
+    const o = ui.onb;
+    if (o.passo === 1 && !o.familia.trim()) return errSheet('Dê um nome para o grupo.');
+    if (o.passo === 2 && o.atv.filter(a => a.on).length < 3) return errSheet('Escolha pelo menos 3 atividades.');
+    if (o.passo < 3){ o.passo++; render(); return; }
+    const ms = o.membros.filter(m => m.nome.trim());
+    if (o.tipo === 'casal'){ if (ms.length !== 2) return errSheet('No casal, cadastre as duas pessoas.'); ms.forEach(m => { m.admin = true; }); }
+    else {
+      if (ms.length < 2) return errSheet('Cadastre pelo menos 2 pessoas.');
+      if (!ms.some(m => m.admin && +m.idade >= 18)) return errSheet('Marque pelo menos um adulto como admin.');
+    }
+    seed({tipo:o.tipo, familia:o.familia, atividades:o.atv.filter(a => a.on), membros:ms, historico:o.historico, criadaAgora:true});
+    ui.onb = null; ui.who = admins()[0].id; ui.tab = 'admin'; ui.vis = {};
+    toast(`${S.familia.nome} criada e tarefas do dia sorteadas`);
+  },
+  go: d => {
+    const bruno = S.tipo === 'familia' ? S.membros[2] : null;
+    ui.onb = null; ui.sheet = null;
+    if (!bruno && S.tipo !== 'familia'){ toast('O roteiro usa a família de exemplo. Clique em “Restaurar exemplo”.'); return; }
+    if (d.go === 'p1' && bruno){ setWho(bruno.id); ui.tab = 'hoje'; }
+    if (d.go === 'p2' && bruno){
+      const atb = S.atribuicoes.find(a => a.membroId === bruno.id && a.atividadeId === 'banheiro');
+      const r = atb && atb.registroId && S.registros.find(x => x.id === atb.registroId);
+      if (r && r.status === 'pendente'){ setWho(admins()[0].id); ui.tab = 'admin'; } else { setWho(bruno.id); ui.tab = 'hoje'; }
+    }
+    if (d.go === 'p3' && bruno){ setWho(bruno.id); ui.tab = 'evolucao'; }
+    if (d.go === 'p4' && bruno){ setWho(bruno.id); ui.tab = 'premios'; }
+    if (d.go === 'p5' && bruno){ setWho(bruno.id); ui.tab = 'meta'; }
+    render();
+    if (window.matchMedia('(max-width:900px)').matches) document.getElementById('stage').scrollIntoView({behavior:'smooth'});
+  },
+  registrar: d => { ui.draft = {atribId:d.id, antes:null, depois:null, obs:''}; ui.sheet = {t:'registrar'}; render(); },
+  'foto-exemplo': d => { const a = S.atribuicoes.find(x => x.id === ui.draft.atribId); ui.draft[d.k] = fotoExemplo(d.k, ativ(a.atividadeId).nome, d.k === 'antes' ? 41 : 42); render(); },
+  'limpar-foto': d => { ui.draft[d.k] = null; render(); },
+  enviar: () => enviarRegistro(),
+  fechar: () => { ui.sheet = null; ui.draft = null; render(); },
+  aprovar: d => aprovar(d.id),
+  rejeitar: d => { ui.sheet = {t:'rejeitar', id:d.id}; render(); },
+  'motivo-rapido': d => { const t = document.getElementById('motivo'); if (t) t.value = d.v; },
+  'confirmar-rejeicao': d => { const v = document.getElementById('motivo').value.trim(); if (!v) return errSheet('Escreva o motivo da rejeição.'); rejeitar(d.id, v); },
+  contestar: d => { ui.sheet = {t:'contestar', id:d.id}; render(); },
+  'confirmar-contestacao': d => { const v = document.getElementById('cont').value.trim(); if (!v) return errSheet('Explique por que a tarefa foi feita.'); contestar(d.id, v); },
+  resgatar: d => { ui.sheet = {t:'resgatar', id:d.id}; render(); },
+  'confirmar-resgate': d => resgatar(d.id),
+  converter: () => converter(),
+  'pc-start': () => pcStart(),
+  'pc-stop': () => { pcStop('desligado com saldo guardado'); render(); },
+  sortear: () => { sortear(Math.floor(Math.random()*1e6)+1); save(); toast(`Novo sorteio: diferença de ${fmt(S.sorteio.diff)}%`); },
+  'nao-feita': d => naoFeita(d.id),
+  pagar: d => pagarMesada(d.id, d.m),
+  'mesada-modo': d => { S.config.mesada.modo = d.v; audit('mesada', `${membro(ui.who).nome} mudou a mesada para ${d.v === 'fixo' ? 'valor fixo' : 'conversão de pontos'}.`); save(); render(); },
+  emergencia: () => { ui.sheet = {t:'emergencia'}; render(); },
+  'confirmar-emergencia': () => {
+    const mid = document.getElementById('em-m').value, min = +document.getElementById('em-min').value, j = document.getElementById('em-j').value.trim(), pin = document.getElementById('em-pin').value;
+    if (!j) return errSheet('A justificativa é obrigatória (RN11).');
+    if (pin !== S.config.pin) return errSheet('PIN incorreto.');
+    const m = membro(mid); m.minutos += min;
+    audit('emergência', `${membro(ui.who).nome} liberou ${min} min para ${m.nome} com PIN: ${j}.`);
+    ui.sheet = null; save(); toast(`+${min} min de emergência para ${m.nome}`);
+  },
+  atividades: () => { ui.sheet = {t:'atividades'}; render(); },
+  'nova-tarefa': () => { ui.sheet = {t:'nova-tarefa'}; render(); },
+  'salvar-tarefa': () => {
+    const nome = document.getElementById('nt-nome').value.trim();
+    if (!nome) return errSheet('Dê um título para a tarefa.');
+    const para = document.getElementById('nt-para').value, peso = +document.getElementById('nt-peso').value, evid = document.getElementById('nt-evid').value;
+    const a = {id:uid('a'), nome, peso, freq:'Avulsa', evid, valid:'admin', idadeMin:0, prazo:'hoje', ativo:false, avulsa:true};
+    S.atividades.push(a);
+    S.atribuicoes.push({id:uid('at'), atividadeId:a.id, membroId:para, data:hoje(), status:'a_fazer', origem:'avulsa', criadoPor:ui.who});
+    audit('tarefa', `${membro(ui.who).nome} criou “${nome}” (peso ${fmt(peso)}) para ${para === ui.who ? 'si' : membro(para).nome}.`);
+    ui.sheet = null; save(); toast(para === ui.who ? 'Tarefa criada para você' : `Tarefa atribuída a ${membro(para).nome}`);
+  },
+  'nova-recompensa': () => { ui.sheet = {t:'recompensa'}; render(); },
+  'salvar-recompensa': () => {
+    const nome = document.getElementById('nr-nome').value.trim(); const custo = +document.getElementById('nr-custo').value;
+    if (!nome || !(custo > 0)) return errSheet('Preencha nome e custo.');
+    const est = +document.getElementById('nr-est').value; const min = +document.getElementById('nr-min').value;
+    S.recompensas.push({id:uid('r'), nome, custo, horizonte:document.getElementById('nr-h').value, estoque: est > 0 ? est : null, minutos: min > 0 ? min : undefined, por:ui.who});
+    audit('recompensa', `${membro(ui.who).nome} ofereceu a recompensa “${nome}” (${custo} créditos).`);
+    ui.sheet = null; save(); toast('Recompensa oferecida');
+  },
+  'fechar-fundo': (d, el, ev) => { if (ev.target === el){ ui.sheet = null; ui.draft = null; render(); } }
+};
+document.addEventListener('click', ev => {
+  const el = ev.target.closest('[data-act]'); if (!el) return;
+  const fn = ACT[el.dataset.act]; if (!fn) return;
+  if (el.dataset.act !== 'fechar-fundo') ev.preventDefault();
+  fn(el.dataset, el, ev);
+});
+document.addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.dataset.draft && ui.draft) ui.draft[t.dataset.draft] = t.value;
+  if (t.dataset.qj) ui.qj[t.dataset.qj] = t.value;
+  if (t.dataset.onb === 'familia') ui.onb.familia = t.value;
+  if (t.dataset.onbM != null && t.type !== 'checkbox' && t.tagName !== 'SELECT') ui.onb.membros[+t.dataset.onbM][t.dataset.k] = t.value;
+});
+document.addEventListener('change', async ev => {
+  const t = ev.target;
+  if (t.dataset.file && ui.draft && t.files && t.files[0]){
+    try { ui.draft[t.dataset.file] = await lerFoto(t.files[0]); } catch(e){ toast('Não consegui ler essa imagem. Tente outra.'); return; }
+    render(); return;
+  }
+  if (t.dataset.quali){ ui.quali[t.dataset.quali] = +t.value; render(); return; }
+  if (t.dataset.cfg){ S.config[t.dataset.cfg] = +t.value; audit('regra', `${membro(ui.who).nome} alterou “${t.dataset.cfg}”.`); save(); render(); return; }
+  if (t.dataset.peso){ const a = ativ(t.dataset.peso); const antes = a.peso; a.peso = +t.value; audit('peso', `${membro(ui.who).nome} mudou o peso de “${a.nome}” de ${fmt(antes)} para ${fmt(a.peso)}.`); save(); render(); return; }
+  if (t.dataset.ativo){ const a = ativ(t.dataset.ativo); a.ativo = t.checked; sortear(Math.floor(Math.random()*1e6)+1); save(); render(); return; }
+  if (t.dataset.onb === 'historico'){ ui.onb.historico = t.checked; return; }
+  if (t.dataset.onbAtv != null){ const a = ui.onb.atv[+t.dataset.onbAtv]; a[t.dataset.k] = t.type === 'checkbox' ? t.checked : (t.dataset.k === 'peso' ? +t.value : t.value); return; }
+  if (t.dataset.onbM != null){ const m = ui.onb.membros[+t.dataset.onbM]; m[t.dataset.k] = t.type === 'checkbox' ? t.checked : t.value; return; }
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && ui.sheet){ ui.sheet = null; ui.draft = null; render(); } });
+
+/* ============ início ============ */
+S = load();
+if (!S) seed();
+else if (S.dia !== hoje()){
+  S.membros.forEach(m => { m.ontem = S.atribuicoes.filter(a => a.membroId === m.id && a.data === S.dia && !(ativ(a.atividadeId) || {}).pessoal).map(a => a.atividadeId); m.usadoHoje = 0; });
+  if (segunda() !== S.semana){ S.membros.forEach(m => { m.semanas = m.semanas.slice(1).concat(0); m.tarefasSemana = 0; m.atribSemana = 0; }); S.semana = segunda(); }
+  S.dia = hoje(); sortear(Math.floor(Math.random()*1e6)+1); save();
+}
+ui.who = (S.membros[2] || S.membros[0]).id; ui.tab = 'hoje';
+render();
+</script>
+</body>
+</html>

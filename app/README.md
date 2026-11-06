@@ -32,6 +32,18 @@ flutter run -d <id-do-celular>
 
 O time de assinatura não fica no repositório: cada pessoa usa o seu. Com uma conta gratuita da Apple, o app instalado vale por 7 dias.
 
+## Vídeo de demonstração
+
+`docs/casaquest-demo-mobile.mp4` mostra o roteiro da demo rodando no simulador do iPhone, com legendas. Ele foi gravado com o roteiro automatizado em `integration_test/demo_test.dart`:
+
+```bash
+xcrun simctl io <id-do-simulador> recordVideo demo.mov &   # começa a gravar
+flutter test integration_test/demo_test.dart -d <id-do-simulador>
+kill -INT %1                                              # para a gravação
+```
+
+O teste imprime `PASSO|<horário>|<legenda>` em cada etapa, para sincronizar as legendas na edição.
+
 ## Próximos passos
 
 - Persistência e backend (PWA ou app, API serverless, Postgres e storage de fotos, com isolamento por família).

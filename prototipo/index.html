@@ -7,6 +7,7 @@
 <title>CasaQuest</title>
 <link rel="icon" href="../design-system/project/assets/Logos/casa-quest-favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../design-system/project/components/bundle.css">
+<link rel="stylesheet" href="../presentation/fonts/fonts.css">
 <style>
 /* Tokens do design system Casa Quest (design-system/project/tokens.json), temas Noite (padrão) e Dia. */
 :root, [data-theme='noite'] { --surface-000: #20223a; --surface-100: #2b2e4a; --surface-200: #3a3f63; --ink: #f4f4f4; --ink-muted: #b4c0d4; --outline: #0e0f1a; --gold: #ffcd75; --gold-shade: #ef7d57; --on-gold: #1a1c2c; --gold-ink: #ffcd75; --heraldic-blue: #3b5dc9; --heraldic-blue-shade: #29366f; --heraldic-blue-bright: #5b8cf0; --on-blue: #f4f4f4; --blue-ink: #8fb3ff; --heraldic-red: #b13e53; --heraldic-red-shade: #7a2840; --on-red: #f4f4f4; --red-ink: #ff8a9d; --rose: #e26d84; --cyan: #41a6f6; --on-cyan: #1a1c2c; --cyan-ink: #73d4ff; --success: #38b764; --on-success: #1a1c2c; --green-ink: #7fe0a0; --dispute: #7a4a9e; --on-dispute: #f4f4f4; --bar-empty: #14152a; --dialog-bg: #1a1c2c; --dialog-ink: #f4f4f4; --dialog-accent: #ffcd75; --focus: #73eff7; --shadow-bevel: inset -4px -4px 0 0 rgba(0,0,0,0.28), inset 4px 4px 0 0 rgba(255,255,255,0.35); --shadow-pressed: inset 4px 4px 0 0 rgba(0,0,0,0.28); --shadow-drop: 4px 4px 0 0 #0e0f1a; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-8: 48px; --radius-none: 0px; --notch: 4px; --notch-lg: 8px; --font-display: "Press Start 2P", ui-monospace, monospace; --font-text: "Pixelify Sans", system-ui, sans-serif; color-scheme: dark; }
@@ -1109,7 +1110,7 @@ function renderGuide(){
       <li>Pesos e sorteio balanceado tornam a divisão justa; a evolução individual e o ranking de equipes evitam que o jogo vire briga.</li>
     </ul>`)}
 
-  ${panel('3. Demo (2 minutos)', 'tela', `
+  ${panel('3. Demo no pitch (90 segundos)', 'tela', `
     <ol class="demo-steps">${steps.map((x, i) => `<li class="${x.done ? 'done' : ''}"><span class="n">${x.done ? icon('check', 16) : i+1}</span><p>${x.t}</p>${btn('Abrir', 'go', {s:'sm', extra:` data-go="${x.go}"`})}</li>`).join('')}</ol>
     <div class="row">${btn('Apresentar só o app', 'modo-app', {v:'primary', s:'sm', ic:'tela'})}</div>
     <p class="cap">O modo app (endereço terminado em <code>#app</code>) mostra só o celular, em tela cheia no telefone. Para trocar de pessoa ou sair, toque no avatar no topo do app.</p>`, 'gold')}
@@ -1289,5 +1290,7 @@ try { ui.tema = localStorage.getItem(KEY + ':tema') || 'noite'; } catch(e){}
 ui.who = (S.membros[2] || S.membros[0]).id; ui.tab = 'hoje';
 render();
 </script>
+<script src="../presentation/mvp-bridge.js"></script>
+<script src="../presentation/prototype-mode.js"></script>
 </body>
 </html>

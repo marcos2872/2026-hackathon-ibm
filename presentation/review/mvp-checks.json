@@ -1,0 +1,113 @@
+{
+  "offline": true,
+  "fonts": {
+    "body": true,
+    "display": true
+  },
+  "desktop": [
+    {
+      "slide": 1,
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "slide": 2,
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "slide": 3,
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "slide": 4,
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "slide": 5,
+      "overflow": false,
+      "clipped": []
+    },
+    {
+      "slide": 6,
+      "overflow": false,
+      "clipped": []
+    }
+  ],
+  "mobile": [
+    {
+      "slide": 1,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "slide": 2,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "slide": 3,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "slide": 4,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "slide": 5,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "slide": 6,
+      "width": 390,
+      "scrollWidth": 390
+    }
+  ],
+  "errors": [],
+  "pending": {
+    "name": "Bruno",
+    "xp": 1590,
+    "season": 85,
+    "credits": 60,
+    "minutes": 0,
+    "status": "pendente"
+  },
+  "approved": {
+    "name": "Bruno",
+    "xp": 1610,
+    "season": 105,
+    "credits": 80,
+    "minutes": 0,
+    "status": "aprovado"
+  },
+  "returnedSlide": 3,
+  "redeemed": {
+    "name": "Bruno",
+    "xp": 1610,
+    "season": 105,
+    "credits": 65,
+    "minutes": 30,
+    "status": "aprovado"
+  },
+  "mobilePrototype": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "missingImages": 0,
+  "fallback": {
+    "state": {
+      "name": "Bruno",
+      "xp": 1590,
+      "season": 85,
+      "credits": 60,
+      "minutes": 0,
+      "status": "a_fazer"
+    },
+    "assets": true
+  }
+}

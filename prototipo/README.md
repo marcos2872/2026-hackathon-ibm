@@ -1,17 +1,25 @@
 # Protótipo navegável do CasaQuest
 
-Protótipo de UI e roteiro do pitch para a equipe. É uma página HTML só, com dados fictícios, sem backend e sem etapa de build.
+Protótipo de UI com pitch integrado para a equipe. Usa dados fictícios, sem backend. Abra [index.html](index.html) diretamente no navegador, sem etapa de build para usar.
 
 ## Como abrir
 
-Abra `prototipo/index.html` direto no navegador. A página usa o design system do repositório pelo caminho relativo: estilos em `design-system/project/components/bundle.css`, ícones em `design-system/project/assets/Icones/` e logos em `design-system/project/assets/Logos/`. Por isso, mantenha a estrutura de pastas.
+A página usa estilos em `design-system/project/components/bundle.css`, ícones em `design-system/project/assets/Icones/`, logos em `design-system/project/assets/Logos/` e os scripts e fontes locais de `presentation/`. Mantenha a estrutura de pastas. Para transportar apenas um arquivo, use [casa-quest-pitch.html](../presentation/casa-quest-pitch.html), que incorpora os assets, o protótipo e a apresentação e funciona offline.
 
-Os dados ficam no `localStorage` do navegador. Use **Restaurar exemplo** para voltar ao estado inicial.
+Opcionalmente, execute `node presentation/serve.cjs` na raiz do projeto e abra <http://127.0.0.1:4173/prototipo/index.html>. Os dados ficam no `localStorage` do navegador. Use **Restaurar exemplo** para voltar ao estado inicial; mudar de modo não restaura os dados.
 
-## Duas formas de ver
+## Modo demo e Modo apresentação
 
-- **Padrão:** o simulador de celular à esquerda e, à direita, o roteiro do pitch: dor, tese, demo, escala e plano de validação, além do corte para 40 minutos e das perguntas em aberto.
-- **Só o app:** o botão **Abrir só o app** (ou o endereço terminado em `#app`) mostra apenas o celular. No telefone, ele ocupa a tela inteira. Para trocar de pessoa, mudar o tema ou sair desse modo, toque no avatar no topo do app.
+A barra superior permanece disponível nos dois modos. **Modo demo** mostra o próprio app; **Modo apresentação** mostra o pitch de seis slides. Alternar preserva o estado do app e o slide em que a apresentação parou. Os botões de demonstração nos slides 3 e 4 levam ao app; volte pelo **Modo apresentação** para continuar a fala.
+
+No Modo demo, o seletor guia a sequência **Missões de Bruno → Registrar com fotos → Ana aprova → Evolução e equipes → Tesouro → Tempo de tela → Meta coletiva**, usando as telas e ações nativas. Registre **Limpar o banheiro** com antes e depois, envie e aprove como Ana com três estrelas: Bruno passa de **1.590 XP / 85 pontos de temporada / 60 créditos** para **1.610 / 105 / 80**. Resgatar 30 minutos por 15 créditos deixa **65 créditos**, mantendo XP e temporada. **Restaurar exemplo** reinicia explicitamente o cenário; a opção também permanece nas configurações do app.
+
+O pitch reserva 90 segundos para esse fluxo dentro dos três minutos. Veja os [controles, fontes e regeneração](../presentation/README.md) e o [roteiro de fala](../presentation/ROTEIRO.md).
+
+## Duas formas de ver o app
+
+- **Padrão do Modo demo:** o simulador de celular à esquerda e, à direita, o guia conceitual original: dor, tese, demo, escala e plano de validação, além do corte para 40 minutos e das perguntas em aberto.
+- **Só o app:** o botão **Abrir só o app** (ou o endereço terminado em `#app`) mostra apenas o celular, mantendo a barra de modos. No telefone, ele ocupa a área disponível. Para trocar de pessoa, mudar o tema ou sair desse modo, toque no avatar no topo do app. Os atalhos da demonstração também abrem essa visualização.
 
 ## Design system
 
@@ -34,4 +42,4 @@ Os dados ficam no `localStorage` do navegador. Use **Restaurar exemplo** para vo
 
 ## Fora do protótipo
 
-Login, servidor, banco, notificações, instalação como PWA (manifest e service worker), bloqueio de foto repetida (RN12), validação por IA e agente desktop real.
+Login, servidor, banco, sincronização entre dispositivos, notificações, instalação como PWA (manifest e service worker), bloqueio de foto repetida (RN12), validação por IA e agente desktop real. As fotos e os registros são locais; o computador não é bloqueado de verdade. O piloto com famílias e o modelo freemium continuam como propostas a validar, sem resultados de validação já obtidos.

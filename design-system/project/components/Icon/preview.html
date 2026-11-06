@@ -1,0 +1,14 @@
+<!-- @dsCard group="Fundamentos" height=150 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Icon — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-col', style: { maxWidth: 'none' } },
+    h('div', { className: 'cq-row', style: { padding: 0 } }, Object.keys(C.sprites).map(function (n) { return h(C.Icon, { key: n, name: n, size: 36, title: n }); })),
+    h('div', { className: 'cq-row', style: { padding: 0 } }, [12, 24, 36, 48].map(function (s) { return h(C.Icon, { key: s, name: 'moeda', size: s }); }))));
+</script>
+</body>
+</html>

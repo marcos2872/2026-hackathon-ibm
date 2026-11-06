@@ -1,0 +1,14 @@
+<!-- @dsCard group="Layout" height=220 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Panel — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-row', style: { alignItems: 'flex-start' } },
+    h('div', { style: { width: 300 } }, h(C.Panel, { title: 'Missões de hoje', icon: 'vassoura' }, 'Três missões, 35 pontos em jogo.')),
+    h('div', { style: { width: 300 } }, h(C.Panel, { title: 'Tesouro', icon: 'bau', tone: 'gold' }, 'Você tem 85 créditos.'))));
+</script>
+</body>
+</html>

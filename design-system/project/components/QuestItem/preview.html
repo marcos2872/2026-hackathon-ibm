@@ -1,0 +1,16 @@
+<!-- @dsCard group="Missões" height=330 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>QuestItem — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-col' },
+    h(C.QuestItem, { title: 'Tirar o lixo', icon: 'vassoura', weight: 0.5, points: 5, evidence: 'depois', due: '22h' }),
+    h(C.QuestItem, { title: 'Lavar a louça', icon: 'louca', weight: 1, points: 10, evidence: 'depois', due: '20h' }),
+    h(C.QuestItem, { title: 'Limpar o banheiro', icon: 'balde', weight: 2, points: 20, evidence: 'antes-depois', status: 'pendente' }),
+    h(C.QuestItem, { title: 'Arrumar a cama', icon: 'casa', weight: 0.5, points: 5, evidence: 'depois', status: 'aprovado' })));
+</script>
+</body>
+</html>

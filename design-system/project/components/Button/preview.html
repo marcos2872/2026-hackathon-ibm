@@ -1,0 +1,18 @@
+<!-- @dsCard group="Ações" height=120 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Button — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-row' },
+    h(C.Button, { variant: 'primary', icon: 'camera' }, 'Registrar'),
+    h(C.Button, null, 'Detalhes'),
+    h(C.Button, { variant: 'blue' }, 'Sortear'),
+    h(C.Button, { variant: 'danger', size: 'sm' }, 'Rejeitar'),
+    h(C.Button, { variant: 'primary', disabled: true }, 'Sem saldo'),
+    h(C.Button, { variant: 'ghost' }, 'Contestar')));
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-06T15:39:20Z"
+ },
+ "title": "Casa Quest",
+ "namespace": "CasaQuest",
+ "libraries": [
+  {
+   "name": "react",
+   "version": "18"
+  },
+  {
+   "name": "react-dom",
+   "version": "18"
+  }
+ ],
+ "sections": {},
+ "groups": [
+  "Logos",
+  "Icones"
+ ],
+ "assetGroups": {
+  "Logos": {
+   "name": "Logos",
+   "tile": "l",
+   "order": [
+    "casa-quest-logo-horizontal.svg",
+    "casa-quest-logo-empilhado.svg",
+    "casa-quest-brasao.svg",
+    "casa-quest-app-icon.svg",
+    "casa-quest-favicon.svg"
+   ],
+   "files": {
+    "casa-quest-logo-horizontal.svg": {
+     "name": "casa-quest-logo-horizontal.svg",
+     "blob": "b90af5d1cd8447110311aabfd10e9da8",
+     "size": 69564,
+     "type": "image/svg+xml"
+    },
+    "casa-quest-logo-empilhado.svg": {
+     "name": "casa-quest-logo-empilhado.svg",
+     "blob": "7de8dbbacbb072f6b9de83114b1870d3",
+     "size": 54543,
+     "type": "image/svg+xml"
+    },
+    "casa-quest-brasao.svg": {
+     "name": "casa-quest-brasao.svg",
+     "blob": "37759cd13d08521cc0b020a4d6c1d936",
+     "size": 40739,
+     "type": "image/svg+xml"
+    },
+    "casa-quest-app-icon.svg": {
+     "name": "casa-quest-app-icon.svg",
+     "blob": "970aeabe58b4d00fc5a20165096aef95",
+     "size": 40944,
+     "type": "image/svg+xml"
+    },
+    "casa-quest-favicon.svg": {
+     "name": "casa-quest-favicon.svg",
+     "blob": "05ff7bd2e488a3ee7742ecd51a9ae9e9",
+     "size": 6383,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Icones": {
+   "name": "Icones",
+   "tile": "s",
+   "order": [
+    "moeda.svg",
+    "xp.svg",
+    "trofeu.svg",
+    "tela.svg",
+    "camera.svg",
+    "check.svg",
+    "ampulheta.svg",
+    "bau.svg",
+    "vassoura.svg",
+    "casa.svg",
+    "balde.svg",
+    "louca.svg",
+    "d20.svg"
+   ],
+   "files": {
+    "moeda.svg": {
+     "name": "moeda.svg",
+     "blob": "124e41b784bba69005123ee4298c5812",
+     "size": 3429,
+     "type": "image/svg+xml"
+    },
+    "xp.svg": {
+     "name": "xp.svg",
+     "blob": "48e60236540604e5b9f391d04cb719a3",
+     "size": 2870,
+     "type": "image/svg+xml"
+    },
+    "trofeu.svg": {
+     "name": "trofeu.svg",
+     "blob": "83b20a36afc9d85f1d7a056652cbb169",
+     "size": 3238,
+     "type": "image/svg+xml"
+    },
+    "tela.svg": {
+     "name": "tela.svg",
+     "blob": "8a4f743b79f961da957f7db99d21eb77",
+     "size": 2884,
+     "type": "image/svg+xml"
+    },
+    "camera.svg": {
+     "name": "camera.svg",
+     "blob": "cdde2e026dd7a78f1a828abf3999f8e8",
+     "size": 3364,
+     "type": "image/svg+xml"
+    },
+    "check.svg": {
+     "name": "check.svg",
+     "blob": "88cd8b92ddecc440042dc02f86068734",
+     "size": 2443,
+     "type": "image/svg+xml"
+    },
+    "ampulheta.svg": {
+     "name": "ampulheta.svg",
+     "blob": "382020f51e218bfc0b0503ec8693ab73",
+     "size": 2695,
+     "type": "image/svg+xml"
+    },
+    "bau.svg": {
+     "name": "bau.svg",
+     "blob": "c8b51e14655a3d857ddb251c84f0d5ab",
+     "size": 2884,
+     "type": "image/svg+xml"
+    },
+    "vassoura.svg": {
+     "name": "vassoura.svg",
+     "blob": "7889b92bba9634f4741af8b361116f75",
+     "size": 2441,
+     "type": "image/svg+xml"
+    },
+    "casa.svg": {
+     "name": "casa.svg",
+     "blob": "96ed7087cae072d97e0e810855c03d40",
+     "size": 2009,
+     "type": "image/svg+xml"
+    },
+    "balde.svg": {
+     "name": "balde.svg",
+     "blob": "337dea5dd007fa651c74da6b6e8cc8ef",
+     "size": 1582,
+     "type": "image/svg+xml"
+    },
+    "louca.svg": {
+     "name": "louca.svg",
+     "blob": "59e9e1afae1056a3fb59795dddb6ef83",
+     "size": 2745,
+     "type": "image/svg+xml"
+    },
+    "d20.svg": {
+     "name": "d20.svg",
+     "blob": "da695e61fc82448c17a3c39f76593e82",
+     "size": 2623,
+     "type": "image/svg+xml"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "readme": "project/README.md",
+  "sections": []
+ },
+ "lastChange": {
+  "by": "BrunoGBirais",
+  "at": "2026-11-06T15:39:20Z",
+  "via": "Claude Code",
+  "note": "Primeira versão: tokens Noite/Dia, 13 ícones pixel, 14 componentes, logos."
+ }
+}

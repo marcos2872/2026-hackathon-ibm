@@ -1,0 +1,16 @@
+<!-- @dsCard group="Recompensas" height=230 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>RewardCard — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-row', style: { alignItems: 'stretch' } },
+    h(C.RewardCard, { title: '30 min de tela', icon: 'tela', cost: 15, horizon: 'curto', balance: 85 }),
+    h(C.RewardCard, { title: 'Escolher o filme', icon: 'd20', cost: 30, horizon: 'curto', balance: 85, stock: 2 }),
+    h(C.RewardCard, { title: 'Passeio no parque', icon: 'casa', cost: 250, horizon: 'medio', balance: 85 }),
+    h(C.RewardCard, { title: 'Viagem em família', icon: 'bau', cost: 5000, horizon: 'longo' })));
+</script>
+</body>
+</html>

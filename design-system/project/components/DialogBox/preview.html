@@ -1,0 +1,14 @@
+<!-- @dsCard group="Feedback" height=220 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>DialogBox — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-col' },
+    h(C.DialogBox, { icon: 'check', title: 'Missão aprovada!' }, 'Lavar a louça rendeu +10 XP e +10 créditos.'),
+    h(C.DialogBox, { icon: 'tela', title: 'Tela liberada' }, 'Você tem 60 minutos de computador hoje.')));
+</script>
+</body>
+</html>

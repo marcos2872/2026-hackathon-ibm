@@ -1,0 +1,14 @@
+<!-- @dsCard group="Status" height=64 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>CounterChip — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-row' },
+    h(C.CounterChip, { kind: 'creditos', value: 85 }), h(C.CounterChip, { kind: 'xp', value: 1340 }),
+    h(C.CounterChip, { kind: 'temporada', value: 210 }), h(C.CounterChip, { kind: 'tela', value: '60m' })));
+</script>
+</body>
+</html>

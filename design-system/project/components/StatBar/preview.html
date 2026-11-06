@@ -1,0 +1,16 @@
+<!-- @dsCard group="Progresso" height=230 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>StatBar — prévia</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var C = window.CasaQuest, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'cq-col' },
+    h(C.StatBar, { kind: 'xp', value: 140, max: 200 }),
+    h(C.StatBar, { kind: 'temporada', value: 210, max: 400 }),
+    h(C.StatBar, { kind: 'creditos', value: 85, max: 100 }),
+    h(C.StatBar, { kind: 'tela', value: 60, max: 180, display: '60 min' })));
+</script>
+</body>
+</html>

@@ -181,9 +181,9 @@ pontos_finais = pontos_base × multiplicador_evidência × multiplicador_qualida
 | Evidência antes/depois | 1,0 | Foto do antes e do depois |
 | Evidência só depois | 0,8 | Apenas uma foto do resultado |
 | Sem foto (se permitido) | 0,5 | Atividades de baixo risco |
-| Qualidade | 0,8 a 1,2 | Ajuste opcional do avaliador, com justificativa; padrão 1,0 |
+| Qualidade | 0,8 a 1,2 | Nota do avaliador de 1 a 5 estrelas, sem justificativa; padrão 3 estrelas (1,0) |
 
-O resultado é arredondado para o meio ponto mais próximo. O ajuste de qualidade é opcional e deve ser usado com moderação, para não virar fonte de disputa.
+O resultado é arredondado para o meio ponto mais próximo. Cada estrela vale 0,1 no multiplicador: 1 estrela = 0,8, 2 = 0,9, 3 = 1,0, 4 = 1,1 e 5 = 1,2. A nota deve ser usada com moderação, para não virar fonte de disputa.
 
 #### Registro com foto
 
@@ -440,7 +440,7 @@ flowchart TD
 | **RN11** | Emergência | A liberação extra exige PIN dos administradores e fica registrada na auditoria |
 | **RN12** | Foto reaproveitada | O sistema bloqueia a mesma imagem em registros diferentes (hash perceptual) |
 | **RN13** | Privacidade | Fotos, evolução e ranking são visíveis apenas para os membros do grupo |
-| **RN14** | Ajuste dos administradores | Os administradores podem ajustar pontos ou recompensas, mas precisam registrar justificativa |
+| **RN14** | Qualidade e ajustes | Na aprovação, o avaliador dá de 1 a 5 estrelas (padrão 3), que viram o multiplicador de qualidade de 0,8 a 1,2, sem precisar de justificativa. Outros ajustes manuais de pontos ou recompensas pelos administradores continuam exigindo justificativa registrada |
 | **RN15** | Temporada | O fim da temporada zera apenas os pontos de temporada; XP e créditos permanecem |
 | **RN16** | Meta coletiva | O prêmio só é liberado se todos os membros ativos atingirem a contribuição mínima |
 | **RN17** | Dupla | O revezamento e a avaliação cruzada são configuráveis por casal ou por dupla de filhos |
